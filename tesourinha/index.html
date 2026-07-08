@@ -544,6 +544,25 @@ tr:hover .del-btn{color:var(--mu2)}
   </div>
 </div>
 
+<!-- MODAL DEPÓSITO NO BANCO -->
+<div class="overlay" id="overlayDeposito" onclick="closeOut(event,'overlayDeposito')">
+  <div class="modal">
+    <h2>Depositar no banco</h2>
+    <p style="font-size:.72rem;color:var(--mu);margin:-.4rem 0 .8rem">Move um valor do dinheiro físico para o dinheiro no banco. O saldo total não muda.</p>
+    <div style="display:flex;flex-direction:column;gap:.7rem">
+      <div class="form-row">
+        <div class="fg"><label>Valor (R$) *</label><input type="number" id="dpVal" placeholder="0,00" step="0.01" min="0.01" class="num"></div>
+        <div class="fg"><label>Data *</label><input type="date" id="dpData"></div>
+      </div>
+      <div class="fg"><label>Observação</label><input id="dpDesc" placeholder="Ex: Depósito na conta da comissão"></div>
+    </div>
+    <div class="mbtns">
+      <button class="mcancel" onclick="closeModal('overlayDeposito')">Cancelar</button>
+      <button class="msave" onclick="criarDeposito()">Depositar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -628,6 +647,7 @@ async function carregar() {
   showLoader('Carregando dados da planilha…');
   try {
     dados = await call('getData');
+    if (!dados.depositos) dados.depositos = []; // Apps Script antigo não retorna depositos
     setSS('ok');
   } catch(e) {
     setSS('err');
@@ -770,13 +790,17 @@ function renderDashboard() {
   // Dinheiro físico = recebimentos em espécie/caixa − gastos pagos em dinheiro
   const gastoFisico     = dados.gastos.filter(g=>g.forma==='dinheiro').reduce((s,g)=>s+g.valorUnitario*g.quantidade,0);
   const gastoBanco      = dados.gastos.filter(g=>g.forma!=='dinheiro').reduce((s,g)=>s+g.valorUnitario*g.quantidade,0);
+  // Depósitos movem valor do físico para o banco (saldo total não muda)
+  const totalDepositado = (dados.depositos||[]).reduce((s,d)=>s+d.valor,0);
   const dinFisico       = dados.transacoes.filter(t=>t.formaPagamento==='dinheiro').reduce((s,t)=>s+t.valor,0)
                         + dados.entradas.reduce((s,e)=>s+e.valor,0)
                         + dados.itens.filter(i=>i.forma==='dinheiro').reduce((s,i)=>s+i.precoVenda*(i.qtdVendida||1),0)
-                        - gastoFisico;
+                        - gastoFisico
+                        - totalDepositado;
   const dinBanco        = dados.transacoes.filter(t=>t.formaPagamento!=='dinheiro').reduce((s,t)=>s+t.valor,0)
                         + dados.itens.filter(i=>i.forma!=='dinheiro').reduce((s,i)=>s+i.precoVenda*(i.qtdVendida||1),0)
-                        - gastoBanco;
+                        - gastoBanco
+                        + totalDepositado;
   const saldo           = dinFisico + dinBanco;
   const eventos = dados.eventos;
 
@@ -862,6 +886,7 @@ function renderDashboard() {
         <div class="fin-lbl">Dinheiro Físico</div>
         <div class="fin-val" style="color:${dinFisico>=0?'var(--a3)':'var(--rd)'}">${fmt(dinFisico)}</div>
         <div class="fin-sub">Espécie, caixa e vendas</div>
+        <button class="btn-sec" style="margin-top:.5rem;font-size:.68rem;padding:.35rem .7rem" onclick="openModal('overlayDeposito')">🏦 Depositar no banco</button>
       </div>
       <div class="fin-card">
         <div class="fin-lbl">Dinheiro no Banco</div>
@@ -869,6 +894,8 @@ function renderDashboard() {
         <div class="fin-sub">PIX recebidos e enviados</div>
       </div>
     </div>
+
+    ${renderDepositos()}
 
     ${renderChart()}
 
@@ -1137,6 +1164,57 @@ function renderEntradas() {
 }
 
 // ══════════════════════════════════════════
+//  DEPÓSITOS NO BANCO
+// ══════════════════════════════════════════
+function renderDepositos() {
+  const deps = [...(dados.depositos||[])].sort((a,b)=>b.data.localeCompare(a.data));
+  if (!deps.length) return '';
+  const rows = deps.map(d => `
+    <div class="entrada-row">
+      <div class="circ-ico" style="background:rgba(59,130,246,.12);color:#93c5fd">🏦</div>
+      <div class="entrada-info">
+        <div class="entrada-desc">${esc(d.descricao||'Depósito no banco')}</div>
+        <div class="entrada-data">${fmtD(d.data)} · físico → banco</div>
+      </div>
+      <div class="entrada-val" style="color:#93c5fd">${fmt(d.valor)}</div>
+      <button class="del-btn" onclick="deletarDeposito('${d.id}')" title="Remover depósito">✕</button>
+    </div>`).join('');
+  return `
+    <div class="sec-hdr" style="margin-top:1rem">
+      <h2>Depósitos no banco</h2>
+    </div>
+    ${rows}`;
+}
+
+async function criarDeposito() {
+  const val  = parseFloat(document.getElementById('dpVal').value);
+  const data = document.getElementById('dpData').value;
+  const desc = document.getElementById('dpDesc').value.trim();
+  if (!val||val<=0||!data) { sErr(); toast('Preencha valor e data.','err'); return; }
+  const id = uid();
+  const dep = { id, data, valor: val, descricao: desc||'Depósito no banco' };
+  if (!dados) dados = { eventos:[], itens:[], transacoes:[], entradas:[], gastos:[], depositos:[] };
+  if (!dados.depositos) dados.depositos = [];
+  dados.depositos.push(dep);
+  closeModal('overlayDeposito');
+  document.getElementById('dpVal').value=''; document.getElementById('dpDesc').value='';
+  renderDashboard();
+  setSS('pend');
+  try { await call('createDeposito', dep); setSS('ok'); sOk(); toast(fmt(val)+' depositado no banco!','ok'); }
+  catch(e) { setSS('err'); sErr(); toast('Erro: '+e.message,'err'); }
+}
+
+async function deletarDeposito(id) {
+  if (!confirm('Remover este depósito? O valor volta para o dinheiro físico.')) return;
+  sDel();
+  dados.depositos = (dados.depositos||[]).filter(d => String(d.id) !== String(id));
+  renderDashboard();
+  setSS('pend');
+  try { await call('deleteDeposito', { id }); setSS('ok'); toast('Depósito removido.','ok'); }
+  catch(e) { setSS('err'); sErr(); toast('Erro: '+e.message,'err'); }
+}
+
+// ══════════════════════════════════════════
 //  AÇÕES DE DADOS
 // ══════════════════════════════════════════
 async function criarEvento() {
@@ -1147,7 +1225,7 @@ async function criarEvento() {
   if (!nome || !data) { sErr(); toast('Preencha nome e data.','err'); return; }
   const id = uid();
   const ev = { id, nome, data, status, meta };
-  if (!dados) dados = { eventos:[], itens:[], transacoes:[], entradas:[], gastos:[] };
+  if (!dados) dados = { eventos:[], itens:[], transacoes:[], entradas:[], gastos:[], depositos:[] };
   dados.eventos.unshift(ev);
   closeModal('overlayEvento');
   renderDashboard();
@@ -1258,7 +1336,7 @@ async function criarEntrada() {
   if (!desc||!val||val<=0||!data) { sErr(); toast('Preencha todos os campos.','err'); return; }
   const id = uid();
   const en = { id, data, valor: val, descricao: desc };
-  if (!dados) dados = { eventos:[], itens:[], transacoes:[], entradas:[], gastos:[] };
+  if (!dados) dados = { eventos:[], itens:[], transacoes:[], entradas:[], gastos:[], depositos:[] };
   dados.entradas.push(en);
   closeModal('overlayEntrada');
   document.getElementById('enDesc').value=''; document.getElementById('enVal').value='';
@@ -1292,9 +1370,10 @@ function renderResumoMensal() {
   const meses = {};
   function add(k, tipo, item) {
     if (!k || k.length < 7) return;
-    if (!meses[k]) meses[k] = { entradas: [], saidas: [] };
+    if (!meses[k]) meses[k] = { entradas: [], saidas: [], depositos: [] };
     meses[k][tipo].push(item);
   }
+  (dados.depositos||[]).forEach(d => add((d.data||'').slice(0,7), 'depositos', { valor: d.valor, desc: d.descricao||'Depósito no banco' }));
   dados.transacoes.forEach(t => add((t.dataHora||'').slice(0,7), 'entradas', { valor: t.valor, desc: t.obs||t.comprador||'Recebimento', evId: t.eventoId, forma: t.formaPagamento }));
   dados.entradas.forEach(e   => add((e.data||'').slice(0,7),     'entradas', { valor: e.valor, desc: e.descricao, evId: null, forma: 'Espécie' }));
   dados.gastos.forEach(g     => add((g.data||'').slice(0,7),     'saidas',   { valor: g.valorUnitario*g.quantidade, desc: g.descricao, evId: g.eventoId }));
@@ -1327,7 +1406,11 @@ function renderResumoMensal() {
           <div><span style="font-size:.75rem;color:var(--tx2);font-weight:500">${esc(e.desc)}</span>${evNome?`<span style="font-size:.64rem;color:var(--mu);margin-left:.35rem">· ${esc(evNome)}</span>`:''}</div>
           <span style="font-size:.78rem;font-weight:700;color:var(--rd);font-variant-numeric:tabular-nums;white-space:nowrap;margin-left:.5rem">−${fmt(e.valor)}</span>
         </div>`;
-      })
+      }),
+      ...(md.depositos||[]).map(e => `<div style="display:flex;justify-content:space-between;align-items:center;padding:.32rem 0;border-bottom:1px solid rgba(30,38,52,.6)">
+          <div><span style="font-size:.75rem;color:var(--tx2);font-weight:500">${esc(e.desc)}</span><span style="font-size:.64rem;color:var(--mu);margin-left:.35rem">· físico → banco</span></div>
+          <span style="font-size:.78rem;font-weight:700;color:#93c5fd;font-variant-numeric:tabular-nums;white-space:nowrap;margin-left:.5rem">⇄ ${fmt(e.valor)}</span>
+        </div>`)
     ].join('');
     return `<div class="form-box" style="margin-bottom:.75rem">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;flex-wrap:wrap;gap:.4rem">
@@ -1460,6 +1543,7 @@ async function seedDados() {
     const r = await call('seed');
     toast(r.message||'Feito!', 'ok');
     dados = await call('getData');
+    if (!dados.depositos) dados.depositos = []; // Apps Script antigo não retorna depositos
     setSS('ok');
     renderDashboard();
   } catch(e) { setSS('err'); sErr(); toast('Erro: '+e.message,'err'); }
@@ -1616,6 +1700,7 @@ function openModal(id) {
   if(id==='overlayGasto') { document.getElementById('gtData').value=hoje(); setForma('gt','PIX'); }
   if(id==='overlayItem')  { setForma('it','PIX'); }
   if(id==='overlayEntrada'){ document.getElementById('enData').value=hoje(); }
+  if(id==='overlayDeposito'){ document.getElementById('dpData').value=hoje(); }
   if(id==='overlayEvento') { document.getElementById('evData').value=hoje(); }
   document.getElementById(id).classList.add('open');
 }
