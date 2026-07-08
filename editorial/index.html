@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -14,7 +14,7 @@
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; min-height:100vh; }
 
-  /* â”€â”€ HEADER â”€â”€ */
+  /* ── HEADER ── */
   header {
     background:linear-gradient(135deg,#1a1d27,#12151f); border-bottom:1px solid var(--border);
     padding:0 2rem; display:flex; align-items:center; justify-content:space-between;
@@ -42,7 +42,7 @@
   .btn-ghost { background:transparent; color:var(--muted); border:1px solid var(--border); }
   .btn-ghost:hover { background:var(--surface2); color:var(--text); }
 
-  /* â”€â”€ LAYOUT â”€â”€ */
+  /* ── LAYOUT ── */
   .app { display:flex; min-height:calc(100vh - 64px); }
 
   aside {
@@ -63,13 +63,13 @@
   .progress-wrap { background:var(--surface2); border-radius:99px; height:6px; overflow:hidden; margin-top:4px; }
   .progress-bar { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--accent),var(--accent2)); transition:width .5s; }
 
-  /* â”€â”€ MAIN â”€â”€ */
+  /* ── MAIN ── */
   main { flex:1; padding:2rem; overflow-y:auto; }
   .page { display:none; }
   .page.active { display:block; animation:pageFadeIn .22s ease both; }
   @keyframes pageFadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
 
-  /* â”€â”€ ANIMAÃ‡Ã•ES CARDS â”€â”€ */
+  /* ── ANIMAÇÕES CARDS ── */
   @keyframes cardIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
   .task-card { animation:cardIn .18s ease both; }
   .tasks-grid .task-card:nth-child(1)  { animation-delay:.02s }
@@ -80,7 +80,7 @@
   .tasks-grid .task-card:nth-child(6)  { animation-delay:.12s }
   .tasks-grid .task-card:nth-child(n+7){ animation-delay:.14s }
 
-  /* â”€â”€ STATS CARDS â”€â”€ */
+  /* ── STATS CARDS ── */
   .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:2rem; }
   .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.2rem 1.5rem; position:relative; overflow:hidden; }
   .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
@@ -92,7 +92,7 @@
   .stat-card .s-lbl { font-size:.8rem; color:var(--muted); margin-top:2px; }
   .stat-card .s-ico { position:absolute; right:1.2rem; top:50%; transform:translateY(-50%); font-size:2rem; opacity:.12; }
 
-  /* â”€â”€ PROGRESSO MENSAL â”€â”€ */
+  /* ── PROGRESSO MENSAL ── */
   .month-progress { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.2rem 1.5rem; margin-bottom:2rem; }
   .mp-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
   .mp-head .mp-title { font-weight:700; font-size:.95rem; }
@@ -101,7 +101,7 @@
   .mp-bar { height:100%; border-radius:99px; transition:width .8s cubic-bezier(.4,0,.2,1); }
   .mp-sub { font-size:.78rem; color:var(--muted); margin-top:8px; }
 
-  /* â”€â”€ SECTION HEADER â”€â”€ */
+  /* ── SECTION HEADER ── */
   .sec-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; flex-wrap:wrap; gap:8px; }
   .sec-header h2 { font-size:1.1rem; font-weight:700; }
   .filters { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
@@ -111,7 +111,7 @@
   .search::placeholder { color:var(--muted); }
   .search:focus { border-color:var(--accent); }
 
-  /* â”€â”€ TASK CARD â”€â”€ */
+  /* ── TASK CARD ── */
   .tasks-grid { display:grid; gap:12px; }
   .task-card {
     background:var(--surface); border:1px solid var(--border); border-radius:12px;
@@ -162,7 +162,7 @@
   .act-btn.del:hover { border-color:var(--red); color:var(--red); }
   .act-btn.not-done:hover { border-color:var(--orange); color:var(--orange); }
 
-  /* â”€â”€ EQUIPE BADGES â”€â”€ */
+  /* ── EQUIPE BADGES ── */
   .tag-team-manha { background:rgba(59,130,246,.18); color:#93c5fd; }
   .tag-team-tarde { background:rgba(249,115,22,.15); color:#fdba74; }
   .team-section { margin-bottom:2rem; }
@@ -173,12 +173,12 @@
   .team-section-header h3 { font-size:1rem; font-weight:700; }
   .team-section-header .team-count { margin-left:auto; font-size:.8rem; color:var(--muted); }
 
-  /* â”€â”€ EMPTY â”€â”€ */
+  /* ── EMPTY ── */
   .empty { text-align:center; padding:4rem 2rem; color:var(--muted); }
   .empty .ei { font-size:3rem; margin-bottom:1rem; opacity:.4; }
   .empty h3 { font-size:1rem; color:var(--text); margin-bottom:.4rem; }
 
-  /* â”€â”€ CALENDÃRIO â”€â”€ */
+  /* ── CALENDÁRIO ── */
   .cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
   .cal-nav h3 { font-size:1rem; font-weight:700; text-transform:capitalize; }
   .cal-nav-btn { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:6px 14px; border-radius:8px; cursor:pointer; font-size:.85rem; transition:all .15s; }
@@ -193,7 +193,7 @@
   .cal-ev.pub { background:rgba(34,197,94,.2);  color:#86efac; }
   .cal-ev.rev { background:rgba(163,9,9,.2);    color:#fca5a5; }
 
-  /* â”€â”€ EQUIPE â”€â”€ */
+  /* ── EQUIPE ── */
   .people-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
   .person-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem; }
   .person-av { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; font-weight:800; margin-bottom:12px; background:linear-gradient(135deg,var(--accent),var(--accent2)); }
@@ -201,7 +201,7 @@
   .person-tasks { margin-top:10px; display:flex; flex-direction:column; gap:4px; }
   .person-task-row { background:var(--surface2); border-radius:6px; padding:6px 10px; font-size:.78rem; display:flex; align-items:center; justify-content:space-between; gap:6px; }
 
-  /* â”€â”€ MODAL â”€â”€ */
+  /* ── MODAL ── */
   .overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200; display:flex; align-items:center; justify-content:center; padding:1rem; opacity:0; pointer-events:none; transition:opacity .2s; backdrop-filter:blur(4px); }
   .overlay.open { opacity:1; pointer-events:all; }
   .modal { background:var(--surface); border:1px solid var(--border); border-radius:16px; width:100%; max-width:620px; max-height:92vh; overflow-y:auto; transform:scale(.95); transition:transform .2s; }
@@ -221,13 +221,13 @@
   .calc-preview { background:rgba(163,9,9,.1); border:1px solid rgba(163,9,9,.3); border-radius:8px; padding:10px 14px; font-size:.85rem; color:var(--accent2); display:flex; align-items:center; gap:8px; }
   .modal-foot { padding:0 1.5rem 1.5rem; display:flex; gap:10px; justify-content:flex-end; }
 
-  /* â”€â”€ CONFIG MODAL â”€â”€ */
+  /* ── CONFIG MODAL ── */
   .cfg-step { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; margin-bottom:10px; }
   .cfg-step h4 { font-size:.85rem; font-weight:700; margin-bottom:6px; }
   .cfg-step p { font-size:.8rem; color:var(--muted); line-height:1.5; }
   .cfg-step code { background:rgba(163,9,9,.15); color:var(--accent2); padding:1px 5px; border-radius:4px; font-family:monospace; font-size:.82rem; }
 
-  /* â”€â”€ TOAST â”€â”€ */
+  /* ── TOAST ── */
   .toast { position:fixed; bottom:2rem; right:2rem; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px 20px; font-size:.875rem; z-index:999; transform:translateY(80px); opacity:0; transition:all .3s; box-shadow:0 8px 30px rgba(0,0,0,.4); max-width:360px; }
   .toast.show { transform:translateY(0); opacity:1; }
   .toast.ok  { border-left:3px solid var(--green); }
@@ -239,7 +239,7 @@
   ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
   ::-webkit-scrollbar-thumb:hover { background:var(--muted); }
 
-  /* â”€â”€ EQUIPE PERFORMANCE â”€â”€ */
+  /* ── EQUIPE PERFORMANCE ── */
   .team-perf-block { margin-bottom:2.5rem; }
   .team-perf-hdr {
     display:flex; align-items:center; gap:14px; padding:14px 20px;
@@ -277,7 +277,7 @@
   .member-tasks-mini { display:flex; flex-direction:column; gap:4px; }
   .mtm-row { background:var(--surface2); border-radius:6px; padding:5px 8px; font-size:.76rem; display:flex; align-items:center; justify-content:space-between; gap:6px; }
 
-  /* â”€â”€ MEMBER SELECTOR (modal tarefa) â”€â”€ */
+  /* ── MEMBER SELECTOR (modal tarefa) ── */
   .member-selector { display:flex; flex-wrap:wrap; gap:7px; padding:6px 0; }
   .member-chip { display:flex; align-items:center; gap:6px; padding:6px 12px; border-radius:20px; border:2px solid var(--border); background:var(--surface2); cursor:pointer; font-size:.82rem; font-weight:600; transition:all .15s; user-select:none; }
   .member-chip:hover { border-color:var(--accent); }
@@ -286,7 +286,7 @@
   .member-chip .mc-check { font-size:.75rem; opacity:0; transition:opacity .12s; }
   .member-chip.selected .mc-check { opacity:1; }
 
-  /* â”€â”€ STAT DRILL-DOWN MODAL â”€â”€ */
+  /* ── STAT DRILL-DOWN MODAL ── */
   .stat-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:800; display:flex; align-items:center; justify-content:center; animation:pageFadeIn .15s ease both; }
   .stat-modal { background:var(--surface); border:1px solid var(--border); border-radius:14px; width:min(520px,95vw); max-height:80vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,.7); }
   .stat-modal-hdr { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border); }
@@ -299,7 +299,7 @@
   .ts-cell { cursor:pointer; transition:background .12s; }
   .ts-cell:hover { background:var(--surface2) !important; }
 
-  /* â”€â”€ RELATÃ“RIO â”€â”€ */
+  /* ── RELATÓRIO ── */
   .report-block { margin-bottom:2rem; }
   .report-team-hdr {
     display:flex; align-items:center; gap:12px; padding:12px 16px;
@@ -322,7 +322,7 @@
   }
   .hist-row:last-child { border-bottom:none; }
 
-  /* â”€â”€ POPOVER STATUS â”€â”€ */
+  /* ── POPOVER STATUS ── */
   .status-pop {
     position:fixed; z-index:500; background:var(--surface2);
     border:1px solid var(--border); border-radius:10px; padding:6px;
@@ -389,10 +389,10 @@
     letter-spacing:.04em; animation:fadeIn .3s ease both;
   }
 </style>
-</head>
+<script>if(localStorage.getItem('mb_auth')!=='ok903092')location.replace('../');</script></head>
 <body>
 
-<!-- â•â•â• LOADER â•â•â• -->
+<!-- ═══ LOADER ═══ -->
 <div id="loader">
   <svg width="0" height="0" style="position:absolute">
     <defs>
@@ -408,16 +408,16 @@
     </svg>
   </div>
   <p class="loader-title">Clube de Jornalismo</p>
-  <p id="loaderTxt">Carregando dados do Sheetsâ€¦</p>
+  <p id="loaderTxt">Carregando dados do Sheets…</p>
 </div>
 
-<!-- â•â•â• HEADER â•â•â• -->
+<!-- ═══ HEADER ═══ -->
 <header>
   <div style="display:flex;align-items:center;gap:8px">
     <a href="../" title="Voltar ao painel central" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);color:var(--muted);text-decoration:none;font-size:1rem;flex-shrink:0;transition:.2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">&#8592;</a>
     <div class="logo">
-      <div class="logo-icon">ðŸ“°</div>
-      <div><h1>Marcos Editorial</h1><span>Painel de EditoraÃ§Ã£o</span></div>
+      <div class="logo-icon">📰</div>
+      <div><h1>Marcos Editorial</h1><span>Painel de Editoração</span></div>
     </div>
   </div>
   <div class="header-right">
@@ -425,30 +425,30 @@
       <div class="sync-dot" id="sync-dot"></div>
       <span id="sync-txt">Offline</span>
     </div>
-    <button class="btn btn-ghost" onclick="openConfig()">âš™ Config</button>
-    <button class="btn btn-ghost" onclick="smartSync()" title="Sincroniza com a planilha, recalcula prioridades e envia lembretes automaticamente" id="btn-sync">â‡… Sincronizar</button>
-    <button class="btn btn-ghost" onclick="autoMaintain({push:true})" title="Recalcula prioridades agora e envia lembretes pendentes" id="btn-check">ðŸ”„ Atualizar</button>
+    <button class="btn btn-ghost" onclick="openConfig()">⚙ Config</button>
+    <button class="btn btn-ghost" onclick="smartSync()" title="Sincroniza com a planilha, recalcula prioridades e envia lembretes automaticamente" id="btn-sync">⇅ Sincronizar</button>
+    <button class="btn btn-ghost" onclick="autoMaintain({push:true})" title="Recalcula prioridades agora e envia lembretes pendentes" id="btn-check">🔄 Atualizar</button>
     <button class="btn btn-primary" onclick="openTaskModal()">+ Nova Tarefa</button>
   </div>
 </header>
 
 <div class="app">
-<!-- â•â•â• SIDEBAR â•â•â• -->
+<!-- ═══ SIDEBAR ═══ -->
 <aside>
   <div class="sb-section">
-    <h3>VisÃ£o</h3>
-    <div class="nav-item active" id="nav-painel"      onclick="showPage('dashboard',this)">ðŸ“Š Painel</div>
-    <div class="nav-item"        id="nav-equipe"      onclick="showPage('equipe',this)">ðŸ‘¥ Equipes</div>
-    <div class="nav-item"        id="nav-calendario"  onclick="showPage('calendario',this)">ðŸ“… CalendÃ¡rio</div>
-    <div class="nav-item"        id="nav-arquivados"  onclick="showPage('arquivados',this)">ðŸ“¦ Arquivados <span class="nav-badge" id="b-arquivados" style="background:var(--muted)">0</span></div>
-    <div class="nav-item"        id="nav-logs"        onclick="showPage('logs',this)">ðŸ“ Logs <span class="nav-badge" id="log-badge" style="background:var(--muted)">0</span></div>
+    <h3>Visão</h3>
+    <div class="nav-item active" id="nav-painel"      onclick="showPage('dashboard',this)">📊 Painel</div>
+    <div class="nav-item"        id="nav-equipe"      onclick="showPage('equipe',this)">👥 Equipes</div>
+    <div class="nav-item"        id="nav-calendario"  onclick="showPage('calendario',this)">📅 Calendário</div>
+    <div class="nav-item"        id="nav-arquivados"  onclick="showPage('arquivados',this)">📦 Arquivados <span class="nav-badge" id="b-arquivados" style="background:var(--muted)">0</span></div>
+    <div class="nav-item"        id="nav-logs"        onclick="showPage('logs',this)">📝 Logs <span class="nav-badge" id="log-badge" style="background:var(--muted)">0</span></div>
   </div>
   <div class="sb-section">
     <h3>Prioridade</h3>
-    <div class="nav-item" id="fi-p3" onclick="applyFilter('prio','P3')"><span class="prio-dot" style="background:var(--red)"></span>    P3 â€” Super urgente <span class="nav-badge" id="b-p3" style="background:var(--red)">0</span></div>
-    <div class="nav-item" id="fi-p2" onclick="applyFilter('prio','P2')"><span class="prio-dot" style="background:var(--orange)"></span>  P2 â€” Alta          <span class="nav-badge" id="b-p2" style="background:var(--orange)">0</span></div>
-    <div class="nav-item" id="fi-p1" onclick="applyFilter('prio','P1')"><span class="prio-dot" style="background:var(--yellow)"></span>  P1 â€” MÃ©dia         <span class="nav-badge" id="b-p1" style="background:var(--yellow)">0</span></div>
-    <div class="nav-item" id="fi-p0" onclick="applyFilter('prio','P0')"><span class="prio-dot" style="background:var(--muted)"></span>   P0 â€” Sem urgÃªncia  <span class="nav-badge" id="b-p0" style="background:var(--muted)">0</span></div>
+    <div class="nav-item" id="fi-p3" onclick="applyFilter('prio','P3')"><span class="prio-dot" style="background:var(--red)"></span>    P3 — Super urgente <span class="nav-badge" id="b-p3" style="background:var(--red)">0</span></div>
+    <div class="nav-item" id="fi-p2" onclick="applyFilter('prio','P2')"><span class="prio-dot" style="background:var(--orange)"></span>  P2 — Alta          <span class="nav-badge" id="b-p2" style="background:var(--orange)">0</span></div>
+    <div class="nav-item" id="fi-p1" onclick="applyFilter('prio','P1')"><span class="prio-dot" style="background:var(--yellow)"></span>  P1 — Média         <span class="nav-badge" id="b-p1" style="background:var(--yellow)">0</span></div>
+    <div class="nav-item" id="fi-p0" onclick="applyFilter('prio','P0')"><span class="prio-dot" style="background:var(--muted)"></span>   P0 — Sem urgência  <span class="nav-badge" id="b-p0" style="background:var(--muted)">0</span></div>
   </div>
   <div class="sb-section">
     <h3>Progresso</h3>
@@ -456,34 +456,34 @@
       <div class="stat-mini" id="fi-prog-open" onclick="applyFilter('progress','open')"  style="cursor:pointer" title="Ver pendentes">
         <div class="num" id="sb-total" style="color:var(--accent2)">0</div><div class="lbl">Em aberto</div>
       </div>
-      <div class="stat-mini" id="fi-prog-done" onclick="applyFilter('progress','done')" style="cursor:pointer" title="Ver concluÃ­dos">
+      <div class="stat-mini" id="fi-prog-done" onclick="applyFilter('progress','done')" style="cursor:pointer" title="Ver concluídos">
         <div class="num" id="sb-done"  style="color:var(--green)">0</div><div class="lbl">Prontos</div>
       </div>
     </div>
   </div>
 </aside>
 
-<!-- â•â•â• MAIN â•â•â• -->
+<!-- ═══ MAIN ═══ -->
 <main>
 
-  <!-- PAINEL ÃšNICO -->
+  <!-- PAINEL ÚNICO -->
   <div id="page-dashboard" class="page active">
     <div class="stats-grid" style="grid-template-columns:repeat(2,1fr)">
-      <div class="stat-card c-yellow" onclick="applyFilter('progress','open')" style="cursor:pointer" title="Ver em aberto"><div class="s-num" id="st-open">0</div><div class="s-lbl">Em aberto</div><div class="s-ico">ðŸ“‹</div></div>
-      <div class="stat-card c-green"  onclick="applyFilter('progress','done')" style="cursor:pointer" title="Ver concluÃ­das"><div class="s-num" id="st-done">0</div><div class="s-lbl">ConcluÃ­das</div><div class="s-ico">âœ…</div></div>
+      <div class="stat-card c-yellow" onclick="applyFilter('progress','open')" style="cursor:pointer" title="Ver em aberto"><div class="s-num" id="st-open">0</div><div class="s-lbl">Em aberto</div><div class="s-ico">📋</div></div>
+      <div class="stat-card c-green"  onclick="applyFilter('progress','done')" style="cursor:pointer" title="Ver concluídas"><div class="s-num" id="st-done">0</div><div class="s-lbl">Concluídas</div><div class="s-ico">✅</div></div>
     </div>
     <div class="month-progress">
       <div class="mp-head">
-        <span class="mp-title" id="mp-title">ðŸ“… Progresso do mÃªs</span>
+        <span class="mp-title" id="mp-title">📅 Progresso do mês</span>
         <span id="mp-pct">0%</span>
       </div>
       <div class="mp-bar-wrap"><div class="mp-bar" id="mp-bar" style="width:0%"></div></div>
       <div class="mp-sub" id="mp-sub"></div>
     </div>
     <div class="sec-header" style="margin-top:1.5rem">
-      <h2 id="main-list-title">ðŸ“‹ Todas as Tarefas</h2>
+      <h2 id="main-list-title">📋 Todas as Tarefas</h2>
       <div class="filters">
-        <input  class="search" id="f-search"        placeholder="ðŸ” Buscar..." oninput="renderTarefas()">
+        <input  class="search" id="f-search"        placeholder="🔍 Buscar..." oninput="renderTarefas()">
         <select class="fsel"   id="f-type"           onchange="renderTarefas()">
           <option value="">Todos os tipos</option>
           <option>Feed Estatico</option><option>Feed Carrossel</option><option>Stories</option><option>Reels Simples</option><option>Legenda</option><option>Text Overlay</option>
@@ -494,34 +494,34 @@
         </select>
         <select class="fsel"   id="f-team"           onchange="renderTarefas()">
           <option value="">Todas as equipes</option>
-          <option value="ManhÃ£">ðŸŒ… ManhÃ£</option>
-          <option value="Tarde">ðŸŒ‡ Tarde</option>
+          <option value="Manhã">🌅 Manhã</option>
+          <option value="Tarde">🌇 Tarde</option>
         </select>
         <select class="fsel"   id="f-sheet-status"   onchange="renderTarefas()">
           <option value="">Todos os andamentos</option>
-          <option value="NÃ£o iniciado">â¬œ NÃ£o iniciado</option>
-          <option value="Em execuÃ§Ã£o">ðŸŸ¡ Em execuÃ§Ã£o</option>
-          <option value="Em anÃ¡lise">ðŸ”µ Em anÃ¡lise</option>
-          <option value="Publicado">âœ… Publicado</option>
-          <option value="Suspenso">ðŸ”´ Suspenso</option>
-          <option value="Em correÃ§Ã£o">ðŸŸ  Em correÃ§Ã£o</option>
+          <option value="Não iniciado">⬜ Não iniciado</option>
+          <option value="Em execução">🟡 Em execução</option>
+          <option value="Em análise">🔵 Em análise</option>
+          <option value="Publicado">✅ Publicado</option>
+          <option value="Suspenso">🔴 Suspenso</option>
+          <option value="Em correção">🟠 Em correção</option>
         </select>
-        <button class="btn btn-ghost" id="btn-clear-filter" onclick="clearFilters()" style="display:none;font-size:.8rem;padding:5px 10px">âœ• Limpar filtro</button>
+        <button class="btn btn-ghost" id="btn-clear-filter" onclick="clearFilters()" style="display:none;font-size:.8rem;padding:5px 10px">✕ Limpar filtro</button>
       </div>
     </div>
     <div id="list-tarefas" class="tasks-grid"></div>
   </div>
 
-  <!-- CALENDÃRIO -->
+  <!-- CALENDÁRIO -->
   <div id="page-calendario" class="page">
     <div class="cal-nav">
-      <button class="cal-nav-btn" onclick="changeMonth(-1)">â† Anterior</button>
+      <button class="cal-nav-btn" onclick="changeMonth(-1)">← Anterior</button>
       <h3 id="cal-title"></h3>
-      <button class="cal-nav-btn" onclick="changeMonth(1)">PrÃ³ximo â†’</button>
+      <button class="cal-nav-btn" onclick="changeMonth(1)">Próximo →</button>
     </div>
     <div class="cal-grid" id="cal-grid"></div>
     <div style="display:flex;gap:16px;margin-top:1rem;font-size:.8rem;color:var(--muted)">
-      <span>ðŸŸ¢ PublicaÃ§Ã£o</span><span>ðŸ”´ Prazo de RevisÃ£o</span>
+      <span>🟢 Publicação</span><span>🔴 Prazo de Revisão</span>
     </div>
   </div>
 
@@ -529,10 +529,10 @@
   <div id="page-equipe" class="page">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:10px">
       <div>
-        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">ðŸ‘¥ Equipes</h2>
+        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">👥 Equipes</h2>
         <p style="font-size:.78rem;color:var(--muted)">Desempenho por equipe e por membro</p>
       </div>
-      <button class="btn btn-ghost" onclick="openTeamModal(null)">âš™ Gerenciar membros</button>
+      <button class="btn btn-ghost" onclick="openTeamModal(null)">⚙ Gerenciar membros</button>
     </div>
     <div id="equipe-content"></div>
   </div>
@@ -541,7 +541,7 @@
   <div id="page-arquivados" class="page">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:10px">
       <div>
-        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">ðŸ“¦ Arquivados</h2>
+        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">📦 Arquivados</h2>
         <p style="font-size:.78rem;color:var(--muted)">Tarefas publicadas e tarefas com data de postagem vencida</p>
       </div>
     </div>
@@ -553,18 +553,18 @@
   <div id="page-logs" class="page">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:10px">
       <div>
-        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">ðŸ“ Logs de Atividade</h2>
-        <p style="font-size:.78rem;color:var(--muted)">Todos os emails, advertÃªncias e sincronizaÃ§Ãµes registradas</p>
+        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">📝 Logs de Atividade</h2>
+        <p style="font-size:.78rem;color:var(--muted)">Todos os emails, advertências e sincronizações registradas</p>
       </div>
-      <button class="btn btn-ghost" style="font-size:.8rem" onclick="if(confirm('Limpar todos os logs?')){logs=[];persistLogs();renderLogs();document.getElementById('log-badge').textContent='0';toast('Logs apagados.','info')}">ðŸ—‘ Limpar logs</button>
+      <button class="btn btn-ghost" style="font-size:.8rem" onclick="if(confirm('Limpar todos os logs?')){logs=[];persistLogs();renderLogs();document.getElementById('log-badge').textContent='0';toast('Logs apagados.','info')}">🗑 Limpar logs</button>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem" id="log-filters">
       <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('')"       id="lf-all">Todos</button>
-      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('email')"   id="lf-email">ðŸ“§ Emails</button>
-      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('warning')" id="lf-warning">âš  AdvertÃªncias</button>
-      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('reminder')" id="lf-reminder">ðŸ”” Lembretes</button>
-      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('sync')"   id="lf-sync">â‡… Syncs</button>
-      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('error')"  id="lf-error">âŒ Erros</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('email')"   id="lf-email">📧 Emails</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('warning')" id="lf-warning">⚠ Advertências</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('reminder')" id="lf-reminder">🔔 Lembretes</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('sync')"   id="lf-sync">⇅ Syncs</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('error')"  id="lf-error">❌ Erros</button>
     </div>
     <div id="log-list"></div>
   </div>
@@ -573,16 +573,16 @@
 </main>
 </div>
 
-<!-- â•â•â• MODAL TAREFA â•â•â• -->
+<!-- ═══ MODAL TAREFA ═══ -->
 <div class="overlay" id="modal-task" onclick="closeTaskModal(event)">
 <div class="modal">
   <div class="modal-head">
     <h2 id="modal-task-title">Nova Tarefa</h2>
-    <button class="modal-close" onclick="closeTaskModal()">âœ•</button>
+    <button class="modal-close" onclick="closeTaskModal()">✕</button>
   </div>
   <div class="modal-body">
     <div class="fg">
-      <label>ConteÃºdo / TÃ­tulo *</label>
+      <label>Conteúdo / Título *</label>
       <input class="fc" id="m-content" placeholder="Ex: Cobertura do evento X">
     </div>
     <div class="frow">
@@ -600,13 +600,13 @@
       <div class="fg">
         <label>Equipe *</label>
         <select class="fc" id="m-team" onchange="renderMemberSelector(this.value)">
-          <option value="ManhÃ£">ðŸŒ… Jornalismo ManhÃ£</option>
-          <option value="Tarde">ðŸŒ‡ Jornalismo Tarde</option>
+          <option value="Manhã">🌅 Jornalismo Manhã</option>
+          <option value="Tarde">🌇 Jornalismo Tarde</option>
         </select>
       </div>
     </div>
     <div class="fg" id="m-members-panel" style="display:none">
-      <label>Membros responsÃ¡veis</label>
+      <label>Membros responsáveis</label>
       <div class="member-selector" id="m-members-grid"></div>
     </div>
     <div class="fg">
@@ -614,63 +614,63 @@
       <input type="date" class="fc" id="m-pubdate" oninput="onPubDateChange()">
     </div>
     <div class="calc-preview" id="review-preview" style="display:none">
-      ðŸ—“ Prazo de entrega: <strong id="review-date-txt">â€”</strong> &nbsp;Â·&nbsp;
-      Prioridade automÃ¡tica: <strong id="prio-txt">â€”</strong>
+      🗓 Prazo de entrega: <strong id="review-date-txt">—</strong> &nbsp;·&nbsp;
+      Prioridade automática: <strong id="prio-txt">—</strong>
     </div>
     <div class="fg">
-      <label>DescriÃ§Ã£o / Ideia</label>
+      <label>Descrição / Ideia</label>
       <textarea class="fc" id="m-desc" placeholder="Descreva a ideia ou o que deve ser feito..."></textarea>
     </div>
     <div class="fg">
       <label>Andamento (coluna F)</label>
       <select class="fc" id="m-status" onchange="onPubDateChange()">
-        <option value="NÃ£o iniciado">â¬œ NÃ£o iniciado</option>
-        <option value="Em execuÃ§Ã£o">ðŸŸ¡ Em execuÃ§Ã£o</option>
-        <option value="Em anÃ¡lise">ðŸ”µ Em anÃ¡lise</option>
-        <option value="Em correÃ§Ã£o">ðŸŸ  Em correÃ§Ã£o</option>
-        <option value="Suspenso">ðŸ”´ Suspenso</option>
-        <option value="Publicado">âœ… Publicado</option>
+        <option value="Não iniciado">⬜ Não iniciado</option>
+        <option value="Em execução">🟡 Em execução</option>
+        <option value="Em análise">🔵 Em análise</option>
+        <option value="Em correção">🟠 Em correção</option>
+        <option value="Suspenso">🔴 Suspenso</option>
+        <option value="Publicado">✅ Publicado</option>
       </select>
     </div>
   </div>
   <div class="modal-foot">
     <button class="btn btn-ghost" onclick="closeTaskModal()">Cancelar</button>
-    <button class="btn btn-primary" onclick="saveTask()">ðŸ’¾ Salvar</button>
+    <button class="btn btn-primary" onclick="saveTask()">💾 Salvar</button>
   </div>
 </div>
 </div>
 
-<!-- â•â•â• MODAL CONFIG â•â•â• -->
+<!-- ═══ MODAL CONFIG ═══ -->
 <div class="overlay" id="modal-config" onclick="closeConfig(event)">
 <div class="modal" style="max-width:560px">
   <div class="modal-head">
-    <h2>âš™ ConfiguraÃ§Ã£o â€” Google Sheets</h2>
-    <button class="modal-close" onclick="closeConfig()">âœ•</button>
+    <h2>⚙ Configuração — Google Sheets</h2>
+    <button class="modal-close" onclick="closeConfig()">✕</button>
   </div>
   <div class="modal-body">
     <div class="cfg-step">
-      <h4>1. Abra a planilha e vÃ¡ em ExtensÃµes â†’ Apps Script</h4>
-      <p>Apague o cÃ³digo que estiver lÃ¡, cole o conteÃºdo do arquivo <code>apps-script.gs</code> e salve (Ctrl+S).</p>
+      <h4>1. Abra a planilha e vá em Extensões → Apps Script</h4>
+      <p>Apague o código que estiver lá, cole o conteúdo do arquivo <code>apps-script.gs</code> e salve (Ctrl+S).</p>
     </div>
     <div class="cfg-step">
       <h4>2. Implante como Web App</h4>
-      <p>Clique em <strong>Implantar â†’ Nova implantaÃ§Ã£o</strong>.<br>
-         Tipo: <code>Web App</code> &nbsp;Â·&nbsp; Executar como: <code>Eu</code> &nbsp;Â·&nbsp; Acesso: <code>Qualquer pessoa</code><br>
+      <p>Clique em <strong>Implantar → Nova implantação</strong>.<br>
+         Tipo: <code>Web App</code> &nbsp;·&nbsp; Executar como: <code>Eu</code> &nbsp;·&nbsp; Acesso: <code>Qualquer pessoa</code><br>
          Autorize e copie a URL gerada.</p>
     </div>
     <div class="cfg-step">
       <h4>3. Cole a URL aqui</h4>
       <div class="fg" style="margin-top:8px">
         <label>URL do Web App</label>
-        <input class="fc" id="cfg-url" placeholder="https://script.google.com/macros/s/â€¦/exec">
+        <input class="fc" id="cfg-url" placeholder="https://script.google.com/macros/s/…/exec">
       </div>
     </div>
     <div class="cfg-step">
       <h4>4. Nome da aba (opcional)</h4>
-      <p>Se o nome da aba da planilha nÃ£o for <code>PÃ¡gina1</code>, tambÃ©m mude no <code>apps-script.gs</code> antes de implantar.</p>
+      <p>Se o nome da aba da planilha não for <code>Página1</code>, também mude no <code>apps-script.gs</code> antes de implantar.</p>
     </div>
     <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:10px 14px;font-size:.8rem;color:var(--muted);margin-top:4px">
-      âš  Se aparecer erro de CORS ao sincronizar, abra o painel via servidor local:<br>
+      ⚠ Se aparecer erro de CORS ao sincronizar, abra o painel via servidor local:<br>
       Execute <code>python -m http.server 8080</code> na pasta e acesse <code>localhost:8080</code>
     </div>
   </div>
@@ -681,12 +681,12 @@
 </div>
 </div>
 
-<!-- â•â•â• MODAL EQUIPE â•â•â• -->
+<!-- ═══ MODAL EQUIPE ═══ -->
 <div class="overlay" id="modal-team" onclick="closeTeamModal(event)">
 <div class="modal" style="max-width:480px">
   <div class="modal-head">
-    <h2 id="team-modal-title">ðŸ‘¥ Equipe</h2>
-    <button class="modal-close" onclick="closeTeamModal()">âœ•</button>
+    <h2 id="team-modal-title">👥 Equipe</h2>
+    <button class="modal-close" onclick="closeTeamModal()">✕</button>
   </div>
   <div class="modal-body">
     <div id="team-tabs" style="display:flex;gap:6px;margin-bottom:16px"></div>
@@ -695,14 +695,14 @@
     </div>
     <div id="team-member-list" style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:6px;align-items:center">
-      <input id="team-new-name"  class="input" placeholder="Nomeâ€¦"   onkeydown="if(event.key==='Enter')addTeamMember()">
-      <input id="team-new-email" class="input" type="email" placeholder="email@â€¦" onkeydown="if(event.key==='Enter')addTeamMember()">
+      <input id="team-new-name"  class="input" placeholder="Nome…"   onkeydown="if(event.key==='Enter')addTeamMember()">
+      <input id="team-new-email" class="input" type="email" placeholder="email@…" onkeydown="if(event.key==='Enter')addTeamMember()">
       <button class="btn btn-primary" onclick="addTeamMember()" style="white-space:nowrap;padding:7px 12px">+</button>
     </div>
     <div id="team-modal-msg" style="font-size:.8rem;color:var(--red);margin-top:8px;min-height:16px"></div>
   </div>
   <div class="modal-foot">
-    <p style="font-size:.75rem;color:var(--muted);flex:1;text-align:left">AlteraÃ§Ãµes salvas automaticamente</p>
+    <p style="font-size:.75rem;color:var(--muted);flex:1;text-align:left">Alterações salvas automaticamente</p>
     <button class="btn btn-ghost" onclick="closeTeamModal()">Fechar</button>
   </div>
 </div>
@@ -711,9 +711,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  STATE
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 let SCRIPT_URL  = localStorage.getItem('cj_script_url') || '';
 let tasks       = JSON.parse(localStorage.getItem('cj_tasks') || '[]');
 let editRow     = null;   // row number being edited (null = new)
@@ -722,24 +722,24 @@ let prioFilter   = null;
 let teamFilt     = null;
 let progressFilt = null;
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  EQUIPES E NORMALIZAÃ‡ÃƒO DE NOMES
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
+//  EQUIPES E NORMALIZAÇÃO DE NOMES
+// ════════════════════════════════════════════════════════════
 const NAME_MAP = {
-  // ManhÃ£
-  'thulio':'Thulio','tulio':'Thulio','tÃºlio':'Thulio','thÃºlio':'Thulio',
-  'yasmin':'Yasmin','yasmim':'Yasmin','yÃ¡smin':'Yasmin','yÃ¡smim':'Yasmin','jasmim':'Yasmin',
+  // Manhã
+  'thulio':'Thulio','tulio':'Thulio','túlio':'Thulio','thúlio':'Thulio',
+  'yasmin':'Yasmin','yasmim':'Yasmin','yásmin':'Yasmin','yásmim':'Yasmin','jasmim':'Yasmin',
   // Tarde
-  'hector':'Hector','hÃ©ctor':'Hector','heitor':'Hector',
-  'adan':'Adan','adÃ¡n':'Adan','adam':'Adan','adÃ£':'Adan',
-  'nicolas':'Nicolas','nicolÃ¡s':'Nicolas','nicÃ³las':'Nicolas','nikolÃ¡s':'Nicolas','nikolas':'Nicolas',
+  'hector':'Hector','héctor':'Hector','heitor':'Hector',
+  'adan':'Adan','adán':'Adan','adam':'Adan','adã':'Adan',
+  'nicolas':'Nicolas','nicolás':'Nicolas','nicólas':'Nicolas','nikolás':'Nicolas','nikolas':'Nicolas',
   'bruna':'Bruna',
   'raquel':'Raquel',
 };
 const TEAMS_DEFAULT = {
-  'ManhÃ£': { icon:'ðŸŒ…', color:'#3b82f6', people:['Thulio','Yasmin'],
+  'Manhã': { icon:'🌅', color:'#3b82f6', people:['Thulio','Yasmin'],
     emails:{'Thulio':'silvathulio90@gmail.com','Yasmin':''} },
-  'Tarde': { icon:'ðŸŒ‡', color:'#f97316', people:['Hector','Adan','Nicolas','Bruna','Raquel'],
+  'Tarde': { icon:'🌇', color:'#f97316', people:['Hector','Adan','Nicolas','Bruna','Raquel'],
     emails:{'Hector':'hectorneves7@gmail.com','Adan':'','Nicolas':'','Bruna':'','Raquel':''} },
 };
 const ADMINS_DEFAULT = [
@@ -748,7 +748,7 @@ const ADMINS_DEFAULT = [
 ];
 let ADMINS = JSON.parse(localStorage.getItem('cj_admins') || 'null') || JSON.parse(JSON.stringify(ADMINS_DEFAULT));
 let TEAMS  = JSON.parse(localStorage.getItem('cj_teams')  || 'null') || JSON.parse(JSON.stringify(TEAMS_DEFAULT));
-// MigraÃ§Ã£o: adicionar emails se nÃ£o existir no registro antigo
+// Migração: adicionar emails se não existir no registro antigo
 Object.entries(TEAMS).forEach(([tName, tData]) => {
   if (!tData.emails) tData.emails = {};
   (tData.people || []).forEach(p => { if (!tData.emails[p]) tData.emails[p] = (TEAMS_DEFAULT[tName]?.emails?.[p] || ''); });
@@ -771,12 +771,12 @@ function saveTeamsToStorage() {
   rebuildTeamMaps();
 }
 
-function stripAccents(s) { return (s||'').normalize('NFD').replace(/[Ì€-Í¯]/g,''); }
-// Escapa HTML antes de injetar conteÃºdo da planilha no innerHTML
+function stripAccents(s) { return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,''); }
+// Escapa HTML antes de injetar conteúdo da planilha no innerHTML
 function esc(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function canonicalName(raw) {
   const n = stripAccents((raw||'').toLowerCase().trim());
-  return NAME_MAP[n] || raw || 'â€”';
+  return NAME_MAP[n] || raw || '—';
 }
 function teamToNames(team) { return TEAM_STRINGS[team] || team; }
 function getTeam(raw) {
@@ -792,9 +792,9 @@ function getTeam(raw) {
   return PERSON_TEAM[canonicalName(raw)] || null;
 }
 
-// Prioridade automÃ¡tica baseada na DATA DE REVISÃƒO:
-//   P3 â†’ falta 1 dia ou menos   Â·  P2 â†’ atÃ© 5 dias
-//   P1 â†’ atÃ© 10 dias            Â·  P0 â†’ mais de 10 dias OU concluÃ­da
+// Prioridade automática baseada na DATA DE REVISÃO:
+//   P3 → falta 1 dia ou menos   ·  P2 → até 5 dias
+//   P1 → até 10 dias            ·  P0 → mais de 10 dias OU concluída
 function calcPriority(task) {
   if (taskStatus(task) === 'done') return 'P0';
   const diff = daysUntil(task.reviewDate);
@@ -805,9 +805,9 @@ function calcPriority(task) {
   return 'P0';
 }
 const PRIO_RANK  = { P0:0, P1:1, P2:2, P3:3 };
-const PRIO_LABEL = { P3:'ðŸ”´ P3 â€” Super urgente', P2:'ðŸŸ  P2 â€” Alta', P1:'ðŸŸ¡ P1 â€” MÃ©dia', P0:'âšª P0 â€” Sem urgÃªncia' };
+const PRIO_LABEL = { P3:'🔴 P3 — Super urgente', P2:'🟠 P2 — Alta', P1:'🟡 P1 — Média', P0:'⚪ P0 — Sem urgência' };
 
-// Um membro estÃ¡ escalado numa tarefa se aparece na lista de responsÃ¡veis.
+// Um membro está escalado numa tarefa se aparece na lista de responsáveis.
 function isAssignedTo(task, memberName) {
   const target = stripAccents(memberName.toLowerCase().trim());
   return (task.responsible || '').split(',').some(part => {
@@ -817,9 +817,9 @@ function isAssignedTo(task, memberName) {
   });
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  URGÃŠNCIA AUTOMÃTICA (baseada na data de revisÃ£o)
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
+//  URGÊNCIA AUTOMÁTICA (baseada na data de revisão)
+// ════════════════════════════════════════════════════════════
 function urgency(task) {
   if (taskStatus(task) === 'done') return 'done';
   if (!task.reviewDate) return 'low';
@@ -832,14 +832,14 @@ function urgency(task) {
   if (diff <= 10) return 'medium';
   return 'low';
 }
-const urgLabel = { overdue:'Atrasada', critical:'CrÃ­tica', high:'Alta', medium:'MÃ©dia', low:'Baixa', done:'ConcluÃ­do' };
+const urgLabel = { overdue:'Atrasada', critical:'Crítica', high:'Alta', medium:'Média', low:'Baixa', done:'Concluído' };
 function daysUntil(d) {
   if (!d) return null;
   const today = new Date(); today.setHours(0,0,0,0);
   return Math.ceil((new Date(d+'T00:00:00') - today) / 86400000);
 }
 function fmtDate(d) {
-  if (!d) return 'â€”';
+  if (!d) return '—';
   const [y,m,dd] = d.split('-');
   return `${dd}/${m}/${y}`;
 }
@@ -847,24 +847,24 @@ function calcReview(pubDate) {
   if (!pubDate) return '';
   const d = new Date(pubDate + 'T00:00:00');
   d.setDate(d.getDate() - 2);
-  // formata em data local â€” toISOString() Ã© UTC e pode devolver o dia errado
+  // formata em data local — toISOString() é UTC e pode devolver o dia errado
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 function taskStatus(task) {
   const ss = task.sheetStatus || '';
   if (ss === 'Publicado')                                       return 'done';
-  if (ss === 'Em execuÃ§Ã£o' || ss === 'Em anÃ¡lise' || ss === 'Em correÃ§Ã£o') return 'progress';
+  if (ss === 'Em execução' || ss === 'Em análise' || ss === 'Em correção') return 'progress';
   return 'pending';
 }
 
 function isArchived(task) {
-  if (taskStatus(task) === 'done') return true;          // concluÃ­da â†’ arquivada
-  if (task.sheetStatus === 'Suspenso') return true;      // nÃ£o feita â†’ arquivada imediatamente
+  if (taskStatus(task) === 'done') return true;          // concluída → arquivada
+  if (task.sheetStatus === 'Suspenso') return true;      // não feita → arquivada imediatamente
   if (!task.pubDate) return false;
-  if (task.pubDate >= todayStr()) return false;          // ainda dentro do prazo â†’ ativa
-  // Passou do prazo e nÃ£o foi concluÃ­da:
-  //   se jÃ¡ estÃ¡ em andamento, continua na home para ser finalizada;
-  //   se nÃ£o foi iniciada, vai para os arquivados como "nÃ£o postada".
+  if (task.pubDate >= todayStr()) return false;          // ainda dentro do prazo → ativa
+  // Passou do prazo e não foi concluída:
+  //   se já está em andamento, continua na home para ser finalizada;
+  //   se não foi iniciada, vai para os arquivados como "não postada".
   return taskStatus(task) !== 'progress';
 }
 
@@ -873,9 +873,9 @@ function todayStr() {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  GOOGLE SHEETS SYNC
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function setSyncState(state, msg) {
   const dot = document.getElementById('sync-dot');
   const txt = document.getElementById('sync-txt');
@@ -893,7 +893,7 @@ async function sheetCall(params) {
     return json;
   } catch(e) {
     toast('Erro ao contatar a planilha. Verifique a URL e tente novamente.', 'err');
-    setSyncState('error', 'Erro de conexÃ£o');
+    setSyncState('error', 'Erro de conexão');
     return null;
   }
 }
@@ -903,19 +903,19 @@ async function refreshSheet() {
 }
 
 async function smartSync() {
-  if (!SCRIPT_URL) { toast('Configure o URL do Apps Script primeiro (âš™ Config).', 'info'); return; }
+  if (!SCRIPT_URL) { toast('Configure o URL do Apps Script primeiro (⚙ Config).', 'info'); return; }
 
   const btn = document.getElementById('btn-sync');
-  if (btn) { btn.disabled = true; btn.textContent = 'â‡… Sincronizandoâ€¦'; }
-  setSyncState('syncing', 'Sincronizandoâ€¦');
-  showLoader('Carregando dados do Sheetsâ€¦');
+  if (btn) { btn.disabled = true; btn.textContent = '⇅ Sincronizando…'; }
+  setSyncState('syncing', 'Sincronizando…');
+  showLoader('Carregando dados do Sheets…');
 
   // 1. Busca dados atuais da planilha
   const data = await sheetCall({ action: 'get' });
   if (!data) {
     hideLoader();
     setSyncState('error', 'Erro ao ler planilha');
-    if (btn) { btn.disabled = false; btn.textContent = 'â‡… Sincronizar'; }
+    if (btn) { btn.disabled = false; btn.textContent = '⇅ Sincronizar'; }
     return;
   }
 
@@ -923,18 +923,18 @@ async function smartSync() {
   const sheetByRow = {};
   sheetRows.forEach(t => sheetByRow[t.row] = t);
 
-  // 2. Tarefas do painel que NÃƒO existem na planilha (linha sumiu ou nunca foi salva)
+  // 2. Tarefas do painel que NÃO existem na planilha (linha sumiu ou nunca foi salva)
   const orphans = tasks.filter(t => !t.row || !sheetByRow[t.row]);
 
-  // 3. Envia Ã³rfÃ£os para a planilha
+  // 3. Envia órfãos para a planilha
   let pushed = 0;
   for (const task of orphans) {
     const res = await sheetCall({ action: 'add', ...taskToParams(task) });
     if (res && res.row) { task.row = res.row; pushed++; }
   }
 
-  // 4. Mescla: comeÃ§a com tudo que estÃ¡ na planilha (atualizado)
-  //    depois adiciona as que acabamos de enviar (agora tÃªm row)
+  // 4. Mescla: começa com tudo que está na planilha (atualizado)
+  //    depois adiciona as que acabamos de enviar (agora têm row)
   const sheetSet = new Set(sheetRows.map(t => t.row));
   const newFromPanel = orphans.filter(t => t.row && !sheetSet.has(t.row));
 
@@ -942,28 +942,28 @@ async function smartSync() {
   persist();
 
   setSyncState('ok', 'Sincronizado');
-  if (btn) { btn.disabled = false; btn.textContent = 'â‡… Sincronizar'; }
+  if (btn) { btn.disabled = false; btn.textContent = '⇅ Sincronizar'; }
   hideLoader();
   renderAll();
 
   const msg = pushed > 0
-    ? `SincronizaÃ§Ã£o completa! ${pushed} tarefa(s) do painel enviada(s) para a planilha.`
-    : `SincronizaÃ§Ã£o completa! Tudo atualizado.`;
+    ? `Sincronização completa! ${pushed} tarefa(s) do painel enviada(s) para a planilha.`
+    : `Sincronização completa! Tudo atualizado.`;
   toast(msg, 'ok');
-  addLog('sync', 'â‡…', 'SincronizaÃ§Ã£o concluÃ­da', `${tasks.length} tarefa(s) Â· ${pushed > 0 ? pushed + ' enviada(s) ao Sheets' : 'tudo atualizado'}`);
+  addLog('sync', '⇅', 'Sincronização concluída', `${tasks.length} tarefa(s) · ${pushed > 0 ? pushed + ' enviada(s) ao Sheets' : 'tudo atualizado'}`);
 
   // Recalcula prioridades, envia lembretes pendentes e devolve as
-  // alteraÃ§Ãµes Ã  planilha â€” tudo automÃ¡tico, sem botÃ£o dedicado.
+  // alterações à planilha — tudo automático, sem botão dedicado.
   await autoMaintain({ push: true, silent: true });
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  MANUTENÃ‡ÃƒO AUTOMÃTICA (prioridades + lembretes)
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 'notified[row]' guarda a Ãºltima prioridade pela qual jÃ¡ avisamos, para
-// nÃ£o reenviar o mesmo lembrete. Tarefas vistas pela 1Âª vez recebem um
-// "baseline" silencioso â€” assim a 1Âª sincronizaÃ§Ã£o nÃ£o dispara um monte
-// de e-mails de uma vez; sÃ³ escalonamentos seguintes geram lembrete.
+// ════════════════════════════════════════════════════════════
+//  MANUTENÇÃO AUTOMÁTICA (prioridades + lembretes)
+// ════════════════════════════════════════════════════════════
+// 'notified[row]' guarda a última prioridade pela qual já avisamos, para
+// não reenviar o mesmo lembrete. Tarefas vistas pela 1ª vez recebem um
+// "baseline" silencioso — assim a 1ª sincronização não dispara um monte
+// de e-mails de uma vez; só escalonamentos seguintes geram lembrete.
 let notified = JSON.parse(localStorage.getItem('cj_notified') || '{}');
 function persistNotified() { localStorage.setItem('cj_notified', JSON.stringify(notified)); }
 
@@ -978,11 +978,11 @@ async function autoMaintain({ push = false, silent = false } = {}) {
     // Lembretes pelo registro 'notified' (independe do valor antigo).
     const last = notified[t.row];
     if (newPrio === 'P0') {
-      if (last !== undefined) { delete notified[t.row]; notifChanged = true; }   // concluÃ­da/folgada
+      if (last !== undefined) { delete notified[t.row]; notifChanged = true; }   // concluída/folgada
     } else if (last === undefined) {
       notified[t.row] = newPrio; notifChanged = true;                            // baseline silencioso
     } else if (PRIO_RANK[newPrio] > PRIO_RANK[last]) {
-      notified[t.row] = newPrio; notifChanged = true;                            // escalou â†’ avisa
+      notified[t.row] = newPrio; notifChanged = true;                            // escalou → avisa
       if (await sendReminder(t, newPrio)) mailed++;
     }
   }
@@ -994,8 +994,8 @@ async function autoMaintain({ push = false, silent = false } = {}) {
   }
   if (!silent) {
     toast(prioChanged || mailed
-      ? `${prioChanged} prioridade(s) atualizada(s)${mailed ? ` Â· ${mailed} lembrete(s)` : ''}.`
-      : 'Tudo em dia! âœ“', 'ok');
+      ? `${prioChanged} prioridade(s) atualizada(s)${mailed ? ` · ${mailed} lembrete(s)` : ''}.`
+      : 'Tudo em dia! ✓', 'ok');
   }
   return { prioChanged, mailed };
 }
@@ -1007,18 +1007,18 @@ async function sendReminder(task, prio) {
   if (!recips.length) return false;
   await sheetCall({
     action: 'notify', test: 'false', warningType: 'reminder',
-    to: recips.join(','), content: task.content, type: task.type || 'â€”',
-    team: team || 'â€”', priority: prio,
+    to: recips.join(','), content: task.content, type: task.type || '—',
+    team: team || '—', priority: prio,
     pubDate: task.pubDate || '', reviewDate: task.reviewDate || '',
     description: task.description || '',
   });
-  addLog('reminder', 'ðŸ””', `Lembrete (${prio}) â€” ${task.content}`, `Para: ${recips.join(', ')}`);
+  addLog('reminder', '🔔', `Lembrete (${prio}) — ${task.content}`, `Para: ${recips.join(', ')}`);
   return true;
 }
 
 async function syncAdd(task) {
   if (!SCRIPT_URL) return task;
-  setSyncState('syncing', 'Salvandoâ€¦');
+  setSyncState('syncing', 'Salvando…');
   const res = await sheetCall({ action:'add', ...taskToParams(task) });
   if (!res) { setSyncState('error','Erro'); return task; }
   task.row = res.row;
@@ -1028,14 +1028,14 @@ async function syncAdd(task) {
 
 async function syncUpdate(task) {
   if (!SCRIPT_URL || !task.row) return;
-  setSyncState('syncing', 'Atualizandoâ€¦');
+  setSyncState('syncing', 'Atualizando…');
   await sheetCall({ action:'update', row: task.row, ...taskToParams(task) });
   setSyncState('ok', 'Sincronizado');
 }
 
 async function syncDelete(row) {
   if (!SCRIPT_URL || !row) return;
-  setSyncState('syncing', 'Removendoâ€¦');
+  setSyncState('syncing', 'Removendo…');
   await sheetCall({ action:'delete', row });
   setSyncState('ok', 'Sincronizado');
 }
@@ -1047,7 +1047,7 @@ function taskToParams(t) {
     pubDate:     t.pubDate     || '',
     responsible: t.responsible || '',
     priority:    t.priority    || 'P0',
-    sheetStatus: t.sheetStatus || 'NÃ£o iniciado',
+    sheetStatus: t.sheetStatus || 'Não iniciado',
     reviewDate:  t.reviewDate  || '',
     pubDate2:    t.pubDate2    || '',
     file:        t.file        || '',
@@ -1055,25 +1055,25 @@ function taskToParams(t) {
   };
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  PERSISTÃŠNCIA LOCAL
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
+//  PERSISTÊNCIA LOCAL
+// ════════════════════════════════════════════════════════════
 function persist() {
   localStorage.setItem('cj_tasks', JSON.stringify(tasks));
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  DESEMPENHO (derivado ao vivo das tarefas)
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// Penalidade do membro: -10 por tarefa nÃ£o postada (atribuÃ­da a ele e
-// arquivada como perdida) e -5 por tarefa concluÃ­da com atraso.
+// ════════════════════════════════════════════════════════════
+// Penalidade do membro: -10 por tarefa não postada (atribuída a ele e
+// arquivada como perdida) e -5 por tarefa concluída com atraso.
 function getMemberPenalty(memberName) {
   let p = 0;
   tasks.filter(t => isAssignedTo(t, memberName)).forEach(t => {
     if (taskStatus(t) === 'done') {
-      if (t.pubDate2 && t.pubDate && t.pubDate2 > t.pubDate) p += 5;   // concluÃ­da atrasada
+      if (t.pubDate2 && t.pubDate && t.pubDate2 > t.pubDate) p += 5;   // concluída atrasada
     } else if (isArchived(t)) {
-      p += 10;                                                          // nÃ£o postada
+      p += 10;                                                          // não postada
     }
   });
   return p;
@@ -1086,13 +1086,13 @@ function getTeamScore(teamName) {
   return Math.round(people.reduce((a, p) => a + getPersonScore(p), 0) / people.length);
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  LOGS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 let logs = JSON.parse(localStorage.getItem('cj_logs') || '[]');
 
 function persistLogs() {
-  // mantÃ©m no mÃ¡ximo 200 entradas
+  // mantém no máximo 200 entradas
   if (logs.length > 200) logs = logs.slice(-200);
   localStorage.setItem('cj_logs', JSON.stringify(logs));
 }
@@ -1149,7 +1149,7 @@ function renderLogs() {
 
   if (!filtered.length) {
     const msg = _logFilter ? 'Nenhum registro desse tipo ainda.' : 'Nenhum registro ainda.';
-    el.innerHTML = `<div class="empty"><div class="ei">ðŸ“</div><h3>${msg}</h3><p style="font-size:.8rem">Os eventos aparecerÃ£o aqui Ã  medida que acontecerem.</p></div>`;
+    el.innerHTML = `<div class="empty"><div class="ei">📝</div><h3>${msg}</h3><p style="font-size:.8rem">Os eventos aparecerão aqui à medida que acontecerem.</p></div>`;
     return;
   }
 
@@ -1167,15 +1167,15 @@ function renderLogs() {
   }).join('');
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  RENDER CARD
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function renderCard(task, inArchive) {
   const urg  = urgency(task);
   const sts  = taskStatus(task);
   const dRev = daysUntil(task.reviewDate);
 
-  // "NÃ£o Postado": prazo de postagem passou, nÃ£o foi concluÃ­da E nÃ£o estÃ¡
+  // "Não Postado": prazo de postagem passou, não foi concluída E não está
   // mais em andamento (as em andamento continuam na home como "atrasadas").
   const pubPassed   = task.pubDate && task.pubDate < todayStr();
   const isNotPosted = pubPassed && sts !== 'done' && sts !== 'progress';
@@ -1183,33 +1183,33 @@ function renderCard(task, inArchive) {
   let daysHtml = '';
   if (urg === 'done') {
     daysHtml = task.pubDate2
-      ? `<span class="days-text" style="color:var(--green)">âœ… Postado em ${fmtDate(task.pubDate2)}</span>`
+      ? `<span class="days-text" style="color:var(--green)">✅ Postado em ${fmtDate(task.pubDate2)}</span>`
       : '';
   } else if (isNotPosted) {
-    daysHtml = `<span class="days-text" style="color:var(--red)">ðŸ“­ NÃ£o postado</span>`;
+    daysHtml = `<span class="days-text" style="color:var(--red)">📭 Não postado</span>`;
   } else if (urg === 'overdue') {
-    daysHtml = `<span class="days-text" style="color:var(--red)">âš  Atrasada ${Math.abs(dRev)} dia(s)</span>`;
+    daysHtml = `<span class="days-text" style="color:var(--red)">⚠ Atrasada ${Math.abs(dRev)} dia(s)</span>`;
   } else if (dRev === 0) {
-    daysHtml = `<span class="days-text" style="color:var(--red)">âš¡ Entrega hoje!</span>`;
+    daysHtml = `<span class="days-text" style="color:var(--red)">⚡ Entrega hoje!</span>`;
   } else if (dRev === 1) {
-    daysHtml = `<span class="days-text" style="color:var(--orange)">âš¡ Entrega amanhÃ£</span>`;
+    daysHtml = `<span class="days-text" style="color:var(--orange)">⚡ Entrega amanhã</span>`;
   } else if (dRev !== null) {
     const col = urg==='high'?'var(--orange)':urg==='medium'?'var(--yellow)':'var(--muted)';
     daysHtml = `<span class="days-text" style="color:${col}">Entrega em ${dRev} dia(s)</span>`;
   }
 
   const pubDateDisplay = isNotPosted
-    ? `<span style="color:var(--red);font-weight:700">ðŸ“­ NÃ£o Postado</span>`
+    ? `<span style="color:var(--red);font-weight:700">📭 Não Postado</span>`
     : `<strong>${fmtDate(task.pubDate)}</strong>`;
 
   const typeClass = { 'Feed Estatico':'tag-type-feed', 'Feed Carrossel':'tag-type-carrossel', Stories:'tag-type-story', 'Reels Simples':'tag-type-feed', Legenda:'tag-type-outro', 'Text Overlay':'tag-type-outro' }[task.type] || 'tag-type-outro';
   const prioClass = { P3:'tag-prio-p3', P2:'tag-prio-p2', P1:'tag-prio-p1', P0:'tag-prio-p0' }[task.priority] || 'tag-prio-p0';
-  const statusMap = { pending:'Pendente', progress:'Em andamento', done:'ConcluÃ­do' };
+  const statusMap = { pending:'Pendente', progress:'Em andamento', done:'Concluído' };
   const statusCol = { pending:'rgba(234,179,8,.2)', progress:'rgba(59,130,246,.15)', done:'rgba(34,197,94,.12)' };
   const statusTxt = { pending:'#fde047', progress:'#93c5fd', done:'#86efac' };
 
   const fileTag = task.file
-    ? `<a class="tag tag-file" href="${esc(task.file)}" target="_blank" onclick="event.stopPropagation()">ðŸ“Ž Arquivo</a>`
+    ? `<a class="tag tag-file" href="${esc(task.file)}" target="_blank" onclick="event.stopPropagation()">📎 Arquivo</a>`
     : '';
 
   const archiveBorder = inArchive && isNotPosted ? 'border-color:rgba(239,68,68,.4);' : '';
@@ -1218,35 +1218,35 @@ function renderCard(task, inArchive) {
   <div class="task-card ${sts==='done'?'done':''}" style="${archiveBorder}" onclick="openTaskModal(${task.row})">
     <div class="stripe ${urg}"></div>
     <div class="tc-body">
-      <div class="tc-title">${esc(task.content) || '(sem tÃ­tulo)'}</div>
-      <div class="tc-desc">${esc(task.description) || 'Sem descriÃ§Ã£o'}</div>
+      <div class="tc-title">${esc(task.content) || '(sem título)'}</div>
+      <div class="tc-desc">${esc(task.description) || 'Sem descrição'}</div>
       <div class="tc-tags">
         <span class="tag ${typeClass}">${task.type || '?'}</span>
         <span class="tag ${prioClass}">${task.priority || 'P0'}</span>
-        ${(ss=>{const cfg={'Publicado':['tag-sheet-post','âœ…'],'Em execuÃ§Ã£o':['tag-sheet-inic','ðŸŸ¡'],'Em anÃ¡lise':['tag-sheet-inic','ðŸ”µ'],'Em correÃ§Ã£o':['tag-sheet-inic','ðŸŸ '],'Suspenso':['tag-sheet-nao','ðŸ”´']};const[cls,ic]=cfg[ss]||['tag-sheet-nao','â¬œ'];return `<span class="tag ${cls}">${ic} ${ss||'NÃ£o iniciado'}</span>`;})(task.sheetStatus||'NÃ£o iniciado')}
-        <span class="tag tag-person">ðŸ‘¤ ${esc(canonicalName(task.responsible))}</span>
-        ${(t=>{const tc='tag-team-'+(t==='ManhÃ£'?'manha':'tarde');return t?`<span class="tag ${tc}">${TEAMS[t].icon} ${t}</span>`:'';})(getTeam(task.responsible))}
+        ${(ss=>{const cfg={'Publicado':['tag-sheet-post','✅'],'Em execução':['tag-sheet-inic','🟡'],'Em análise':['tag-sheet-inic','🔵'],'Em correção':['tag-sheet-inic','🟠'],'Suspenso':['tag-sheet-nao','🔴']};const[cls,ic]=cfg[ss]||['tag-sheet-nao','⬜'];return `<span class="tag ${cls}">${ic} ${ss||'Não iniciado'}</span>`;})(task.sheetStatus||'Não iniciado')}
+        <span class="tag tag-person">👤 ${esc(canonicalName(task.responsible))}</span>
+        ${(t=>{const tc='tag-team-'+(t==='Manhã'?'manha':'tarde');return t?`<span class="tag ${tc}">${TEAMS[t].icon} ${t}</span>`:'';})(getTeam(task.responsible))}
         <span class="tag" style="background:${statusCol[sts]};color:${statusTxt[sts]}">${statusMap[sts]||'?'}</span>
         ${fileTag}
       </div>
     </div>
     <div class="tc-right">
       <span class="urg-badge urg-${urg}">${urgLabel[urg]||urg}</span>
-      <div class="date-row">ðŸ—“ RevisÃ£o: <strong>${fmtDate(task.reviewDate)}</strong></div>
-      <div class="date-row">ðŸ“¢ Postagem: ${pubDateDisplay}</div>
+      <div class="date-row">🗓 Revisão: <strong>${fmtDate(task.reviewDate)}</strong></div>
+      <div class="date-row">📢 Postagem: ${pubDateDisplay}</div>
       ${daysHtml}
       <div class="card-actions" onclick="event.stopPropagation()">
-        <button class="act-btn" onclick="quickStatusEdit(${task.row},this)" title="Alterar status">âœŽ Status</button>
-        ${sts !== 'done' ? `<button class="act-btn not-done" onclick="markNotDone(${task.row})" title="Marcar como nÃ£o feita e arquivar">âœ— NÃ£o Feito</button>` : ''}
-        <button class="act-btn del" onclick="deleteTask(${task.row})">âœ• Excluir</button>
+        <button class="act-btn" onclick="quickStatusEdit(${task.row},this)" title="Alterar status">✎ Status</button>
+        ${sts !== 'done' ? `<button class="act-btn not-done" onclick="markNotDone(${task.row})" title="Marcar como não feita e arquivar">✗ Não Feito</button>` : ''}
+        <button class="act-btn del" onclick="deleteTask(${task.row})">✕ Excluir</button>
       </div>
     </div>
   </div>`;
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  DASHBOARD
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function renderDashboard() {
   const active = tasks.filter(t => !isArchived(t));
   const open   = active.filter(t => taskStatus(t) !== 'done');
@@ -1260,8 +1260,8 @@ function renderDashboard() {
   renderTarefas();
 }
 
-// Barra de progresso do mÃªs atual: % das tarefas com postagem prevista
-// neste mÃªs que jÃ¡ foram publicadas.
+// Barra de progresso do mês atual: % das tarefas com postagem prevista
+// neste mês que já foram publicadas.
 function renderMonthProgress() {
   const titleEl = document.getElementById('mp-title');
   if (!titleEl) return;
@@ -1272,14 +1272,14 @@ function renderMonthProgress() {
   const pct    = mTasks.length ? Math.round(mDone.length / mTasks.length * 100) : 0;
   const color  = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : pct >= 25 ? 'var(--orange)' : 'var(--red)';
 
-  titleEl.textContent = `ðŸ“… Progresso de ${now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}`;
+  titleEl.textContent = `📅 Progresso de ${now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}`;
   const pctEl = document.getElementById('mp-pct');
   pctEl.textContent = pct + '%'; pctEl.style.color = color;
   const bar = document.getElementById('mp-bar');
   bar.style.width = pct + '%'; bar.style.background = color;
   document.getElementById('mp-sub').textContent = mTasks.length
-    ? `${mDone.length} de ${mTasks.length} tarefa(s) publicada(s) neste mÃªs`
-    : 'Nenhuma tarefa programada para este mÃªs.';
+    ? `${mDone.length} de ${mTasks.length} tarefa(s) publicada(s) neste mês`
+    : 'Nenhuma tarefa programada para este mês.';
 }
 
 function updateSidebar() {
@@ -1301,9 +1301,9 @@ function updateSidebar() {
   if (arqBadge) arqBadge.textContent = tasks.filter(isArchived).length;
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  ARQUIVADOS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function renderArquivados() {
   const archived    = tasks.filter(isArchived);
   const publicados  = archived.filter(t => taskStatus(t) === 'done');
@@ -1325,13 +1325,13 @@ function renderArquivados() {
     </div>`;
   }
 
-  secHtml('arq-nao-postados', naoPostados, 'NÃ£o Postados', 'ðŸ“­', 'Nenhuma tarefa com data vencida sem postagem.');
-  secHtml('arq-publicados',   publicados,  'Publicados',   'âœ…', 'Nenhuma tarefa publicada ainda.');
+  secHtml('arq-nao-postados', naoPostados, 'Não Postados', '📭', 'Nenhuma tarefa com data vencida sem postagem.');
+  secHtml('arq-publicados',   publicados,  'Publicados',   '✅', 'Nenhuma tarefa publicada ainda.');
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  TAREFAS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function renderTarefas() {
   const search    = document.getElementById('f-search').value.toLowerCase();
   const fType     = document.getElementById('f-type').value;
@@ -1348,24 +1348,24 @@ function renderTarefas() {
   // Update title
   const titleEl = document.getElementById('main-list-title');
   if (titleEl) {
-    if (fPrioF)        titleEl.textContent = `ðŸ“‹ ${fPrioF} â€” ${{P3:'Super urgentes',P2:'Alta prioridade',P1:'MÃ©dia prioridade',P0:'Sem urgÃªncia'}[fPrioF]||''}`;
-    else if (progressFilt==='done') titleEl.textContent = 'âœ… ConcluÃ­das';
-    else if (progressFilt==='open') titleEl.textContent = 'ðŸ“‹ Em aberto';
-    else if (fTeam)    titleEl.textContent = `${TEAMS[fTeam]?.icon||'ðŸ‘¥'} Jornalismo ${fTeam}`;
-    else if (hasFilter) titleEl.textContent = 'ðŸ” Resultados filtrados';
-    else               titleEl.textContent = 'ðŸ“‹ Todas as Tarefas';
+    if (fPrioF)        titleEl.textContent = `📋 ${fPrioF} — ${{P3:'Super urgentes',P2:'Alta prioridade',P1:'Média prioridade',P0:'Sem urgência'}[fPrioF]||''}`;
+    else if (progressFilt==='done') titleEl.textContent = '✅ Concluídas';
+    else if (progressFilt==='open') titleEl.textContent = '📋 Em aberto';
+    else if (fTeam)    titleEl.textContent = `${TEAMS[fTeam]?.icon||'👥'} Jornalismo ${fTeam}`;
+    else if (hasFilter) titleEl.textContent = '🔍 Resultados filtrados';
+    else               titleEl.textContent = '📋 Todas as Tarefas';
   }
 
-  // As concluÃ­das ficam arquivadas, mas o filtro "ConcluÃ­das" deve mostrÃ¡-las.
+  // As concluídas ficam arquivadas, mas o filtro "Concluídas" deve mostrá-las.
   const showArchived = progressFilt === 'done';
   let list = tasks.filter(t => {
-    if (!showArchived && isArchived(t)) return false; // arquivados ficam na aba prÃ³pria
+    if (!showArchived && isArchived(t)) return false; // arquivados ficam na aba própria
     const mS  = !search       || (t.content+''+t.responsible+''+t.description).toLowerCase().includes(search);
     const mT  = !fType        || t.type === fType;
     const mP  = !fPrio        || t.priority === fPrio;
     const mPF = !fPrioF       || t.priority === fPrioF;
     const mTm = !fTeam        || getTeam(t.responsible) === fTeam;
-    const mSS = !fSheetSt     || (t.sheetStatus || 'NÃ£o iniciado') === fSheetSt;
+    const mSS = !fSheetSt     || (t.sheetStatus || 'Não iniciado') === fSheetSt;
     const mPg = !progressFilt || (progressFilt === 'done' ? taskStatus(t) === 'done' : taskStatus(t) !== 'done');
     return mS && mT && mP && mPF && mTm && mSS && mPg;
   });
@@ -1381,7 +1381,7 @@ function renderTarefas() {
 
   document.getElementById('list-tarefas').innerHTML = list.length
     ? list.map(renderCard).join('')
-    : '<div class="empty"><div class="ei">ðŸ”</div><h3>Nenhuma tarefa encontrada</h3></div>';
+    : '<div class="empty"><div class="ei">🔍</div><h3>Nenhuma tarefa encontrada</h3></div>';
 }
 
 function clearFilters() {
@@ -1396,9 +1396,9 @@ function clearFilters() {
   renderTarefas();
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  CALENDÃRIO
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
+//  CALENDÁRIO
+// ════════════════════════════════════════════════════════════
 function renderCalendar() {
   const y = calDate.getFullYear(), m = calDate.getMonth();
   document.getElementById('cal-title').textContent =
@@ -1407,7 +1407,7 @@ function renderCalendar() {
   const firstDay   = new Date(y,m,1).getDay();
   const daysInMonth = new Date(y,m+1,0).getDate();
   const today = new Date(); today.setHours(0,0,0,0);
-  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'];
+  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 
   let html = days.map(d=>`<div class="cal-head">${d}</div>`).join('');
 
@@ -1421,17 +1421,17 @@ function renderCalendar() {
     const isToday = new Date(y,m,d).getTime()===today.getTime();
     const pubs = tasks.filter(t => t.pubDate===ds);
     const revs = tasks.filter(t => t.reviewDate===ds && taskStatus(t)!=='done');
-    let evs = pubs.map(t=>`<div class="cal-ev pub" title="${esc(t.content)}">ðŸ“¢ ${esc(t.content)}</div>`).join('');
-    evs    += revs.map(t=>`<div class="cal-ev rev" title="${esc(t.content)}">ðŸ—“ ${esc(t.content)}</div>`).join('');
+    let evs = pubs.map(t=>`<div class="cal-ev pub" title="${esc(t.content)}">📢 ${esc(t.content)}</div>`).join('');
+    evs    += revs.map(t=>`<div class="cal-ev rev" title="${esc(t.content)}">🗓 ${esc(t.content)}</div>`).join('');
     html   += `<div class="cal-day ${isToday?'today':''}"><div class="cal-day-num">${d}</div>${evs}</div>`;
   }
   document.getElementById('cal-grid').innerHTML = html;
 }
 function changeMonth(dir) { calDate.setMonth(calDate.getMonth()+dir); renderCalendar(); }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  EQUIPE
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function showTeamStat(teamName, statKey) {
   const ts = getTeamStats(teamName);
   const map = {
@@ -1440,21 +1440,21 @@ function showTeamStat(teamName, statKey) {
     published: { label: 'Publicadas',               list: ts._published, color: 'var(--green)' },
     onTime:    { label: 'Em andamento (no prazo)',   list: ts._onTime,    color: 'var(--yellow)' },
     latePost:  { label: 'Com atraso',               list: ts._latePost,  color: 'var(--orange)' },
-    notPosted: { label: 'NÃ£o postadas',             list: ts._notPosted, color: 'var(--red)' },
+    notPosted: { label: 'Não postadas',             list: ts._notPosted, color: 'var(--red)' },
   };
   const { label, list, color } = map[statKey] || map.total;
 
   document.querySelectorAll('.stat-modal-overlay').forEach(e => e.remove());
 
   const rows = list.map(t => {
-    const sts = { 'Publicado':'âœ… Publicado', 'Em execuÃ§Ã£o':'ðŸŸ¡ Em execuÃ§Ã£o', 'Em anÃ¡lise':'ðŸ”µ Em anÃ¡lise', 'Em correÃ§Ã£o':'ðŸŸ  Em correÃ§Ã£o', 'Suspenso':'ðŸ”´ Suspenso', 'NÃ£o iniciado':'â¬œ NÃ£o iniciado' };
-    const statusLabel = sts[t.sheetStatus] || t.sheetStatus || 'â¬œ NÃ£o iniciado';
-    const pubStr = t.pubDate ? fmtDate(t.pubDate) : 'â€”';
+    const sts = { 'Publicado':'✅ Publicado', 'Em execução':'🟡 Em execução', 'Em análise':'🔵 Em análise', 'Em correção':'🟠 Em correção', 'Suspenso':'🔴 Suspenso', 'Não iniciado':'⬜ Não iniciado' };
+    const statusLabel = sts[t.sheetStatus] || t.sheetStatus || '⬜ Não iniciado';
+    const pubStr = t.pubDate ? fmtDate(t.pubDate) : '—';
     const pCol = { P3:'var(--red)', P2:'var(--orange)', P1:'var(--yellow)', P0:'var(--muted)' }[t.priority] || 'var(--muted)';
     return `<div class="stat-task-row">
-      <div class="str-title">${esc(t.content) || '(sem tÃ­tulo)'}</div>
+      <div class="str-title">${esc(t.content) || '(sem título)'}</div>
       <div class="str-meta">
-        <span class="str-badge" style="color:${pCol}">${t.priority||'â€”'}</span>
+        <span class="str-badge" style="color:${pCol}">${t.priority||'—'}</span>
         <span class="str-badge">${pubStr}</span>
         <span style="font-size:.75rem;color:var(--muted)">${statusLabel}</span>
       </div>
@@ -1465,8 +1465,8 @@ function showTeamStat(teamName, statKey) {
   overlay.className = 'stat-modal-overlay';
   overlay.innerHTML = `<div class="stat-modal">
     <div class="stat-modal-hdr">
-      <h3><span style="color:${color}">${list.length}</span> Â· Jornalismo ${teamName} â€” ${label}</h3>
-      <button class="btn btn-ghost" style="padding:4px 10px;font-size:.8rem" onclick="this.closest('.stat-modal-overlay').remove()">âœ•</button>
+      <h3><span style="color:${color}">${list.length}</span> · Jornalismo ${teamName} — ${label}</h3>
+      <button class="btn btn-ghost" style="padding:4px 10px;font-size:.8rem" onclick="this.closest('.stat-modal-overlay').remove()">✕</button>
     </div>
     <div class="stat-modal-body">${rows}</div>
   </div>`;
@@ -1474,11 +1474,11 @@ function showTeamStat(teamName, statKey) {
   document.body.appendChild(overlay);
 }
 
-// EstatÃ­sticas da EQUIPE (por tarefa, agrupadas pela equipe responsÃ¡vel)
+// Estatísticas da EQUIPE (por tarefa, agrupadas pela equipe responsável)
 function getTeamStats(teamName) {
   const today      = todayStr();
-  const isLateDone = t => t.pubDate2 && t.pubDate && t.pubDate2 > t.pubDate;       // concluÃ­da apÃ³s o previsto
-  const latePub    = t => t.pubDate && t.pubDate < today;                          // jÃ¡ passou da data de postagem
+  const isLateDone = t => t.pubDate2 && t.pubDate && t.pubDate2 > t.pubDate;       // concluída após o previsto
+  const latePub    = t => t.pubDate && t.pubDate < today;                          // já passou da data de postagem
   const teamTasks  = tasks.filter(t => getTeam(t.responsible) === teamName);
   const published  = teamTasks.filter(t => taskStatus(t) === 'done');
   const inProgress = teamTasks.filter(t => taskStatus(t) === 'progress');
@@ -1495,7 +1495,7 @@ function getTeamStats(teamName) {
   };
 }
 
-// EstatÃ­sticas do MEMBRO â€” apenas as tarefas em que ele estÃ¡ escalado.
+// Estatísticas do MEMBRO — apenas as tarefas em que ele está escalado.
 function getMemberStats(memberName) {
   const isLate    = t => t.pubDate2 && t.pubDate && t.pubDate2 > t.pubDate;
   const mine      = tasks.filter(t => isAssignedTo(t, memberName));
@@ -1542,7 +1542,7 @@ function renderEquipe() {
         <div class="ts-cell" onclick="showTeamStat('${teamName}','published')" title="Ver publicadas"><div class="ts-num" style="color:var(--green)">${ts.published}</div><div class="ts-lbl">Publicadas</div></div>
         <div class="ts-cell" onclick="showTeamStat('${teamName}','onTime')"   title="Ver no prazo"><div class="ts-num" style="color:var(--yellow)">${ts.onTime}</div><div class="ts-lbl">No prazo</div></div>
         <div class="ts-cell" onclick="showTeamStat('${teamName}','latePost')" title="Ver com atraso"><div class="ts-num" style="color:var(--orange)">${ts.latePost}</div><div class="ts-lbl">Com atraso</div></div>
-        <div class="ts-cell" onclick="showTeamStat('${teamName}','notPosted')" title="Ver nÃ£o postadas"><div class="ts-num" style="color:var(--red)">${ts.notPosted}</div><div class="ts-lbl">NÃ£o postadas</div></div>
+        <div class="ts-cell" onclick="showTeamStat('${teamName}','notPosted')" title="Ver não postadas"><div class="ts-num" style="color:var(--red)">${ts.notPosted}</div><div class="ts-lbl">Não postadas</div></div>
       </div>
 
       <div class="member-grid">
@@ -1578,8 +1578,8 @@ function renderEquipe() {
             <div class="member-stats">
               <div class="ms-item"><div class="ms-n" style="color:var(--green)">${ms.published}</div><div class="ms-l">Publicadas</div></div>
               <div class="ms-item"><div class="ms-n" style="color:var(--accent2)">${ms.active}</div><div class="ms-l">Em aberto</div></div>
-              <div class="ms-item"><div class="ms-n" style="color:var(--red)">${ms.notPosted}</div><div class="ms-l">NÃ£o postadas</div></div>
-              <div class="ms-item"><div class="ms-n" style="color:var(--orange)">${ms.lateDone}</div><div class="ms-l">ConcluÃ­das atrasadas</div></div>
+              <div class="ms-item"><div class="ms-n" style="color:var(--red)">${ms.notPosted}</div><div class="ms-l">Não postadas</div></div>
+              <div class="ms-item"><div class="ms-n" style="color:var(--orange)">${ms.lateDone}</div><div class="ms-l">Concluídas atrasadas</div></div>
             </div>
             <div>
               <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Tarefas ativas</div>
@@ -1591,16 +1591,16 @@ function renderEquipe() {
     </div>`;
   });
 
-  container.innerHTML = html || '<div class="empty"><div class="ei">ðŸ‘¥</div><h3>Nenhuma equipe configurada</h3></div>';
+  container.innerHTML = html || '<div class="empty"><div class="ei">👥</div><h3>Nenhuma equipe configurada</h3></div>';
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  NAVEGAÃ‡ÃƒO
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
+//  NAVEGAÇÃO
+// ════════════════════════════════════════════════════════════
 let _logFilter = '';
 function filterLogs(type) {
   _logFilter = type;
-  // destaca botÃ£o ativo
+  // destaca botão ativo
   document.querySelectorAll('#log-filters .btn').forEach(b => b.classList.remove('active'));
   const id = type ? 'lf-' + type : 'lf-all';
   const btn = document.getElementById(id);
@@ -1627,7 +1627,7 @@ function applyFilter(type, value) {
   if (type === 'team')     teamFilt     = value;
   if (type === 'progress') progressFilt = value;
 
-  // Garante que o painel principal estÃ¡ visÃ­vel
+  // Garante que o painel principal está visível
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-dashboard').classList.add('active');
 
@@ -1640,9 +1640,9 @@ function applyFilter(type, value) {
   renderTarefas();
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  MODAL EQUIPE
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 let _teamModalName = null;
 
 function openTeamModal(teamName) {
@@ -1667,7 +1667,7 @@ function renderTeamTabs() {
     </button>`;
   }).join('');
   document.getElementById('team-modal-title').textContent =
-    `${TEAMS[_teamModalName]?.icon||'ðŸ‘¥'} Jornalismo ${_teamModalName}`;
+    `${TEAMS[_teamModalName]?.icon||'👥'} Jornalismo ${_teamModalName}`;
 }
 
 function switchTeamTab(teamName) {
@@ -1697,8 +1697,8 @@ function renderTeamMemberList() {
     const email = (team.emails && team.emails[name]) || '';
     return `<div class="team-member-row">
       <input class="tm-input" value="${esc(name)}"  placeholder="Nome"    onchange="updateMemberName(${i},this.value)"  title="Nome">
-      <input class="tm-input" type="email" value="${esc(email)}" placeholder="email@â€¦" onchange="updateMemberEmail('${esc(name).replace(/'/g,"\\'")}',this.value)" title="E-mail">
-      <button class="tm-del" onclick="removeTeamMember(${i})" title="Remover">ðŸ—‘</button>
+      <input class="tm-input" type="email" value="${esc(email)}" placeholder="email@…" onchange="updateMemberEmail('${esc(name).replace(/'/g,"\\'")}',this.value)" title="E-mail">
+      <button class="tm-del" onclick="removeTeamMember(${i})" title="Remover">🗑</button>
     </div>`;
   }).join('');
 }
@@ -1735,7 +1735,7 @@ function addTeamMember() {
 
   const team = TEAMS[_teamModalName];
   if (team.people.map(p=>p.toLowerCase()).includes(name.toLowerCase())) {
-    msg.textContent = 'Esse membro jÃ¡ existe na equipe.'; return;
+    msg.textContent = 'Esse membro já existe na equipe.'; return;
   }
 
   // Remove from other team if already there
@@ -1752,7 +1752,7 @@ function addTeamMember() {
   saveTeamsToStorage();
   nameInput.value = ''; emailInput.value = '';
   renderTeamMemberList();
-  toast(`${name} adicionado(a) Ã  equipe ${_teamModalName}!`, 'ok');
+  toast(`${name} adicionado(a) à equipe ${_teamModalName}!`, 'ok');
   updateSidebar();
 }
 
@@ -1767,10 +1767,10 @@ function removeTeamMember(idx) {
   updateSidebar();
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  E-MAIL
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// E-mails apenas dos membros escalados na tarefa (nÃ£o a equipe inteira).
+// ════════════════════════════════════════════════════════════
+// E-mails apenas dos membros escalados na tarefa (não a equipe inteira).
 function responsibleEmails(task) {
   const names = (task.responsible || '').split(',').map(s => s.trim()).filter(Boolean);
   const out = [];
@@ -1788,7 +1788,7 @@ function responsibleEmails(task) {
 
 async function sendTaskEmail(task, recipients, isTest = false) {
   if (!SCRIPT_URL || !recipients.length) return;
-  const team = getTeam(task.responsible) || task.responsible || 'â€”';
+  const team = getTeam(task.responsible) || task.responsible || '—';
   return sheetCall({
     action: 'notify', test: isTest ? 'true' : 'false',
     to: recipients.join(','),
@@ -1798,9 +1798,9 @@ async function sendTaskEmail(task, recipients, isTest = false) {
   });
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  MODAL TAREFA
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function openTaskModal(row) {
   editRow = row ?? null;
   document.getElementById('modal-task-title').textContent = row ? 'Editar Tarefa' : 'Nova Tarefa';
@@ -1808,23 +1808,23 @@ function openTaskModal(row) {
   if (row) {
     const t = tasks.find(x => x.row === row);
     if (!t) return;
-    const teamName = getTeam(t.responsible) || 'ManhÃ£';
+    const teamName = getTeam(t.responsible) || 'Manhã';
     const preSelected = t.responsible ? t.responsible.split(',').map(s => s.trim()).filter(Boolean) : null;
     document.getElementById('m-content').value = t.content || '';
     document.getElementById('m-type').value    = t.type    || 'Stories';
     document.getElementById('m-team').value    = teamName;
     document.getElementById('m-pubdate').value = t.pubDate || '';
     document.getElementById('m-desc').value    = t.description || '';
-    document.getElementById('m-status').value  = t.sheetStatus || 'NÃ£o iniciado';
+    document.getElementById('m-status').value  = t.sheetStatus || 'Não iniciado';
     renderMemberSelector(teamName, preSelected);
   } else {
     document.getElementById('m-content').value = '';
     document.getElementById('m-type').value    = 'Feed Estatico';
-    document.getElementById('m-team').value    = 'ManhÃ£';
+    document.getElementById('m-team').value    = 'Manhã';
     document.getElementById('m-pubdate').value = '';
     document.getElementById('m-desc').value    = '';
-    document.getElementById('m-status').value  = 'NÃ£o iniciado';
-    renderMemberSelector('ManhÃ£');
+    document.getElementById('m-status').value  = 'Não iniciado';
+    renderMemberSelector('Manhã');
   }
   onPubDateChange();
   document.getElementById('modal-task').classList.add('open');
@@ -1852,7 +1852,7 @@ function renderMemberSelector(teamName, preSelected) {
     return `<div class="member-chip${isOn?' selected':''}" onclick="toggleMemberChip(this,'${name.replace(/'/g,"\\'")}')">
       <div class="mc-avatar" style="background:${color}">${initials}</div>
       <span>${esc(name)}</span>
-      <span class="mc-check">âœ“</span>
+      <span class="mc-check">✓</span>
     </div>`;
   }).join('');
 
@@ -1889,7 +1889,7 @@ async function saveTask() {
   const pubDate = document.getElementById('m-pubdate').value;
 
   if (!content || !team || !pubDate) {
-    toast('Preencha: ConteÃºdo, Equipe e Data de Postagem.', 'err'); return;
+    toast('Preencha: Conteúdo, Equipe e Data de Postagem.', 'err'); return;
   }
 
   const selectedMembers = getSelectedMembers();
@@ -1914,25 +1914,25 @@ async function saveTask() {
     let task = { row: null, content, type, responsible, pubDate, reviewDate, priority, description, sheetStatus };
     task = await syncAdd(task);
     tasks.push(task);
-    // Marca a prioridade atual como jÃ¡ "notificada" para nÃ£o disparar um
-    // lembrete de escalonamento logo na criaÃ§Ã£o.
+    // Marca a prioridade atual como já "notificada" para não disparar um
+    // lembrete de escalonamento logo na criação.
     if (task.row && priority !== 'P0') { notified[task.row] = priority; persistNotified(); }
     persist();
     document.getElementById('modal-task').classList.remove('open');
     renderAll();
-    toast('Tarefa criada e salva na planilha! ðŸŽ‰', 'ok');
+    toast('Tarefa criada e salva na planilha! 🎉', 'ok');
 
-    // E-mail de nova tarefa: sÃ³ para os responsÃ¡veis escalados + admins
+    // E-mail de nova tarefa: só para os responsáveis escalados + admins
     const memberEmails = responsibleEmails(task);
     const adminEmails  = ADMINS.map(a => a.email).filter(Boolean);
     const recipients   = [...new Set([...memberEmails, ...adminEmails])];
     if (recipients.length) {
       sendTaskEmail(task, recipients, false).then(res => {
         if (res?.success) {
-          toast(`ðŸ“§ E-mail enviado para ${recipients.length} pessoa(s)!`, 'ok');
-          addLog('email', 'ðŸ“§', `Email de nova tarefa â€” ${task.content}`, `Para: ${recipients.join(', ')}`);
+          toast(`📧 E-mail enviado para ${recipients.length} pessoa(s)!`, 'ok');
+          addLog('email', '📧', `Email de nova tarefa — ${task.content}`, `Para: ${recipients.join(', ')}`);
         } else {
-          addLog('error', 'âŒ', `Falha ao enviar email de nova tarefa â€” ${task.content}`, `Tentativa: ${recipients.join(', ')}`);
+          addLog('error', '❌', `Falha ao enviar email de nova tarefa — ${task.content}`, `Tentativa: ${recipients.join(', ')}`);
         }
       });
     }
@@ -1944,8 +1944,8 @@ function quickStatusEdit(row, btn) {
   const task = tasks.find(t => t.row === row);
   if (!task) return;
 
-  const opts  = ['NÃ£o iniciado','Em execuÃ§Ã£o','Em anÃ¡lise','Em correÃ§Ã£o','Suspenso','Publicado'];
-  const icons = {'NÃ£o iniciado':'â¬œ','Em execuÃ§Ã£o':'ðŸŸ¡','Em anÃ¡lise':'ðŸ”µ','Em correÃ§Ã£o':'ðŸŸ ','Suspenso':'ðŸ”´','Publicado':'âœ…'};
+  const opts  = ['Não iniciado','Em execução','Em análise','Em correção','Suspenso','Publicado'];
+  const icons = {'Não iniciado':'⬜','Em execução':'🟡','Em análise':'🔵','Em correção':'🟠','Suspenso':'🔴','Publicado':'✅'};
 
   const pop = document.createElement('div');
   pop.className = 'status-pop';
@@ -1972,16 +1972,16 @@ async function quickStatusChange(row, newStatus) {
   if (idx < 0) return;
   tasks[idx].sheetStatus = newStatus;
   if (newStatus === 'Publicado' && !tasks[idx].pubDate2) tasks[idx].pubDate2 = todayStr();
-  tasks[idx].priority = calcPriority(tasks[idx]); // Publicado â†’ P0; demais recalculados
+  tasks[idx].priority = calcPriority(tasks[idx]); // Publicado → P0; demais recalculados
   persist();
   renderAll();
   toast(`Status: ${newStatus}`, 'ok');
-  addLog('info', 'âœŽ', `Status alterado â€” ${tasks[idx].content}`, `Novo status: ${newStatus}`);
+  addLog('info', '✎', `Status alterado — ${tasks[idx].content}`, `Novo status: ${newStatus}`);
   await syncUpdate(tasks[idx]);
 }
 
 async function markNotDone(row) {
-  if (!confirm('Marcar esta tarefa como "NÃ£o Feita"? Ela serÃ¡ arquivada com status Suspenso.')) return;
+  if (!confirm('Marcar esta tarefa como "Não Feita"? Ela será arquivada com status Suspenso.')) return;
   const idx = tasks.findIndex(t => t.row === row);
   if (idx < 0) return;
   tasks[idx].sheetStatus = 'Suspenso';
@@ -1989,17 +1989,17 @@ async function markNotDone(row) {
   delete notified[row]; persistNotified();
   persist();
   renderAll();
-  toast(`Tarefa marcada como NÃ£o Feita e arquivada.`, 'info');
-  addLog('warning', 'âœ—', `NÃ£o Feito â€” ${tasks[idx].content}`, 'Status definido como Suspenso');
+  toast(`Tarefa marcada como Não Feita e arquivada.`, 'info');
+  addLog('warning', '✗', `Não Feito — ${tasks[idx].content}`, 'Status definido como Suspenso');
   await syncUpdate(tasks[idx]);
 }
 
 async function deleteTask(row) {
-  if (!confirm('Excluir esta tarefa da planilha tambÃ©m?')) return;
+  if (!confirm('Excluir esta tarefa da planilha também?')) return;
   tasks = tasks.filter(t => t.row !== row);
-  // Ao excluir uma linha da planilha, as linhas abaixo sobem 1 posiÃ§Ã£o.
-  // Sem esse ajuste, os 'row' locais ficam defasados e o prÃ³ximo update
-  // escreveria por cima da tarefa errada (atÃ© o prÃ³ximo sync completo).
+  // Ao excluir uma linha da planilha, as linhas abaixo sobem 1 posição.
+  // Sem esse ajuste, os 'row' locais ficam defasados e o próximo update
+  // escreveria por cima da tarefa errada (até o próximo sync completo).
   tasks.forEach(t => { if (t.row && t.row > row) t.row--; });
   const shifted = {};
   Object.entries(notified).forEach(([r, v]) => {
@@ -2010,13 +2010,13 @@ async function deleteTask(row) {
   notified = shifted; persistNotified();
   persist();
   renderAll();
-  toast('Tarefa excluÃ­da.', 'err');
+  toast('Tarefa excluída.', 'err');
   await syncDelete(row);
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  CONFIG
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function openConfig() {
   document.getElementById('cfg-url').value = SCRIPT_URL;
   document.getElementById('modal-config').classList.add('open');
@@ -2031,7 +2031,7 @@ async function saveConfig() {
   localStorage.setItem('cj_script_url', url);
   document.getElementById('modal-config').classList.remove('open');
   if (url) {
-    toast('URL salva! Buscando dados da planilhaâ€¦', 'info');
+    toast('URL salva! Buscando dados da planilha…', 'info');
     await refreshSheet();
   } else {
     setSyncState('', 'Offline');
@@ -2039,9 +2039,9 @@ async function saveConfig() {
   }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  TOAST
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function toast(msg, type='ok') {
   const el = document.getElementById('toast');
   el.textContent = msg; el.className = `toast ${type} show`;
@@ -2049,9 +2049,9 @@ function toast(msg, type='ok') {
   toast._t = setTimeout(() => el.classList.remove('show'), 3500);
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  RENDERIZAR TUDO
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 function renderAll() {
   const active = document.querySelector('.page.active');
   if (!active) return;
@@ -2064,10 +2064,10 @@ function renderAll() {
   updateSidebar();
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ════════════════════════════════════════════════════════════
 //  INIT
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function showLoader(msg='Carregando dados do Sheetsâ€¦') {
+// ════════════════════════════════════════════════════════════
+function showLoader(msg='Carregando dados do Sheets…') {
   const el = document.getElementById('loader');
   const tx = document.getElementById('loaderTxt');
   if (tx) tx.textContent = msg;
@@ -2088,19 +2088,18 @@ updateSidebar();
 })();
 
 if (SCRIPT_URL) {
-  showLoader('Carregando dados do Sheetsâ€¦');
-  setSyncState('syncing', 'Conectandoâ€¦');
+  showLoader('Carregando dados do Sheets…');
+  setSyncState('syncing', 'Conectando…');
   refreshSheet();
 } else {
-  setSyncState('', 'Offline â€” configure em âš™');
+  setSyncState('', 'Offline — configure em ⚙');
 }
 
 // Auto-refresh: a cada minuto recalcula prioridades (com base na data de
-// revisÃ£o), dispara lembretes de escalonamento e atualiza os labels de
-// urgÃªncia sem precisar recarregar a pÃ¡gina.
+// revisão), dispara lembretes de escalonamento e atualiza os labels de
+// urgência sem precisar recarregar a página.
 setInterval(() => { autoMaintain({ push: true, silent: true }); renderAll(); }, 60 * 1000);
 </script>
 
 </body>
 </html>
-

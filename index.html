@@ -79,6 +79,22 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;justify-conten
 
 footer{text-align:center;padding:1.25rem;font-size:.68rem;font-weight:500;color:var(--mu2);border-top:1px solid var(--bd)}
 
+/* ===== TELA DE SENHA ===== */
+#lock{position:fixed;inset:0;background:var(--bg);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:1.5rem}
+#lock.off{display:none}
+#lock::before{content:'';position:fixed;top:-220px;left:50%;transform:translateX(-50%);width:900px;height:520px;background:radial-gradient(ellipse at center,rgba(59,130,246,.13),transparent 65%);pointer-events:none}
+.lock-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--a3),var(--a2));border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 0 32px rgba(59,130,246,.35)}
+.lock-title{font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.lock-sub{font-size:.8rem;color:var(--mu);font-weight:500;margin-top:-.9rem}
+.lock-form{display:flex;gap:.5rem;width:100%;max-width:320px}
+#lockPass{flex:1;background:var(--s1);border:1px solid var(--bd2);color:var(--tx);padding:12px 18px;border-radius:var(--r-pill);font-size:16px;outline:none;font-family:inherit;text-align:center;letter-spacing:.3em;transition:.15s}
+#lockPass:focus{border-color:var(--a3);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+#lockPass.err{border-color:#ef4444;animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.lock-btn{background:var(--a2);border:none;color:#fff;padding:12px 22px;border-radius:var(--r-pill);cursor:pointer;font-size:.85rem;font-weight:700;font-family:inherit;transition:.15s}
+.lock-btn:hover{background:var(--a3)}
+.lock-msg{font-size:.74rem;color:#ef4444;font-weight:600;min-height:1em}
+
 /* ===== MOBILE: só Marcos Falido e Tesourinha ativos ===== */
 @media(max-width:768px){
   main{padding:2rem 1rem;justify-content:flex-start}
@@ -150,6 +166,39 @@ footer{text-align:center;padding:1.25rem;font-size:.68rem;font-weight:500;color:
 </main>
 
 <footer>Marcos Bot · Central de Painéis</footer>
+
+<div id="lock">
+  <div class="lock-icon">🔒</div>
+  <div class="lock-title">Marcos Bot</div>
+  <p class="lock-sub">Digite a senha para entrar</p>
+  <form class="lock-form" onsubmit="return unlock(event)">
+    <input type="password" id="lockPass" inputmode="numeric" autocomplete="off" placeholder="••••••">
+    <button type="submit" class="lock-btn">Entrar</button>
+  </form>
+  <div class="lock-msg" id="lockMsg"></div>
+</div>
+
+<script>
+const AUTH_KEY = 'mb_auth', AUTH_VAL = 'ok903092';
+if (localStorage.getItem(AUTH_KEY) === AUTH_VAL) {
+  document.getElementById('lock').classList.add('off');
+} else {
+  setTimeout(() => document.getElementById('lockPass').focus(), 100);
+}
+function unlock(e) {
+  e.preventDefault();
+  const inp = document.getElementById('lockPass');
+  if (inp.value === '903092') {
+    localStorage.setItem(AUTH_KEY, AUTH_VAL);
+    document.getElementById('lock').classList.add('off');
+  } else {
+    inp.classList.remove('err'); void inp.offsetWidth; inp.classList.add('err');
+    inp.value = '';
+    document.getElementById('lockMsg').textContent = 'Senha incorreta';
+  }
+  return false;
+}
+</script>
 
 </body>
 </html>
