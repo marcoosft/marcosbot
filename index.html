@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07090b">
+<title>Marcos Bot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#07090b; --s1:#0e1116; --s2:#151a22; --s3:#1c2330;
+  --bd:#1e2634; --bd2:#2b3648;
+  --a2:#2563eb; --a3:#3b82f6; --al:#93c5fd;
+  --tx:#eef2f8; --tx2:#c9d3e2; --mu:#77839c; --mu2:#485472;
+  --r-card:24px; --r-pill:999px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:'Outfit',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;position:relative}
+body::before{content:'';position:fixed;top:-220px;left:50%;transform:translateX(-50%);width:900px;height:520px;background:radial-gradient(ellipse at center,rgba(59,130,246,.13),transparent 65%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-260px;right:-160px;width:700px;height:520px;background:radial-gradient(ellipse at center,rgba(37,99,235,.07),transparent 65%);pointer-events:none;z-index:0}
+header,main,footer{position:relative;z-index:1}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
+::selection{background:rgba(59,130,246,.25)}
+
+header{background:rgba(7,9,11,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 1.75rem;display:flex;align-items:center;height:64px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--a3),var(--a2));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 0 18px rgba(59,130,246,.3)}
+.logo h1{font-size:1rem;font-weight:800;letter-spacing:-.02em}
+.logo small{font-size:.64rem;color:var(--mu);display:block;font-weight:500;letter-spacing:.02em}
+
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.75rem;gap:2.2rem;max-width:1240px;margin:0 auto;width:100%}
+
+.welcome{text-align:center}
+.welcome .lbl{display:inline-block;font-size:.66rem;font-weight:700;color:var(--al);text-transform:uppercase;letter-spacing:.16em;margin-bottom:.9rem;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);padding:5px 16px;border-radius:var(--r-pill)}
+.welcome h2{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.35rem}
+.welcome p{color:var(--mu);font-size:.85rem;font-weight:500}
+
+.panels{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;width:100%}
+
+.panel-card{
+  background:var(--s1);
+  border:1px solid var(--bd);
+  border-radius:var(--r-card);
+  padding:1.6rem 1.5rem;
+  text-decoration:none;
+  color:var(--tx);
+  display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;
+  transition:.18s;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+}
+.panel-card::before{content:'';position:absolute;top:-80px;right:-40px;width:300px;height:180px;border-radius:50%;background:radial-gradient(ellipse at center,var(--glow),transparent 70%);pointer-events:none;opacity:.7;transition:.2s}
+.panel-card:hover{border-color:var(--hbd);transform:translateY(-3px);box-shadow:0 10px 32px var(--hsh)}
+.panel-card:hover::before{opacity:1}
+
+.panel-card.editorial{--glow:rgba(229,62,62,.12);--hbd:rgba(229,62,62,.5);--hsh:rgba(229,62,62,.12)}
+.panel-card.financas{--glow:rgba(200,245,66,.10);--hbd:rgba(200,245,66,.45);--hsh:rgba(200,245,66,.10)}
+.panel-card.tesourinha{--glow:rgba(59,130,246,.14);--hbd:rgba(59,130,246,.5);--hsh:rgba(59,130,246,.12)}
+.panel-card.juvlogs{--glow:rgba(239,68,68,.12);--hbd:rgba(239,68,68,.5);--hsh:rgba(239,68,68,.12)}
+
+.card-icon{width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--s2);border:1px solid var(--bd)}
+.editorial .card-icon{background:rgba(229,62,62,.10);border-color:rgba(229,62,62,.25)}
+.financas .card-icon{background:rgba(200,245,66,.08);border-color:rgba(200,245,66,.22)}
+.tesourinha .card-icon{background:rgba(59,130,246,.10);border-color:rgba(59,130,246,.25)}
+.juvlogs .card-icon{background:rgba(239,68,68,.10);border-color:rgba(239,68,68,.25)}
+
+.card-info h3{font-size:1.02rem;font-weight:800;letter-spacing:-.01em;margin-bottom:.3rem}
+.card-info p{font-size:.76rem;color:var(--mu);line-height:1.55;font-weight:500}
+
+.card-arrow{margin-top:auto;font-size:.72rem;font-weight:700;color:var(--mu);display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--r-pill);border:1px solid var(--bd);background:var(--s2);transition:.18s}
+.panel-card:hover .card-arrow{color:var(--tx2);border-color:var(--bd2);gap:10px}
+
+/* badge "só no PC" — escondida no desktop */
+.pc-badge{display:none;position:absolute;top:14px;right:14px;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);background:rgba(119,131,156,.14);border:1px solid var(--bd2);border-radius:var(--r-pill);padding:4px 10px}
+
+footer{text-align:center;padding:1.25rem;font-size:.68rem;font-weight:500;color:var(--mu2);border-top:1px solid var(--bd)}
+
+/* ===== MOBILE: só Marcos Falido e Tesourinha ativos ===== */
+@media(max-width:768px){
+  main{padding:2rem 1rem;justify-content:flex-start}
+  .welcome h2{font-size:1.4rem}
+  .panels{grid-template-columns:1fr}
+  .panel-card.desktop-only{opacity:.4;pointer-events:none;filter:grayscale(1)}
+  .panel-card.desktop-only .pc-badge{display:block}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🤖</div>
+    <div>
+      <h1>Marcos Bot</h1>
+      <small>Central de painéis</small>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="welcome">
+    <span class="lbl">Hub Central</span>
+    <h2>Olá, Marcos 👋</h2>
+    <p>Selecione um painel para começar</p>
+  </div>
+
+  <div class="panels">
+    <a class="panel-card financas" href="financas/">
+      <div class="card-icon">💸</div>
+      <div class="card-info">
+        <h3>Marcos Falido</h3>
+        <p>Controle inteligente das finanças pessoais e lançamentos</p>
+      </div>
+      <div class="card-arrow">Acessar <span>→</span></div>
+    </a>
+
+    <a class="panel-card tesourinha" href="tesourinha/">
+      <div class="card-icon">✂️</div>
+      <div class="card-info">
+        <h3>Tesourinha</h3>
+        <p>Gestão financeira da comissão de formatura e controle de arrecadações</p>
+      </div>
+      <div class="card-arrow">Acessar <span>→</span></div>
+    </a>
+
+    <a class="panel-card editorial desktop-only" href="editorial/">
+      <span class="pc-badge">Só no PC</span>
+      <div class="card-icon">📰</div>
+      <div class="card-info">
+        <h3>Marcos Editorial</h3>
+        <p>Painel de editoração e gestão de pautas do clube de jornalismo</p>
+      </div>
+      <div class="card-arrow">Acessar <span>→</span></div>
+    </a>
+
+    <a class="panel-card juvlogs desktop-only" href="https://juvlogs.onrender.com/" target="_blank">
+      <span class="pc-badge">Só no PC</span>
+      <div class="card-icon">▶️</div>
+      <div class="card-info">
+        <h3>JuVlogs</h3>
+        <p>O YouTube da Júlia — vídeos e conteúdos</p>
+      </div>
+      <div class="card-arrow">Acessar <span>→</span></div>
+    </a>
+  </div>
+</main>
+
+<footer>Marcos Bot · Central de Painéis</footer>
+
+</body>
+</html>

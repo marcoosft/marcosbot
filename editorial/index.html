@@ -1,0 +1,2106 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcos Editorial</title>
+<style>
+  :root {
+    --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a; --border: #2e3249;
+    --accent: #A30909; --accent2: #e53e3e;
+    --text: #e2e8f0; --muted: #7c85a2;
+    --red: #ef4444; --orange: #f97316; --yellow: #eab308; --green: #22c55e; --blue: #3b82f6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; min-height:100vh; }
+
+  /* â”€â”€ HEADER â”€â”€ */
+  header {
+    background:linear-gradient(135deg,#1a1d27,#12151f); border-bottom:1px solid var(--border);
+    padding:0 2rem; display:flex; align-items:center; justify-content:space-between;
+    height:64px; position:sticky; top:0; z-index:100; backdrop-filter:blur(10px);
+  }
+  .logo { display:flex; align-items:center; gap:12px; }
+  .logo-icon { width:36px; height:36px; background:linear-gradient(135deg,var(--accent),var(--accent2)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .logo h1 { font-size:1.1rem; font-weight:700; }
+  .logo span { font-size:.75rem; color:var(--muted); display:block; }
+  .header-right { display:flex; gap:10px; align-items:center; }
+
+  .sync-pill {
+    display:flex; align-items:center; gap:6px; font-size:.78rem; color:var(--muted);
+    background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:5px 12px;
+  }
+  .sync-dot { width:7px; height:7px; border-radius:50%; background:var(--muted); flex-shrink:0; transition:background .3s; }
+  .sync-dot.ok { background:var(--green); }
+  .sync-dot.syncing { background:var(--yellow); animation:pulse 1s infinite; }
+  .sync-dot.error { background:var(--red); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  .btn { padding:8px 18px; border-radius:8px; border:none; cursor:pointer; font-size:.85rem; font-weight:600; transition:all .2s; display:flex; align-items:center; gap:6px; }
+  .btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; }
+  .btn-primary:hover { opacity:.9; transform:translateY(-1px); box-shadow:0 4px 20px rgba(163,9,9,.4); }
+  .btn-ghost { background:transparent; color:var(--muted); border:1px solid var(--border); }
+  .btn-ghost:hover { background:var(--surface2); color:var(--text); }
+
+  /* â”€â”€ LAYOUT â”€â”€ */
+  .app { display:flex; min-height:calc(100vh - 64px); }
+
+  aside {
+    width:240px; background:var(--surface); border-right:1px solid var(--border);
+    padding:1.5rem 1rem; display:flex; flex-direction:column; gap:1.5rem;
+    position:sticky; top:64px; height:calc(100vh - 64px); overflow-y:auto;
+  }
+  .sb-section h3 { font-size:.7rem; font-weight:700; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; padding-left:8px; }
+  .nav-item { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; cursor:pointer; color:var(--muted); font-size:.875rem; transition:all .15s; }
+  .nav-item:hover { background:var(--surface2); color:var(--text); }
+  .nav-item.active { background:rgba(163,9,9,.15); color:var(--accent2); }
+  .nav-badge { margin-left:auto; background:var(--accent); color:#fff; border-radius:20px; font-size:.7rem; font-weight:700; padding:1px 7px; min-width:20px; text-align:center; }
+  .prio-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .stats-mini { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .stat-mini { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:10px; text-align:center; }
+  .stat-mini .num { font-size:1.4rem; font-weight:800; }
+  .stat-mini .lbl { font-size:.65rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  .progress-wrap { background:var(--surface2); border-radius:99px; height:6px; overflow:hidden; margin-top:4px; }
+  .progress-bar { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--accent),var(--accent2)); transition:width .5s; }
+
+  /* â”€â”€ MAIN â”€â”€ */
+  main { flex:1; padding:2rem; overflow-y:auto; }
+  .page { display:none; }
+  .page.active { display:block; animation:pageFadeIn .22s ease both; }
+  @keyframes pageFadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+  /* â”€â”€ ANIMAÃ‡Ã•ES CARDS â”€â”€ */
+  @keyframes cardIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  .task-card { animation:cardIn .18s ease both; }
+  .tasks-grid .task-card:nth-child(1)  { animation-delay:.02s }
+  .tasks-grid .task-card:nth-child(2)  { animation-delay:.04s }
+  .tasks-grid .task-card:nth-child(3)  { animation-delay:.06s }
+  .tasks-grid .task-card:nth-child(4)  { animation-delay:.08s }
+  .tasks-grid .task-card:nth-child(5)  { animation-delay:.10s }
+  .tasks-grid .task-card:nth-child(6)  { animation-delay:.12s }
+  .tasks-grid .task-card:nth-child(n+7){ animation-delay:.14s }
+
+  /* â”€â”€ STATS CARDS â”€â”€ */
+  .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:2rem; }
+  .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.2rem 1.5rem; position:relative; overflow:hidden; }
+  .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+  .stat-card.c-red::before { background:var(--red); }
+  .stat-card.c-orange::before { background:var(--orange); }
+  .stat-card.c-yellow::before { background:var(--yellow); }
+  .stat-card.c-green::before { background:var(--green); }
+  .stat-card .s-num { font-size:2rem; font-weight:800; }
+  .stat-card .s-lbl { font-size:.8rem; color:var(--muted); margin-top:2px; }
+  .stat-card .s-ico { position:absolute; right:1.2rem; top:50%; transform:translateY(-50%); font-size:2rem; opacity:.12; }
+
+  /* â”€â”€ PROGRESSO MENSAL â”€â”€ */
+  .month-progress { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.2rem 1.5rem; margin-bottom:2rem; }
+  .mp-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .mp-head .mp-title { font-weight:700; font-size:.95rem; }
+  #mp-pct { font-weight:800; font-size:1.2rem; }
+  .mp-bar-wrap { background:var(--surface2); border-radius:99px; height:12px; overflow:hidden; }
+  .mp-bar { height:100%; border-radius:99px; transition:width .8s cubic-bezier(.4,0,.2,1); }
+  .mp-sub { font-size:.78rem; color:var(--muted); margin-top:8px; }
+
+  /* â”€â”€ SECTION HEADER â”€â”€ */
+  .sec-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; flex-wrap:wrap; gap:8px; }
+  .sec-header h2 { font-size:1.1rem; font-weight:700; }
+  .filters { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .fsel { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:6px 12px; border-radius:8px; font-size:.8rem; cursor:pointer; outline:none; }
+  .fsel:focus { border-color:var(--accent); }
+  .search { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:6px 12px; border-radius:8px; font-size:.8rem; outline:none; width:200px; }
+  .search::placeholder { color:var(--muted); }
+  .search:focus { border-color:var(--accent); }
+
+  /* â”€â”€ TASK CARD â”€â”€ */
+  .tasks-grid { display:grid; gap:12px; }
+  .task-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:1.2rem 1.5rem; display:grid; grid-template-columns:4px 1fr auto;
+    gap:1rem; align-items:start; transition:all .2s; cursor:pointer;
+  }
+  .task-card:hover { border-color:var(--accent); transform:translateY(-1px); box-shadow:0 4px 20px rgba(0,0,0,.3); }
+  .task-card.done { opacity:.5; }
+  .stripe { border-radius:4px; align-self:stretch; min-height:60px; }
+  .stripe.overdue  { background:#7f1d1d; }
+  .stripe.critical { background:var(--red); }
+  .stripe.high     { background:var(--orange); }
+  .stripe.medium   { background:var(--yellow); }
+  .stripe.low      { background:var(--green); }
+  .stripe.done     { background:#166534; }
+  .tc-body { min-width:0; }
+  .tc-title { font-weight:700; font-size:.95rem; margin-bottom:4px; }
+  .tc-desc { color:var(--muted); font-size:.8rem; margin-bottom:8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:520px; }
+  .tc-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px; }
+  .tag { display:inline-flex; align-items:center; gap:3px; padding:2px 8px; border-radius:20px; font-size:.72rem; font-weight:600; }
+  .tag-sheet-nao   { background:rgba(124,133,162,.15); color:var(--muted); }
+  .tag-sheet-inic  { background:rgba(234,179,8,.15);  color:#fde047; }
+  .tag-sheet-post  { background:rgba(34,197,94,.18);  color:#86efac; }
+  .tag-type-carrossel { background:rgba(59,130,246,.15); color:#93c5fd; }
+  .tag-type-feed      { background:rgba(34,197,94,.12);  color:#86efac; }
+  .tag-type-story     { background:rgba(249,115,22,.12); color:#fdba74; }
+  .tag-type-outro     { background:rgba(124,133,162,.15);color:var(--muted); }
+  .tag-prio-p3 { background:rgba(239,68,68,.2);   color:#fca5a5; }
+  .tag-prio-p2 { background:rgba(249,115,22,.2);  color:#fdba74; }
+  .tag-prio-p1 { background:rgba(234,179,8,.2);   color:#fde047; }
+  .tag-prio-p0 { background:rgba(124,133,162,.12);color:var(--muted); }
+  .tag-person  { background:rgba(163,9,9,.15);    color:#fca5a5; }
+  .tag-file    { background:rgba(34,197,94,.1);   color:#86efac; text-decoration:none; }
+  .tc-right { display:flex; flex-direction:column; align-items:flex-end; gap:6px; min-width:170px; }
+  .urg-badge { font-size:.7rem; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:.05em; }
+  .urg-overdue  { background:rgba(127,29,29,.4);  color:#fca5a5; border:1px solid rgba(239,68,68,.3); }
+  .urg-critical { background:rgba(239,68,68,.2);  color:#fca5a5; }
+  .urg-high     { background:rgba(249,115,22,.2); color:#fdba74; }
+  .urg-medium   { background:rgba(234,179,8,.2);  color:#fde047; }
+  .urg-low      { background:rgba(34,197,94,.2);  color:#86efac; }
+  .urg-done     { background:rgba(34,197,94,.1);  color:#86efac; }
+  .date-row { font-size:.75rem; color:var(--muted); display:flex; align-items:center; gap:4px; }
+  .date-row strong { color:var(--text); }
+  .days-text { font-size:.72rem; font-weight:600; }
+  .card-actions { display:flex; gap:6px; margin-top:2px; }
+  .act-btn { background:var(--surface2); border:1px solid var(--border); color:var(--muted); padding:4px 10px; border-radius:6px; font-size:.75rem; cursor:pointer; transition:all .15s; }
+  .act-btn:hover { color:var(--text); border-color:var(--accent); }
+  .act-btn.del:hover { border-color:var(--red); color:var(--red); }
+  .act-btn.not-done:hover { border-color:var(--orange); color:var(--orange); }
+
+  /* â”€â”€ EQUIPE BADGES â”€â”€ */
+  .tag-team-manha { background:rgba(59,130,246,.18); color:#93c5fd; }
+  .tag-team-tarde { background:rgba(249,115,22,.15); color:#fdba74; }
+  .team-section { margin-bottom:2rem; }
+  .team-section-header {
+    display:flex; align-items:center; gap:10px; margin-bottom:1rem;
+    padding:10px 16px; border-radius:10px; border:1px solid var(--border);
+  }
+  .team-section-header h3 { font-size:1rem; font-weight:700; }
+  .team-section-header .team-count { margin-left:auto; font-size:.8rem; color:var(--muted); }
+
+  /* â”€â”€ EMPTY â”€â”€ */
+  .empty { text-align:center; padding:4rem 2rem; color:var(--muted); }
+  .empty .ei { font-size:3rem; margin-bottom:1rem; opacity:.4; }
+  .empty h3 { font-size:1rem; color:var(--text); margin-bottom:.4rem; }
+
+  /* â”€â”€ CALENDÃRIO â”€â”€ */
+  .cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+  .cal-nav h3 { font-size:1rem; font-weight:700; text-transform:capitalize; }
+  .cal-nav-btn { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:6px 14px; border-radius:8px; cursor:pointer; font-size:.85rem; transition:all .15s; }
+  .cal-nav-btn:hover { background:var(--surface2); }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .cal-head { text-align:center; font-size:.72rem; color:var(--muted); font-weight:700; padding:8px 0; text-transform:uppercase; }
+  .cal-day { background:var(--surface); border:1px solid var(--border); border-radius:8px; min-height:88px; padding:8px; }
+  .cal-day.today { border-color:var(--accent); }
+  .cal-day.other { opacity:.3; }
+  .cal-day-num { font-size:.8rem; font-weight:700; margin-bottom:4px; }
+  .cal-ev { font-size:.62rem; padding:2px 5px; border-radius:4px; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .cal-ev.pub { background:rgba(34,197,94,.2);  color:#86efac; }
+  .cal-ev.rev { background:rgba(163,9,9,.2);    color:#fca5a5; }
+
+  /* â”€â”€ EQUIPE â”€â”€ */
+  .people-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+  .person-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem; }
+  .person-av { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; font-weight:800; margin-bottom:12px; background:linear-gradient(135deg,var(--accent),var(--accent2)); }
+  .person-name { font-weight:700; }
+  .person-tasks { margin-top:10px; display:flex; flex-direction:column; gap:4px; }
+  .person-task-row { background:var(--surface2); border-radius:6px; padding:6px 10px; font-size:.78rem; display:flex; align-items:center; justify-content:space-between; gap:6px; }
+
+  /* â”€â”€ MODAL â”€â”€ */
+  .overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200; display:flex; align-items:center; justify-content:center; padding:1rem; opacity:0; pointer-events:none; transition:opacity .2s; backdrop-filter:blur(4px); }
+  .overlay.open { opacity:1; pointer-events:all; }
+  .modal { background:var(--surface); border:1px solid var(--border); border-radius:16px; width:100%; max-width:620px; max-height:92vh; overflow-y:auto; transform:scale(.95); transition:transform .2s; }
+  .overlay.open .modal { transform:scale(1); }
+  .modal-head { padding:1.5rem 1.5rem 0; display:flex; align-items:center; justify-content:space-between; }
+  .modal-head h2 { font-size:1.05rem; font-weight:700; }
+  .modal-close { background:none; border:none; color:var(--muted); font-size:1.3rem; cursor:pointer; }
+  .modal-close:hover { color:var(--text); }
+  .modal-body { padding:1.5rem; display:grid; gap:1rem; }
+  .frow { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .fg { display:flex; flex-direction:column; gap:6px; }
+  .fg label { font-size:.78rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  .fc { background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:10px 14px; border-radius:8px; font-size:.9rem; outline:none; font-family:inherit; transition:border .2s; }
+  .fc:focus { border-color:var(--accent); }
+  .fc::placeholder { color:var(--muted); }
+  textarea.fc { resize:vertical; min-height:72px; }
+  .calc-preview { background:rgba(163,9,9,.1); border:1px solid rgba(163,9,9,.3); border-radius:8px; padding:10px 14px; font-size:.85rem; color:var(--accent2); display:flex; align-items:center; gap:8px; }
+  .modal-foot { padding:0 1.5rem 1.5rem; display:flex; gap:10px; justify-content:flex-end; }
+
+  /* â”€â”€ CONFIG MODAL â”€â”€ */
+  .cfg-step { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; margin-bottom:10px; }
+  .cfg-step h4 { font-size:.85rem; font-weight:700; margin-bottom:6px; }
+  .cfg-step p { font-size:.8rem; color:var(--muted); line-height:1.5; }
+  .cfg-step code { background:rgba(163,9,9,.15); color:var(--accent2); padding:1px 5px; border-radius:4px; font-family:monospace; font-size:.82rem; }
+
+  /* â”€â”€ TOAST â”€â”€ */
+  .toast { position:fixed; bottom:2rem; right:2rem; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px 20px; font-size:.875rem; z-index:999; transform:translateY(80px); opacity:0; transition:all .3s; box-shadow:0 8px 30px rgba(0,0,0,.4); max-width:360px; }
+  .toast.show { transform:translateY(0); opacity:1; }
+  .toast.ok  { border-left:3px solid var(--green); }
+  .toast.err { border-left:3px solid var(--red); }
+  .toast.info { border-left:3px solid var(--blue); }
+
+  ::-webkit-scrollbar { width:6px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--muted); }
+
+  /* â”€â”€ EQUIPE PERFORMANCE â”€â”€ */
+  .team-perf-block { margin-bottom:2.5rem; }
+  .team-perf-hdr {
+    display:flex; align-items:center; gap:14px; padding:14px 20px;
+    border-radius:12px; border:1px solid var(--border); margin-bottom:1rem;
+    background:var(--surface);
+  }
+  .team-perf-hdr h3 { font-size:1rem; font-weight:700; margin:0; }
+  .team-stats-row { display:flex; gap:0; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:1.2rem; }
+  .ts-cell { flex:1; padding:12px 8px; text-align:center; background:var(--surface); border-right:1px solid var(--border); }
+  .ts-cell:last-child { border-right:none; }
+  .ts-num { font-size:1.5rem; font-weight:800; line-height:1; margin-bottom:3px; }
+  .ts-lbl { font-size:.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+  .member-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+  .member-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:1.1rem; display:flex; flex-direction:column; gap:10px;
+    animation:cardIn .2s ease both;
+  }
+  .member-top { display:flex; align-items:center; gap:10px; }
+  .member-av {
+    width:42px; height:42px; border-radius:10px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1rem; font-weight:800; color:#fff;
+  }
+  .member-name { font-weight:700; font-size:.9rem; }
+  .member-role { font-size:.72rem; color:var(--muted); }
+  .member-score-wrap { display:flex; align-items:center; gap:8px; }
+  .member-score-bar { flex:1; background:var(--surface2); border-radius:99px; height:7px; overflow:hidden; }
+  .member-score-fill { height:100%; border-radius:99px; transition:width .8s cubic-bezier(.4,0,.2,1); }
+  .member-score-pct { font-size:.78rem; font-weight:700; width:36px; text-align:right; flex-shrink:0; }
+  .member-stats { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .ms-item { background:var(--surface2); border-radius:7px; padding:7px 8px; }
+  .ms-item .ms-n { font-size:1.1rem; font-weight:800; line-height:1; }
+  .ms-item .ms-l { font-size:.65rem; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
+  .member-tasks-mini { display:flex; flex-direction:column; gap:4px; }
+  .mtm-row { background:var(--surface2); border-radius:6px; padding:5px 8px; font-size:.76rem; display:flex; align-items:center; justify-content:space-between; gap:6px; }
+
+  /* â”€â”€ MEMBER SELECTOR (modal tarefa) â”€â”€ */
+  .member-selector { display:flex; flex-wrap:wrap; gap:7px; padding:6px 0; }
+  .member-chip { display:flex; align-items:center; gap:6px; padding:6px 12px; border-radius:20px; border:2px solid var(--border); background:var(--surface2); cursor:pointer; font-size:.82rem; font-weight:600; transition:all .15s; user-select:none; }
+  .member-chip:hover { border-color:var(--accent); }
+  .member-chip.selected { border-color:var(--accent); background:rgba(163,9,9,.18); color:#fff; }
+  .member-chip .mc-avatar { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:700; color:#fff; flex-shrink:0; }
+  .member-chip .mc-check { font-size:.75rem; opacity:0; transition:opacity .12s; }
+  .member-chip.selected .mc-check { opacity:1; }
+
+  /* â”€â”€ STAT DRILL-DOWN MODAL â”€â”€ */
+  .stat-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:800; display:flex; align-items:center; justify-content:center; animation:pageFadeIn .15s ease both; }
+  .stat-modal { background:var(--surface); border:1px solid var(--border); border-radius:14px; width:min(520px,95vw); max-height:80vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,.7); }
+  .stat-modal-hdr { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border); }
+  .stat-modal-hdr h3 { font-size:.95rem; font-weight:700; margin:0; }
+  .stat-modal-body { overflow-y:auto; padding:12px 16px; display:flex; flex-direction:column; gap:8px; }
+  .stat-task-row { background:var(--surface2); border-radius:9px; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+  .stat-task-row .str-title { flex:1; font-size:.84rem; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .stat-task-row .str-meta { display:flex; gap:8px; align-items:center; flex-shrink:0; }
+  .str-badge { font-size:.68rem; font-weight:700; padding:2px 7px; border-radius:5px; background:var(--surface); }
+  .ts-cell { cursor:pointer; transition:background .12s; }
+  .ts-cell:hover { background:var(--surface2) !important; }
+
+  /* â”€â”€ RELATÃ“RIO â”€â”€ */
+  .report-block { margin-bottom:2rem; }
+  .report-team-hdr {
+    display:flex; align-items:center; gap:12px; padding:12px 16px;
+    border-radius:10px; border:1px solid var(--border); margin-bottom:12px;
+  }
+  .report-team-hdr h3 { font-size:.95rem; font-weight:700; margin:0; }
+  .report-member-row {
+    display:grid; grid-template-columns:140px 1fr 52px;
+    align-items:center; gap:14px; padding:9px 6px;
+    border-bottom:1px solid rgba(46,50,73,.5);
+  }
+  .report-member-row:last-child { border-bottom:none; }
+  .rm-name { font-size:.875rem; font-weight:600; }
+  .score-bar-wrap { background:var(--surface2); border-radius:99px; height:10px; overflow:hidden; }
+  .score-bar { height:100%; border-radius:99px; transition:width .7s cubic-bezier(.4,0,.2,1); }
+  .rm-pct { font-size:.82rem; font-weight:700; text-align:right; }
+  .hist-row {
+    display:flex; align-items:center; gap:10px; padding:10px 4px;
+    border-bottom:1px solid rgba(46,50,73,.5);
+  }
+  .hist-row:last-child { border-bottom:none; }
+
+  /* â”€â”€ POPOVER STATUS â”€â”€ */
+  .status-pop {
+    position:fixed; z-index:500; background:var(--surface2);
+    border:1px solid var(--border); border-radius:10px; padding:6px;
+    display:flex; flex-direction:column; gap:2px; min-width:170px;
+    box-shadow:0 8px 30px rgba(0,0,0,.55);
+  }
+  .status-pop button {
+    background:none; border:none; color:var(--text); padding:7px 12px;
+    text-align:left; border-radius:7px; cursor:pointer; font-size:.82rem;
+    font-family:inherit; transition:background .1s;
+  }
+  .status-pop button:hover { background:var(--surface); }
+  .status-pop button.active { font-weight:700; background:rgba(163,9,9,.12); }
+
+  .team-member-row {
+    display:grid; grid-template-columns:1fr 1fr auto;
+    align-items:center; gap:6px;
+  }
+  .tm-input {
+    background:var(--surface2); border:1px solid var(--border); border-radius:6px;
+    color:var(--text); font-size:.85rem; padding:6px 8px; width:100%;
+    transition:border-color .15s;
+  }
+  .tm-input:focus { outline:none; border-color:var(--accent2); }
+  .team-member-row .tm-del  {
+    background:none; border:none; color:var(--muted); cursor:pointer;
+    font-size:1rem; line-height:1; padding:4px 7px; border-radius:4px;
+    transition:color .15s, background .15s;
+  }
+  .team-member-row .tm-del:hover { color:var(--red); background:rgba(239,68,68,.1); }
+  .et-chip {
+    background:var(--surface2); border:1px solid var(--border); border-radius:20px;
+    color:var(--text); font-size:.78rem; padding:4px 10px; cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .et-chip:hover { border-color:var(--accent2); background:rgba(163,9,9,.1); }
+  .stat-mini { cursor:pointer; transition:background .15s; border-radius:8px; }
+  .stat-mini:hover { background:rgba(255,255,255,.05); }
+  @keyframes spin { to { transform:rotate(360deg) } }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  #loader {
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:rgba(10,12,18,.96); backdrop-filter:blur(4px);
+    flex-direction:column; align-items:center; justify-content:center; gap:1.4rem;
+  }
+  #loader.on { display:flex; animation:fadeIn .2s ease; }
+  .loader-ring {
+    position:relative; width:52px; height:52px;
+  }
+  .loader-ring svg {
+    width:52px; height:52px; animation:spin 1s linear infinite;
+  }
+  .loader-ring circle {
+    fill:none; stroke-width:3.5; stroke-linecap:round;
+    stroke-dasharray:80; stroke-dashoffset:20;
+    stroke:url(#lg);
+  }
+  #loaderTxt {
+    color:var(--muted); font-size:.82rem; letter-spacing:.06em;
+    text-transform:uppercase; animation:fadeIn .3s ease .1s both;
+  }
+  .loader-title {
+    color:var(--accent2); font-size:1rem; font-weight:700;
+    letter-spacing:.04em; animation:fadeIn .3s ease both;
+  }
+</style>
+</head>
+<body>
+
+<!-- â•â•â• LOADER â•â•â• -->
+<div id="loader">
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#e53e3e"/>
+        <stop offset="100%" stop-color="#A30909"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <div class="loader-ring">
+    <svg viewBox="0 0 52 52">
+      <circle cx="26" cy="26" r="22"/>
+    </svg>
+  </div>
+  <p class="loader-title">Clube de Jornalismo</p>
+  <p id="loaderTxt">Carregando dados do Sheetsâ€¦</p>
+</div>
+
+<!-- â•â•â• HEADER â•â•â• -->
+<header>
+  <div style="display:flex;align-items:center;gap:8px">
+    <a href="../" title="Voltar ao painel central" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);color:var(--muted);text-decoration:none;font-size:1rem;flex-shrink:0;transition:.2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">&#8592;</a>
+    <div class="logo">
+      <div class="logo-icon">ðŸ“°</div>
+      <div><h1>Marcos Editorial</h1><span>Painel de EditoraÃ§Ã£o</span></div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="sync-pill" id="sync-pill">
+      <div class="sync-dot" id="sync-dot"></div>
+      <span id="sync-txt">Offline</span>
+    </div>
+    <button class="btn btn-ghost" onclick="openConfig()">âš™ Config</button>
+    <button class="btn btn-ghost" onclick="smartSync()" title="Sincroniza com a planilha, recalcula prioridades e envia lembretes automaticamente" id="btn-sync">â‡… Sincronizar</button>
+    <button class="btn btn-ghost" onclick="autoMaintain({push:true})" title="Recalcula prioridades agora e envia lembretes pendentes" id="btn-check">ðŸ”„ Atualizar</button>
+    <button class="btn btn-primary" onclick="openTaskModal()">+ Nova Tarefa</button>
+  </div>
+</header>
+
+<div class="app">
+<!-- â•â•â• SIDEBAR â•â•â• -->
+<aside>
+  <div class="sb-section">
+    <h3>VisÃ£o</h3>
+    <div class="nav-item active" id="nav-painel"      onclick="showPage('dashboard',this)">ðŸ“Š Painel</div>
+    <div class="nav-item"        id="nav-equipe"      onclick="showPage('equipe',this)">ðŸ‘¥ Equipes</div>
+    <div class="nav-item"        id="nav-calendario"  onclick="showPage('calendario',this)">ðŸ“… CalendÃ¡rio</div>
+    <div class="nav-item"        id="nav-arquivados"  onclick="showPage('arquivados',this)">ðŸ“¦ Arquivados <span class="nav-badge" id="b-arquivados" style="background:var(--muted)">0</span></div>
+    <div class="nav-item"        id="nav-logs"        onclick="showPage('logs',this)">ðŸ“ Logs <span class="nav-badge" id="log-badge" style="background:var(--muted)">0</span></div>
+  </div>
+  <div class="sb-section">
+    <h3>Prioridade</h3>
+    <div class="nav-item" id="fi-p3" onclick="applyFilter('prio','P3')"><span class="prio-dot" style="background:var(--red)"></span>    P3 â€” Super urgente <span class="nav-badge" id="b-p3" style="background:var(--red)">0</span></div>
+    <div class="nav-item" id="fi-p2" onclick="applyFilter('prio','P2')"><span class="prio-dot" style="background:var(--orange)"></span>  P2 â€” Alta          <span class="nav-badge" id="b-p2" style="background:var(--orange)">0</span></div>
+    <div class="nav-item" id="fi-p1" onclick="applyFilter('prio','P1')"><span class="prio-dot" style="background:var(--yellow)"></span>  P1 â€” MÃ©dia         <span class="nav-badge" id="b-p1" style="background:var(--yellow)">0</span></div>
+    <div class="nav-item" id="fi-p0" onclick="applyFilter('prio','P0')"><span class="prio-dot" style="background:var(--muted)"></span>   P0 â€” Sem urgÃªncia  <span class="nav-badge" id="b-p0" style="background:var(--muted)">0</span></div>
+  </div>
+  <div class="sb-section">
+    <h3>Progresso</h3>
+    <div class="stats-mini">
+      <div class="stat-mini" id="fi-prog-open" onclick="applyFilter('progress','open')"  style="cursor:pointer" title="Ver pendentes">
+        <div class="num" id="sb-total" style="color:var(--accent2)">0</div><div class="lbl">Em aberto</div>
+      </div>
+      <div class="stat-mini" id="fi-prog-done" onclick="applyFilter('progress','done')" style="cursor:pointer" title="Ver concluÃ­dos">
+        <div class="num" id="sb-done"  style="color:var(--green)">0</div><div class="lbl">Prontos</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- â•â•â• MAIN â•â•â• -->
+<main>
+
+  <!-- PAINEL ÃšNICO -->
+  <div id="page-dashboard" class="page active">
+    <div class="stats-grid" style="grid-template-columns:repeat(2,1fr)">
+      <div class="stat-card c-yellow" onclick="applyFilter('progress','open')" style="cursor:pointer" title="Ver em aberto"><div class="s-num" id="st-open">0</div><div class="s-lbl">Em aberto</div><div class="s-ico">ðŸ“‹</div></div>
+      <div class="stat-card c-green"  onclick="applyFilter('progress','done')" style="cursor:pointer" title="Ver concluÃ­das"><div class="s-num" id="st-done">0</div><div class="s-lbl">ConcluÃ­das</div><div class="s-ico">âœ…</div></div>
+    </div>
+    <div class="month-progress">
+      <div class="mp-head">
+        <span class="mp-title" id="mp-title">ðŸ“… Progresso do mÃªs</span>
+        <span id="mp-pct">0%</span>
+      </div>
+      <div class="mp-bar-wrap"><div class="mp-bar" id="mp-bar" style="width:0%"></div></div>
+      <div class="mp-sub" id="mp-sub"></div>
+    </div>
+    <div class="sec-header" style="margin-top:1.5rem">
+      <h2 id="main-list-title">ðŸ“‹ Todas as Tarefas</h2>
+      <div class="filters">
+        <input  class="search" id="f-search"        placeholder="ðŸ” Buscar..." oninput="renderTarefas()">
+        <select class="fsel"   id="f-type"           onchange="renderTarefas()">
+          <option value="">Todos os tipos</option>
+          <option>Feed Estatico</option><option>Feed Carrossel</option><option>Stories</option><option>Reels Simples</option><option>Legenda</option><option>Text Overlay</option>
+        </select>
+        <select class="fsel"   id="f-prio"           onchange="renderTarefas()">
+          <option value="">Todas prioridades</option>
+          <option>P3</option><option>P2</option><option>P1</option><option>P0</option>
+        </select>
+        <select class="fsel"   id="f-team"           onchange="renderTarefas()">
+          <option value="">Todas as equipes</option>
+          <option value="ManhÃ£">ðŸŒ… ManhÃ£</option>
+          <option value="Tarde">ðŸŒ‡ Tarde</option>
+        </select>
+        <select class="fsel"   id="f-sheet-status"   onchange="renderTarefas()">
+          <option value="">Todos os andamentos</option>
+          <option value="NÃ£o iniciado">â¬œ NÃ£o iniciado</option>
+          <option value="Em execuÃ§Ã£o">ðŸŸ¡ Em execuÃ§Ã£o</option>
+          <option value="Em anÃ¡lise">ðŸ”µ Em anÃ¡lise</option>
+          <option value="Publicado">âœ… Publicado</option>
+          <option value="Suspenso">ðŸ”´ Suspenso</option>
+          <option value="Em correÃ§Ã£o">ðŸŸ  Em correÃ§Ã£o</option>
+        </select>
+        <button class="btn btn-ghost" id="btn-clear-filter" onclick="clearFilters()" style="display:none;font-size:.8rem;padding:5px 10px">âœ• Limpar filtro</button>
+      </div>
+    </div>
+    <div id="list-tarefas" class="tasks-grid"></div>
+  </div>
+
+  <!-- CALENDÃRIO -->
+  <div id="page-calendario" class="page">
+    <div class="cal-nav">
+      <button class="cal-nav-btn" onclick="changeMonth(-1)">â† Anterior</button>
+      <h3 id="cal-title"></h3>
+      <button class="cal-nav-btn" onclick="changeMonth(1)">PrÃ³ximo â†’</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div style="display:flex;gap:16px;margin-top:1rem;font-size:.8rem;color:var(--muted)">
+      <span>ðŸŸ¢ PublicaÃ§Ã£o</span><span>ðŸ”´ Prazo de RevisÃ£o</span>
+    </div>
+  </div>
+
+  <!-- EQUIPE -->
+  <div id="page-equipe" class="page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:10px">
+      <div>
+        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">ðŸ‘¥ Equipes</h2>
+        <p style="font-size:.78rem;color:var(--muted)">Desempenho por equipe e por membro</p>
+      </div>
+      <button class="btn btn-ghost" onclick="openTeamModal(null)">âš™ Gerenciar membros</button>
+    </div>
+    <div id="equipe-content"></div>
+  </div>
+
+  <!-- ARQUIVADOS -->
+  <div id="page-arquivados" class="page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:10px">
+      <div>
+        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">ðŸ“¦ Arquivados</h2>
+        <p style="font-size:.78rem;color:var(--muted)">Tarefas publicadas e tarefas com data de postagem vencida</p>
+      </div>
+    </div>
+    <div id="arq-nao-postados" style="margin-bottom:2rem"></div>
+    <div id="arq-publicados"></div>
+  </div>
+
+  <!-- LOGS -->
+  <div id="page-logs" class="page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:10px">
+      <div>
+        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:2px">ðŸ“ Logs de Atividade</h2>
+        <p style="font-size:.78rem;color:var(--muted)">Todos os emails, advertÃªncias e sincronizaÃ§Ãµes registradas</p>
+      </div>
+      <button class="btn btn-ghost" style="font-size:.8rem" onclick="if(confirm('Limpar todos os logs?')){logs=[];persistLogs();renderLogs();document.getElementById('log-badge').textContent='0';toast('Logs apagados.','info')}">ðŸ—‘ Limpar logs</button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem" id="log-filters">
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('')"       id="lf-all">Todos</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('email')"   id="lf-email">ðŸ“§ Emails</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('warning')" id="lf-warning">âš  AdvertÃªncias</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('reminder')" id="lf-reminder">ðŸ”” Lembretes</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('sync')"   id="lf-sync">â‡… Syncs</button>
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:4px 12px" onclick="filterLogs('error')"  id="lf-error">âŒ Erros</button>
+    </div>
+    <div id="log-list"></div>
+  </div>
+
+
+</main>
+</div>
+
+<!-- â•â•â• MODAL TAREFA â•â•â• -->
+<div class="overlay" id="modal-task" onclick="closeTaskModal(event)">
+<div class="modal">
+  <div class="modal-head">
+    <h2 id="modal-task-title">Nova Tarefa</h2>
+    <button class="modal-close" onclick="closeTaskModal()">âœ•</button>
+  </div>
+  <div class="modal-body">
+    <div class="fg">
+      <label>ConteÃºdo / TÃ­tulo *</label>
+      <input class="fc" id="m-content" placeholder="Ex: Cobertura do evento X">
+    </div>
+    <div class="frow">
+      <div class="fg">
+        <label>Tipo *</label>
+        <select class="fc" id="m-type">
+          <option value="Feed Estatico">Feed Estatico</option>
+          <option value="Feed Carrossel">Feed Carrossel</option>
+          <option value="Stories">Stories</option>
+          <option value="Reels Simples">Reels Simples</option>
+          <option value="Legenda">Legenda</option>
+          <option value="Text Overlay">Text Overlay</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Equipe *</label>
+        <select class="fc" id="m-team" onchange="renderMemberSelector(this.value)">
+          <option value="ManhÃ£">ðŸŒ… Jornalismo ManhÃ£</option>
+          <option value="Tarde">ðŸŒ‡ Jornalismo Tarde</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg" id="m-members-panel" style="display:none">
+      <label>Membros responsÃ¡veis</label>
+      <div class="member-selector" id="m-members-grid"></div>
+    </div>
+    <div class="fg">
+      <label>Data de Postagem *</label>
+      <input type="date" class="fc" id="m-pubdate" oninput="onPubDateChange()">
+    </div>
+    <div class="calc-preview" id="review-preview" style="display:none">
+      ðŸ—“ Prazo de entrega: <strong id="review-date-txt">â€”</strong> &nbsp;Â·&nbsp;
+      Prioridade automÃ¡tica: <strong id="prio-txt">â€”</strong>
+    </div>
+    <div class="fg">
+      <label>DescriÃ§Ã£o / Ideia</label>
+      <textarea class="fc" id="m-desc" placeholder="Descreva a ideia ou o que deve ser feito..."></textarea>
+    </div>
+    <div class="fg">
+      <label>Andamento (coluna F)</label>
+      <select class="fc" id="m-status" onchange="onPubDateChange()">
+        <option value="NÃ£o iniciado">â¬œ NÃ£o iniciado</option>
+        <option value="Em execuÃ§Ã£o">ðŸŸ¡ Em execuÃ§Ã£o</option>
+        <option value="Em anÃ¡lise">ðŸ”µ Em anÃ¡lise</option>
+        <option value="Em correÃ§Ã£o">ðŸŸ  Em correÃ§Ã£o</option>
+        <option value="Suspenso">ðŸ”´ Suspenso</option>
+        <option value="Publicado">âœ… Publicado</option>
+      </select>
+    </div>
+  </div>
+  <div class="modal-foot">
+    <button class="btn btn-ghost" onclick="closeTaskModal()">Cancelar</button>
+    <button class="btn btn-primary" onclick="saveTask()">ðŸ’¾ Salvar</button>
+  </div>
+</div>
+</div>
+
+<!-- â•â•â• MODAL CONFIG â•â•â• -->
+<div class="overlay" id="modal-config" onclick="closeConfig(event)">
+<div class="modal" style="max-width:560px">
+  <div class="modal-head">
+    <h2>âš™ ConfiguraÃ§Ã£o â€” Google Sheets</h2>
+    <button class="modal-close" onclick="closeConfig()">âœ•</button>
+  </div>
+  <div class="modal-body">
+    <div class="cfg-step">
+      <h4>1. Abra a planilha e vÃ¡ em ExtensÃµes â†’ Apps Script</h4>
+      <p>Apague o cÃ³digo que estiver lÃ¡, cole o conteÃºdo do arquivo <code>apps-script.gs</code> e salve (Ctrl+S).</p>
+    </div>
+    <div class="cfg-step">
+      <h4>2. Implante como Web App</h4>
+      <p>Clique em <strong>Implantar â†’ Nova implantaÃ§Ã£o</strong>.<br>
+         Tipo: <code>Web App</code> &nbsp;Â·&nbsp; Executar como: <code>Eu</code> &nbsp;Â·&nbsp; Acesso: <code>Qualquer pessoa</code><br>
+         Autorize e copie a URL gerada.</p>
+    </div>
+    <div class="cfg-step">
+      <h4>3. Cole a URL aqui</h4>
+      <div class="fg" style="margin-top:8px">
+        <label>URL do Web App</label>
+        <input class="fc" id="cfg-url" placeholder="https://script.google.com/macros/s/â€¦/exec">
+      </div>
+    </div>
+    <div class="cfg-step">
+      <h4>4. Nome da aba (opcional)</h4>
+      <p>Se o nome da aba da planilha nÃ£o for <code>PÃ¡gina1</code>, tambÃ©m mude no <code>apps-script.gs</code> antes de implantar.</p>
+    </div>
+    <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:10px 14px;font-size:.8rem;color:var(--muted);margin-top:4px">
+      âš  Se aparecer erro de CORS ao sincronizar, abra o painel via servidor local:<br>
+      Execute <code>python -m http.server 8080</code> na pasta e acesse <code>localhost:8080</code>
+    </div>
+  </div>
+  <div class="modal-foot">
+    <button class="btn btn-ghost" onclick="closeConfig()">Cancelar</button>
+    <button class="btn btn-primary" onclick="saveConfig()">Salvar e Conectar</button>
+  </div>
+</div>
+</div>
+
+<!-- â•â•â• MODAL EQUIPE â•â•â• -->
+<div class="overlay" id="modal-team" onclick="closeTeamModal(event)">
+<div class="modal" style="max-width:480px">
+  <div class="modal-head">
+    <h2 id="team-modal-title">ðŸ‘¥ Equipe</h2>
+    <button class="modal-close" onclick="closeTeamModal()">âœ•</button>
+  </div>
+  <div class="modal-body">
+    <div id="team-tabs" style="display:flex;gap:6px;margin-bottom:16px"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:6px;font-size:.75rem;color:var(--muted);padding:0 2px;margin-bottom:4px">
+      <span>Nome</span><span>E-mail</span><span></span>
+    </div>
+    <div id="team-member-list" style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:6px;align-items:center">
+      <input id="team-new-name"  class="input" placeholder="Nomeâ€¦"   onkeydown="if(event.key==='Enter')addTeamMember()">
+      <input id="team-new-email" class="input" type="email" placeholder="email@â€¦" onkeydown="if(event.key==='Enter')addTeamMember()">
+      <button class="btn btn-primary" onclick="addTeamMember()" style="white-space:nowrap;padding:7px 12px">+</button>
+    </div>
+    <div id="team-modal-msg" style="font-size:.8rem;color:var(--red);margin-top:8px;min-height:16px"></div>
+  </div>
+  <div class="modal-foot">
+    <p style="font-size:.75rem;color:var(--muted);flex:1;text-align:left">AlteraÃ§Ãµes salvas automaticamente</p>
+    <button class="btn btn-ghost" onclick="closeTeamModal()">Fechar</button>
+  </div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  STATE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let SCRIPT_URL  = localStorage.getItem('cj_script_url') || '';
+let tasks       = JSON.parse(localStorage.getItem('cj_tasks') || '[]');
+let editRow     = null;   // row number being edited (null = new)
+let calDate     = new Date();
+let prioFilter   = null;
+let teamFilt     = null;
+let progressFilt = null;
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  EQUIPES E NORMALIZAÃ‡ÃƒO DE NOMES
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const NAME_MAP = {
+  // ManhÃ£
+  'thulio':'Thulio','tulio':'Thulio','tÃºlio':'Thulio','thÃºlio':'Thulio',
+  'yasmin':'Yasmin','yasmim':'Yasmin','yÃ¡smin':'Yasmin','yÃ¡smim':'Yasmin','jasmim':'Yasmin',
+  // Tarde
+  'hector':'Hector','hÃ©ctor':'Hector','heitor':'Hector',
+  'adan':'Adan','adÃ¡n':'Adan','adam':'Adan','adÃ£':'Adan',
+  'nicolas':'Nicolas','nicolÃ¡s':'Nicolas','nicÃ³las':'Nicolas','nikolÃ¡s':'Nicolas','nikolas':'Nicolas',
+  'bruna':'Bruna',
+  'raquel':'Raquel',
+};
+const TEAMS_DEFAULT = {
+  'ManhÃ£': { icon:'ðŸŒ…', color:'#3b82f6', people:['Thulio','Yasmin'],
+    emails:{'Thulio':'silvathulio90@gmail.com','Yasmin':''} },
+  'Tarde': { icon:'ðŸŒ‡', color:'#f97316', people:['Hector','Adan','Nicolas','Bruna','Raquel'],
+    emails:{'Hector':'hectorneves7@gmail.com','Adan':'','Nicolas':'','Bruna':'','Raquel':''} },
+};
+const ADMINS_DEFAULT = [
+  { name:'Marcos', email:'2803.marcosz@gmail.com' },
+  { name:'Julia',  email:'beatrizj434@gmail.com'  },
+];
+let ADMINS = JSON.parse(localStorage.getItem('cj_admins') || 'null') || JSON.parse(JSON.stringify(ADMINS_DEFAULT));
+let TEAMS  = JSON.parse(localStorage.getItem('cj_teams')  || 'null') || JSON.parse(JSON.stringify(TEAMS_DEFAULT));
+// MigraÃ§Ã£o: adicionar emails se nÃ£o existir no registro antigo
+Object.entries(TEAMS).forEach(([tName, tData]) => {
+  if (!tData.emails) tData.emails = {};
+  (tData.people || []).forEach(p => { if (!tData.emails[p]) tData.emails[p] = (TEAMS_DEFAULT[tName]?.emails?.[p] || ''); });
+});
+let TEAM_STRINGS = {};
+let PERSON_TEAM  = {};
+
+function rebuildTeamMaps() {
+  TEAM_STRINGS = {};
+  Object.keys(PERSON_TEAM).forEach(k => delete PERSON_TEAM[k]);
+  for (const [name, data] of Object.entries(TEAMS)) {
+    TEAM_STRINGS[name] = data.people.join(', ');
+    data.people.forEach(p => PERSON_TEAM[p] = name);
+  }
+}
+rebuildTeamMaps();
+
+function saveTeamsToStorage() {
+  localStorage.setItem('cj_teams', JSON.stringify(TEAMS));
+  rebuildTeamMaps();
+}
+
+function stripAccents(s) { return (s||'').normalize('NFD').replace(/[Ì€-Í¯]/g,''); }
+// Escapa HTML antes de injetar conteÃºdo da planilha no innerHTML
+function esc(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function canonicalName(raw) {
+  const n = stripAccents((raw||'').toLowerCase().trim());
+  return NAME_MAP[n] || raw || 'â€”';
+}
+function teamToNames(team) { return TEAM_STRINGS[team] || team; }
+function getTeam(raw) {
+  if (!raw) return null;
+  // Match full team strings first
+  for (const [team, str] of Object.entries(TEAM_STRINGS)) {
+    if (raw === str) return team;
+  }
+  // Match any member name contained in the string
+  for (const [team, data] of Object.entries(TEAMS)) {
+    if (data.people.some(p => stripAccents(raw.toLowerCase()).includes(stripAccents(p.toLowerCase())))) return team;
+  }
+  return PERSON_TEAM[canonicalName(raw)] || null;
+}
+
+// Prioridade automÃ¡tica baseada na DATA DE REVISÃƒO:
+//   P3 â†’ falta 1 dia ou menos   Â·  P2 â†’ atÃ© 5 dias
+//   P1 â†’ atÃ© 10 dias            Â·  P0 â†’ mais de 10 dias OU concluÃ­da
+function calcPriority(task) {
+  if (taskStatus(task) === 'done') return 'P0';
+  const diff = daysUntil(task.reviewDate);
+  if (diff === null) return 'P0';
+  if (diff <= 1)  return 'P3';
+  if (diff <= 5)  return 'P2';
+  if (diff <= 10) return 'P1';
+  return 'P0';
+}
+const PRIO_RANK  = { P0:0, P1:1, P2:2, P3:3 };
+const PRIO_LABEL = { P3:'ðŸ”´ P3 â€” Super urgente', P2:'ðŸŸ  P2 â€” Alta', P1:'ðŸŸ¡ P1 â€” MÃ©dia', P0:'âšª P0 â€” Sem urgÃªncia' };
+
+// Um membro estÃ¡ escalado numa tarefa se aparece na lista de responsÃ¡veis.
+function isAssignedTo(task, memberName) {
+  const target = stripAccents(memberName.toLowerCase().trim());
+  return (task.responsible || '').split(',').some(part => {
+    const p = part.trim();
+    return stripAccents(p.toLowerCase()) === target ||
+           stripAccents(canonicalName(p).toLowerCase()) === target;
+  });
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  URGÃŠNCIA AUTOMÃTICA (baseada na data de revisÃ£o)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function urgency(task) {
+  if (taskStatus(task) === 'done') return 'done';
+  if (!task.reviewDate) return 'low';
+  const today = new Date(); today.setHours(0,0,0,0);
+  const rev   = new Date(task.reviewDate + 'T00:00:00');
+  const diff  = Math.ceil((rev - today) / 86400000);
+  if (diff < 0)  return 'overdue';
+  if (diff <= 2) return 'critical';
+  if (diff <= 5) return 'high';
+  if (diff <= 10) return 'medium';
+  return 'low';
+}
+const urgLabel = { overdue:'Atrasada', critical:'CrÃ­tica', high:'Alta', medium:'MÃ©dia', low:'Baixa', done:'ConcluÃ­do' };
+function daysUntil(d) {
+  if (!d) return null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  return Math.ceil((new Date(d+'T00:00:00') - today) / 86400000);
+}
+function fmtDate(d) {
+  if (!d) return 'â€”';
+  const [y,m,dd] = d.split('-');
+  return `${dd}/${m}/${y}`;
+}
+function calcReview(pubDate) {
+  if (!pubDate) return '';
+  const d = new Date(pubDate + 'T00:00:00');
+  d.setDate(d.getDate() - 2);
+  // formata em data local â€” toISOString() Ã© UTC e pode devolver o dia errado
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function taskStatus(task) {
+  const ss = task.sheetStatus || '';
+  if (ss === 'Publicado')                                       return 'done';
+  if (ss === 'Em execuÃ§Ã£o' || ss === 'Em anÃ¡lise' || ss === 'Em correÃ§Ã£o') return 'progress';
+  return 'pending';
+}
+
+function isArchived(task) {
+  if (taskStatus(task) === 'done') return true;          // concluÃ­da â†’ arquivada
+  if (task.sheetStatus === 'Suspenso') return true;      // nÃ£o feita â†’ arquivada imediatamente
+  if (!task.pubDate) return false;
+  if (task.pubDate >= todayStr()) return false;          // ainda dentro do prazo â†’ ativa
+  // Passou do prazo e nÃ£o foi concluÃ­da:
+  //   se jÃ¡ estÃ¡ em andamento, continua na home para ser finalizada;
+  //   se nÃ£o foi iniciada, vai para os arquivados como "nÃ£o postada".
+  return taskStatus(task) !== 'progress';
+}
+
+function todayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  GOOGLE SHEETS SYNC
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function setSyncState(state, msg) {
+  const dot = document.getElementById('sync-dot');
+  const txt = document.getElementById('sync-txt');
+  dot.className = 'sync-dot ' + state;
+  txt.textContent = msg;
+}
+
+async function sheetCall(params) {
+  if (!SCRIPT_URL) return null;
+  const url = SCRIPT_URL + '?' + new URLSearchParams(params).toString();
+  try {
+    const res  = await fetch(url, { redirect: 'follow' });
+    const json = await res.json();
+    if (json.error) { toast('Erro: ' + json.error, 'err'); return null; }
+    return json;
+  } catch(e) {
+    toast('Erro ao contatar a planilha. Verifique a URL e tente novamente.', 'err');
+    setSyncState('error', 'Erro de conexÃ£o');
+    return null;
+  }
+}
+
+async function refreshSheet() {
+  return smartSync();
+}
+
+async function smartSync() {
+  if (!SCRIPT_URL) { toast('Configure o URL do Apps Script primeiro (âš™ Config).', 'info'); return; }
+
+  const btn = document.getElementById('btn-sync');
+  if (btn) { btn.disabled = true; btn.textContent = 'â‡… Sincronizandoâ€¦'; }
+  setSyncState('syncing', 'Sincronizandoâ€¦');
+  showLoader('Carregando dados do Sheetsâ€¦');
+
+  // 1. Busca dados atuais da planilha
+  const data = await sheetCall({ action: 'get' });
+  if (!data) {
+    hideLoader();
+    setSyncState('error', 'Erro ao ler planilha');
+    if (btn) { btn.disabled = false; btn.textContent = 'â‡… Sincronizar'; }
+    return;
+  }
+
+  const sheetRows  = data.rows || [];
+  const sheetByRow = {};
+  sheetRows.forEach(t => sheetByRow[t.row] = t);
+
+  // 2. Tarefas do painel que NÃƒO existem na planilha (linha sumiu ou nunca foi salva)
+  const orphans = tasks.filter(t => !t.row || !sheetByRow[t.row]);
+
+  // 3. Envia Ã³rfÃ£os para a planilha
+  let pushed = 0;
+  for (const task of orphans) {
+    const res = await sheetCall({ action: 'add', ...taskToParams(task) });
+    if (res && res.row) { task.row = res.row; pushed++; }
+  }
+
+  // 4. Mescla: comeÃ§a com tudo que estÃ¡ na planilha (atualizado)
+  //    depois adiciona as que acabamos de enviar (agora tÃªm row)
+  const sheetSet = new Set(sheetRows.map(t => t.row));
+  const newFromPanel = orphans.filter(t => t.row && !sheetSet.has(t.row));
+
+  tasks = [...sheetRows, ...newFromPanel];
+  persist();
+
+  setSyncState('ok', 'Sincronizado');
+  if (btn) { btn.disabled = false; btn.textContent = 'â‡… Sincronizar'; }
+  hideLoader();
+  renderAll();
+
+  const msg = pushed > 0
+    ? `SincronizaÃ§Ã£o completa! ${pushed} tarefa(s) do painel enviada(s) para a planilha.`
+    : `SincronizaÃ§Ã£o completa! Tudo atualizado.`;
+  toast(msg, 'ok');
+  addLog('sync', 'â‡…', 'SincronizaÃ§Ã£o concluÃ­da', `${tasks.length} tarefa(s) Â· ${pushed > 0 ? pushed + ' enviada(s) ao Sheets' : 'tudo atualizado'}`);
+
+  // Recalcula prioridades, envia lembretes pendentes e devolve as
+  // alteraÃ§Ãµes Ã  planilha â€” tudo automÃ¡tico, sem botÃ£o dedicado.
+  await autoMaintain({ push: true, silent: true });
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MANUTENÃ‡ÃƒO AUTOMÃTICA (prioridades + lembretes)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 'notified[row]' guarda a Ãºltima prioridade pela qual jÃ¡ avisamos, para
+// nÃ£o reenviar o mesmo lembrete. Tarefas vistas pela 1Âª vez recebem um
+// "baseline" silencioso â€” assim a 1Âª sincronizaÃ§Ã£o nÃ£o dispara um monte
+// de e-mails de uma vez; sÃ³ escalonamentos seguintes geram lembrete.
+let notified = JSON.parse(localStorage.getItem('cj_notified') || '{}');
+function persistNotified() { localStorage.setItem('cj_notified', JSON.stringify(notified)); }
+
+async function autoMaintain({ push = false, silent = false } = {}) {
+  let prioChanged = 0, mailed = 0, notifChanged = false;
+  const dirty = [];
+
+  for (const t of tasks) {
+    const newPrio = calcPriority(t);
+    if (newPrio !== t.priority) { t.priority = newPrio; prioChanged++; dirty.push(t); }
+
+    // Lembretes pelo registro 'notified' (independe do valor antigo).
+    const last = notified[t.row];
+    if (newPrio === 'P0') {
+      if (last !== undefined) { delete notified[t.row]; notifChanged = true; }   // concluÃ­da/folgada
+    } else if (last === undefined) {
+      notified[t.row] = newPrio; notifChanged = true;                            // baseline silencioso
+    } else if (PRIO_RANK[newPrio] > PRIO_RANK[last]) {
+      notified[t.row] = newPrio; notifChanged = true;                            // escalou â†’ avisa
+      if (await sendReminder(t, newPrio)) mailed++;
+    }
+  }
+
+  if (prioChanged) { persist(); renderAll(); }
+  if (notifChanged) persistNotified();
+  if (push && SCRIPT_URL) {
+    for (const t of dirty) if (t.row) await sheetCall({ action: 'update', row: t.row, ...taskToParams(t) });
+  }
+  if (!silent) {
+    toast(prioChanged || mailed
+      ? `${prioChanged} prioridade(s) atualizada(s)${mailed ? ` Â· ${mailed} lembrete(s)` : ''}.`
+      : 'Tudo em dia! âœ“', 'ok');
+  }
+  return { prioChanged, mailed };
+}
+
+async function sendReminder(task, prio) {
+  if (!SCRIPT_URL) return false;
+  const team   = getTeam(task.responsible);
+  const recips = [...new Set([...responsibleEmails(task), ...ADMINS.map(a => a.email).filter(Boolean)])];
+  if (!recips.length) return false;
+  await sheetCall({
+    action: 'notify', test: 'false', warningType: 'reminder',
+    to: recips.join(','), content: task.content, type: task.type || 'â€”',
+    team: team || 'â€”', priority: prio,
+    pubDate: task.pubDate || '', reviewDate: task.reviewDate || '',
+    description: task.description || '',
+  });
+  addLog('reminder', 'ðŸ””', `Lembrete (${prio}) â€” ${task.content}`, `Para: ${recips.join(', ')}`);
+  return true;
+}
+
+async function syncAdd(task) {
+  if (!SCRIPT_URL) return task;
+  setSyncState('syncing', 'Salvandoâ€¦');
+  const res = await sheetCall({ action:'add', ...taskToParams(task) });
+  if (!res) { setSyncState('error','Erro'); return task; }
+  task.row = res.row;
+  setSyncState('ok', 'Sincronizado');
+  return task;
+}
+
+async function syncUpdate(task) {
+  if (!SCRIPT_URL || !task.row) return;
+  setSyncState('syncing', 'Atualizandoâ€¦');
+  await sheetCall({ action:'update', row: task.row, ...taskToParams(task) });
+  setSyncState('ok', 'Sincronizado');
+}
+
+async function syncDelete(row) {
+  if (!SCRIPT_URL || !row) return;
+  setSyncState('syncing', 'Removendoâ€¦');
+  await sheetCall({ action:'delete', row });
+  setSyncState('ok', 'Sincronizado');
+}
+
+function taskToParams(t) {
+  return {
+    content:     t.content     || '',
+    type:        t.type        || '',
+    pubDate:     t.pubDate     || '',
+    responsible: t.responsible || '',
+    priority:    t.priority    || 'P0',
+    sheetStatus: t.sheetStatus || 'NÃ£o iniciado',
+    reviewDate:  t.reviewDate  || '',
+    pubDate2:    t.pubDate2    || '',
+    file:        t.file        || '',
+    description: t.description || '',
+  };
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  PERSISTÃŠNCIA LOCAL
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function persist() {
+  localStorage.setItem('cj_tasks', JSON.stringify(tasks));
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  DESEMPENHO (derivado ao vivo das tarefas)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// Penalidade do membro: -10 por tarefa nÃ£o postada (atribuÃ­da a ele e
+// arquivada como perdida) e -5 por tarefa concluÃ­da com atraso.
+function getMemberPenalty(memberName) {
+  let p = 0;
+  tasks.filter(t => isAssignedTo(t, memberName)).forEach(t => {
+    if (taskStatus(t) === 'done') {
+      if (t.pubDate2 && t.pubDate && t.pubDate2 > t.pubDate) p += 5;   // concluÃ­da atrasada
+    } else if (isArchived(t)) {
+      p += 10;                                                          // nÃ£o postada
+    }
+  });
+  return p;
+}
+function getPersonScore(memberName) { return Math.max(0, 100 - getMemberPenalty(memberName)); }
+
+function getTeamScore(teamName) {
+  const people = TEAMS[teamName]?.people || [];
+  if (!people.length) return null;
+  return Math.round(people.reduce((a, p) => a + getPersonScore(p), 0) / people.length);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  LOGS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let logs = JSON.parse(localStorage.getItem('cj_logs') || '[]');
+
+function persistLogs() {
+  // mantÃ©m no mÃ¡ximo 200 entradas
+  if (logs.length > 200) logs = logs.slice(-200);
+  localStorage.setItem('cj_logs', JSON.stringify(logs));
+}
+
+function addLog(type, icon, message, details) {
+  logs.push({
+    id:      Date.now() + '_' + Math.random().toString(36).slice(2,6),
+    ts:      new Date().toISOString(),
+    type,    // 'email' | 'warning' | 'reminder' | 'sync' | 'error' | 'info'
+    icon,
+    message,
+    details: details || '',
+  });
+  persistLogs();
+  // atualiza badge na sidebar
+  const badge = document.getElementById('log-badge');
+  if (badge) badge.textContent = logs.length;
+  // re-renderiza se a aba estiver ativa
+  const active = document.querySelector('.page.active');
+  if (active && active.id === 'page-logs') renderLogs();
+}
+
+function fmtTs(iso) {
+  const d = new Date(iso);
+  const dd  = String(d.getDate()).padStart(2,'0');
+  const mm  = String(d.getMonth()+1).padStart(2,'0');
+  const hh  = String(d.getHours()).padStart(2,'0');
+  const min = String(d.getMinutes()).padStart(2,'0');
+  return `${dd}/${mm} ${hh}:${min}`;
+}
+
+function renderLogs() {
+  const el = document.getElementById('log-list');
+  if (!el) return;
+
+  const typeColor = {
+    email:   'var(--blue)',
+    warning: 'var(--red)',
+    reminder:'var(--yellow)',
+    sync:    'var(--green)',
+    error:   'var(--red)',
+    info:    'var(--muted)',
+  };
+  const typeBg = {
+    email:   'rgba(59,130,246,.12)',
+    warning: 'rgba(239,68,68,.12)',
+    reminder:'rgba(234,179,8,.12)',
+    sync:    'rgba(34,197,94,.12)',
+    error:   'rgba(239,68,68,.08)',
+    info:    'rgba(124,133,162,.08)',
+  };
+
+  const filtered = _logFilter ? [...logs].filter(l => l.type === _logFilter) : [...logs];
+
+  if (!filtered.length) {
+    const msg = _logFilter ? 'Nenhum registro desse tipo ainda.' : 'Nenhum registro ainda.';
+    el.innerHTML = `<div class="empty"><div class="ei">ðŸ“</div><h3>${msg}</h3><p style="font-size:.8rem">Os eventos aparecerÃ£o aqui Ã  medida que acontecerem.</p></div>`;
+    return;
+  }
+
+  el.innerHTML = filtered.reverse().map(l => {
+    const color = typeColor[l.type] || 'var(--muted)';
+    const bg    = typeBg[l.type]   || 'transparent';
+    return `<div class="hist-row" style="border-radius:8px;padding:10px 12px;background:${bg};margin-bottom:6px;border:none">
+      <span style="font-size:1.2rem;flex-shrink:0;width:28px;text-align:center">${l.icon}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:.85rem;font-weight:600">${esc(l.message)}</div>
+        ${l.details ? `<div style="font-size:.75rem;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(l.details)}</div>` : ''}
+      </div>
+      <div style="font-size:.72rem;color:var(--muted);flex-shrink:0;text-align:right">${fmtTs(l.ts)}</div>
+    </div>`;
+  }).join('');
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  RENDER CARD
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderCard(task, inArchive) {
+  const urg  = urgency(task);
+  const sts  = taskStatus(task);
+  const dRev = daysUntil(task.reviewDate);
+
+  // "NÃ£o Postado": prazo de postagem passou, nÃ£o foi concluÃ­da E nÃ£o estÃ¡
+  // mais em andamento (as em andamento continuam na home como "atrasadas").
+  const pubPassed   = task.pubDate && task.pubDate < todayStr();
+  const isNotPosted = pubPassed && sts !== 'done' && sts !== 'progress';
+
+  let daysHtml = '';
+  if (urg === 'done') {
+    daysHtml = task.pubDate2
+      ? `<span class="days-text" style="color:var(--green)">âœ… Postado em ${fmtDate(task.pubDate2)}</span>`
+      : '';
+  } else if (isNotPosted) {
+    daysHtml = `<span class="days-text" style="color:var(--red)">ðŸ“­ NÃ£o postado</span>`;
+  } else if (urg === 'overdue') {
+    daysHtml = `<span class="days-text" style="color:var(--red)">âš  Atrasada ${Math.abs(dRev)} dia(s)</span>`;
+  } else if (dRev === 0) {
+    daysHtml = `<span class="days-text" style="color:var(--red)">âš¡ Entrega hoje!</span>`;
+  } else if (dRev === 1) {
+    daysHtml = `<span class="days-text" style="color:var(--orange)">âš¡ Entrega amanhÃ£</span>`;
+  } else if (dRev !== null) {
+    const col = urg==='high'?'var(--orange)':urg==='medium'?'var(--yellow)':'var(--muted)';
+    daysHtml = `<span class="days-text" style="color:${col}">Entrega em ${dRev} dia(s)</span>`;
+  }
+
+  const pubDateDisplay = isNotPosted
+    ? `<span style="color:var(--red);font-weight:700">ðŸ“­ NÃ£o Postado</span>`
+    : `<strong>${fmtDate(task.pubDate)}</strong>`;
+
+  const typeClass = { 'Feed Estatico':'tag-type-feed', 'Feed Carrossel':'tag-type-carrossel', Stories:'tag-type-story', 'Reels Simples':'tag-type-feed', Legenda:'tag-type-outro', 'Text Overlay':'tag-type-outro' }[task.type] || 'tag-type-outro';
+  const prioClass = { P3:'tag-prio-p3', P2:'tag-prio-p2', P1:'tag-prio-p1', P0:'tag-prio-p0' }[task.priority] || 'tag-prio-p0';
+  const statusMap = { pending:'Pendente', progress:'Em andamento', done:'ConcluÃ­do' };
+  const statusCol = { pending:'rgba(234,179,8,.2)', progress:'rgba(59,130,246,.15)', done:'rgba(34,197,94,.12)' };
+  const statusTxt = { pending:'#fde047', progress:'#93c5fd', done:'#86efac' };
+
+  const fileTag = task.file
+    ? `<a class="tag tag-file" href="${esc(task.file)}" target="_blank" onclick="event.stopPropagation()">ðŸ“Ž Arquivo</a>`
+    : '';
+
+  const archiveBorder = inArchive && isNotPosted ? 'border-color:rgba(239,68,68,.4);' : '';
+
+  return `
+  <div class="task-card ${sts==='done'?'done':''}" style="${archiveBorder}" onclick="openTaskModal(${task.row})">
+    <div class="stripe ${urg}"></div>
+    <div class="tc-body">
+      <div class="tc-title">${esc(task.content) || '(sem tÃ­tulo)'}</div>
+      <div class="tc-desc">${esc(task.description) || 'Sem descriÃ§Ã£o'}</div>
+      <div class="tc-tags">
+        <span class="tag ${typeClass}">${task.type || '?'}</span>
+        <span class="tag ${prioClass}">${task.priority || 'P0'}</span>
+        ${(ss=>{const cfg={'Publicado':['tag-sheet-post','âœ…'],'Em execuÃ§Ã£o':['tag-sheet-inic','ðŸŸ¡'],'Em anÃ¡lise':['tag-sheet-inic','ðŸ”µ'],'Em correÃ§Ã£o':['tag-sheet-inic','ðŸŸ '],'Suspenso':['tag-sheet-nao','ðŸ”´']};const[cls,ic]=cfg[ss]||['tag-sheet-nao','â¬œ'];return `<span class="tag ${cls}">${ic} ${ss||'NÃ£o iniciado'}</span>`;})(task.sheetStatus||'NÃ£o iniciado')}
+        <span class="tag tag-person">ðŸ‘¤ ${esc(canonicalName(task.responsible))}</span>
+        ${(t=>{const tc='tag-team-'+(t==='ManhÃ£'?'manha':'tarde');return t?`<span class="tag ${tc}">${TEAMS[t].icon} ${t}</span>`:'';})(getTeam(task.responsible))}
+        <span class="tag" style="background:${statusCol[sts]};color:${statusTxt[sts]}">${statusMap[sts]||'?'}</span>
+        ${fileTag}
+      </div>
+    </div>
+    <div class="tc-right">
+      <span class="urg-badge urg-${urg}">${urgLabel[urg]||urg}</span>
+      <div class="date-row">ðŸ—“ RevisÃ£o: <strong>${fmtDate(task.reviewDate)}</strong></div>
+      <div class="date-row">ðŸ“¢ Postagem: ${pubDateDisplay}</div>
+      ${daysHtml}
+      <div class="card-actions" onclick="event.stopPropagation()">
+        <button class="act-btn" onclick="quickStatusEdit(${task.row},this)" title="Alterar status">âœŽ Status</button>
+        ${sts !== 'done' ? `<button class="act-btn not-done" onclick="markNotDone(${task.row})" title="Marcar como nÃ£o feita e arquivar">âœ— NÃ£o Feito</button>` : ''}
+        <button class="act-btn del" onclick="deleteTask(${task.row})">âœ• Excluir</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  DASHBOARD
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderDashboard() {
+  const active = tasks.filter(t => !isArchived(t));
+  const open   = active.filter(t => taskStatus(t) !== 'done');
+  const done   = tasks.filter(t => taskStatus(t) === 'done');
+
+  document.getElementById('st-open').textContent = open.length;
+  document.getElementById('st-done').textContent = done.length;
+
+  renderMonthProgress();
+  updateSidebar();
+  renderTarefas();
+}
+
+// Barra de progresso do mÃªs atual: % das tarefas com postagem prevista
+// neste mÃªs que jÃ¡ foram publicadas.
+function renderMonthProgress() {
+  const titleEl = document.getElementById('mp-title');
+  if (!titleEl) return;
+  const now  = new Date();
+  const ym   = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const mTasks = tasks.filter(t => t.pubDate && t.pubDate.slice(0,7) === ym);
+  const mDone  = mTasks.filter(t => taskStatus(t) === 'done');
+  const pct    = mTasks.length ? Math.round(mDone.length / mTasks.length * 100) : 0;
+  const color  = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : pct >= 25 ? 'var(--orange)' : 'var(--red)';
+
+  titleEl.textContent = `ðŸ“… Progresso de ${now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}`;
+  const pctEl = document.getElementById('mp-pct');
+  pctEl.textContent = pct + '%'; pctEl.style.color = color;
+  const bar = document.getElementById('mp-bar');
+  bar.style.width = pct + '%'; bar.style.background = color;
+  document.getElementById('mp-sub').textContent = mTasks.length
+    ? `${mDone.length} de ${mTasks.length} tarefa(s) publicada(s) neste mÃªs`
+    : 'Nenhuma tarefa programada para este mÃªs.';
+}
+
+function updateSidebar() {
+  const active = tasks.filter(t => !isArchived(t));
+  const open   = active.filter(t => taskStatus(t) !== 'done');
+  const done   = tasks.filter(t => taskStatus(t) === 'done');
+
+  const prioCnt = { P3:0, P2:0, P1:0, P0:0 };
+  active.filter(t => taskStatus(t) !== 'done').forEach(t => { if (prioCnt[t.priority] !== undefined) prioCnt[t.priority]++; });
+  Object.keys(prioCnt).forEach(k => { const el = document.getElementById('b-'+k.toLowerCase()); if (el) el.textContent = prioCnt[k]; });
+
+  document.getElementById('sb-total').textContent = open.length;
+  document.getElementById('sb-done').textContent  = done.length;
+
+  setSyncState(SCRIPT_URL ? 'ok' : '', SCRIPT_URL ? 'Conectado' : 'Offline');
+
+  // badge arquivados
+  const arqBadge = document.getElementById('b-arquivados');
+  if (arqBadge) arqBadge.textContent = tasks.filter(isArchived).length;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  ARQUIVADOS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderArquivados() {
+  const archived    = tasks.filter(isArchived);
+  const publicados  = archived.filter(t => taskStatus(t) === 'done');
+  const naoPostados = archived.filter(t => taskStatus(t) !== 'done');
+
+  function secHtml(containerEl, list, title, icon, emptyMsg) {
+    const el = document.getElementById(containerEl);
+    if (!el) return;
+    if (!list.length) {
+      el.innerHTML = `<div style="margin-bottom:1rem">
+        <h3 style="font-size:.8rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem">${icon} ${title}</h3>
+        <div style="color:var(--muted);font-size:.85rem;padding:12px 0">${emptyMsg}</div>
+      </div>`;
+      return;
+    }
+    el.innerHTML = `<div>
+      <h3 style="font-size:.8rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem">${icon} ${title} (${list.length})</h3>
+      <div class="tasks-grid">${list.map(t => renderCard(t, true)).join('')}</div>
+    </div>`;
+  }
+
+  secHtml('arq-nao-postados', naoPostados, 'NÃ£o Postados', 'ðŸ“­', 'Nenhuma tarefa com data vencida sem postagem.');
+  secHtml('arq-publicados',   publicados,  'Publicados',   'âœ…', 'Nenhuma tarefa publicada ainda.');
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  TAREFAS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderTarefas() {
+  const search    = document.getElementById('f-search').value.toLowerCase();
+  const fType     = document.getElementById('f-type').value;
+  const fPrio     = document.getElementById('f-prio').value;
+  const fTeamEl   = document.getElementById('f-team').value;
+  const fSheetSt  = document.getElementById('f-sheet-status').value;
+  const fPrioF    = prioFilter;
+  const fTeam     = fTeamEl || teamFilt || '';
+
+  const hasFilter = search || fType || fPrio || fTeamEl || fSheetSt || fPrioF || teamFilt || progressFilt;
+  const clearBtn  = document.getElementById('btn-clear-filter');
+  if (clearBtn) clearBtn.style.display = hasFilter ? '' : 'none';
+
+  // Update title
+  const titleEl = document.getElementById('main-list-title');
+  if (titleEl) {
+    if (fPrioF)        titleEl.textContent = `ðŸ“‹ ${fPrioF} â€” ${{P3:'Super urgentes',P2:'Alta prioridade',P1:'MÃ©dia prioridade',P0:'Sem urgÃªncia'}[fPrioF]||''}`;
+    else if (progressFilt==='done') titleEl.textContent = 'âœ… ConcluÃ­das';
+    else if (progressFilt==='open') titleEl.textContent = 'ðŸ“‹ Em aberto';
+    else if (fTeam)    titleEl.textContent = `${TEAMS[fTeam]?.icon||'ðŸ‘¥'} Jornalismo ${fTeam}`;
+    else if (hasFilter) titleEl.textContent = 'ðŸ” Resultados filtrados';
+    else               titleEl.textContent = 'ðŸ“‹ Todas as Tarefas';
+  }
+
+  // As concluÃ­das ficam arquivadas, mas o filtro "ConcluÃ­das" deve mostrÃ¡-las.
+  const showArchived = progressFilt === 'done';
+  let list = tasks.filter(t => {
+    if (!showArchived && isArchived(t)) return false; // arquivados ficam na aba prÃ³pria
+    const mS  = !search       || (t.content+''+t.responsible+''+t.description).toLowerCase().includes(search);
+    const mT  = !fType        || t.type === fType;
+    const mP  = !fPrio        || t.priority === fPrio;
+    const mPF = !fPrioF       || t.priority === fPrioF;
+    const mTm = !fTeam        || getTeam(t.responsible) === fTeam;
+    const mSS = !fSheetSt     || (t.sheetStatus || 'NÃ£o iniciado') === fSheetSt;
+    const mPg = !progressFilt || (progressFilt === 'done' ? taskStatus(t) === 'done' : taskStatus(t) !== 'done');
+    return mS && mT && mP && mPF && mTm && mSS && mPg;
+  });
+
+  const order = { overdue:0,critical:1,high:2,medium:3,low:4,done:5 };
+  list.sort((a,b) => {
+    const pa = {P3:0,P2:1,P1:2,P0:3}[a.priority]??9, pb = {P3:0,P2:1,P1:2,P0:3}[b.priority]??9;
+    if (pa !== pb) return pa-pb;
+    const da = order[urgency(a)]??9, db = order[urgency(b)]??9;
+    if (da !== db) return da-db;
+    return new Date(a.reviewDate||'9999') - new Date(b.reviewDate||'9999');
+  });
+
+  document.getElementById('list-tarefas').innerHTML = list.length
+    ? list.map(renderCard).join('')
+    : '<div class="empty"><div class="ei">ðŸ”</div><h3>Nenhuma tarefa encontrada</h3></div>';
+}
+
+function clearFilters() {
+  prioFilter = null; teamFilt = null; progressFilt = null;
+  document.getElementById('f-search').value = '';
+  document.getElementById('f-type').value   = '';
+  document.getElementById('f-prio').value   = '';
+  document.getElementById('f-team').value   = '';
+  document.getElementById('f-sheet-status').value = '';
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('nav-painel').classList.add('active');
+  renderTarefas();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CALENDÃRIO
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderCalendar() {
+  const y = calDate.getFullYear(), m = calDate.getMonth();
+  document.getElementById('cal-title').textContent =
+    new Date(y,m,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+
+  const firstDay   = new Date(y,m,1).getDay();
+  const daysInMonth = new Date(y,m+1,0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'];
+
+  let html = days.map(d=>`<div class="cal-head">${d}</div>`).join('');
+
+  for (let i=0; i<firstDay; i++) {
+    const pd = new Date(y,m,-firstDay+i+1);
+    html += `<div class="cal-day other"><div class="cal-day-num">${pd.getDate()}</div></div>`;
+  }
+
+  for (let d=1; d<=daysInMonth; d++) {
+    const ds = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = new Date(y,m,d).getTime()===today.getTime();
+    const pubs = tasks.filter(t => t.pubDate===ds);
+    const revs = tasks.filter(t => t.reviewDate===ds && taskStatus(t)!=='done');
+    let evs = pubs.map(t=>`<div class="cal-ev pub" title="${esc(t.content)}">ðŸ“¢ ${esc(t.content)}</div>`).join('');
+    evs    += revs.map(t=>`<div class="cal-ev rev" title="${esc(t.content)}">ðŸ—“ ${esc(t.content)}</div>`).join('');
+    html   += `<div class="cal-day ${isToday?'today':''}"><div class="cal-day-num">${d}</div>${evs}</div>`;
+  }
+  document.getElementById('cal-grid').innerHTML = html;
+}
+function changeMonth(dir) { calDate.setMonth(calDate.getMonth()+dir); renderCalendar(); }
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  EQUIPE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function showTeamStat(teamName, statKey) {
+  const ts = getTeamStats(teamName);
+  const map = {
+    total:     { label: 'Todas as tarefas',        list: ts._all,       color: 'var(--text)' },
+    active:    { label: 'Em andamento',             list: ts._active,    color: 'var(--accent2)' },
+    published: { label: 'Publicadas',               list: ts._published, color: 'var(--green)' },
+    onTime:    { label: 'Em andamento (no prazo)',   list: ts._onTime,    color: 'var(--yellow)' },
+    latePost:  { label: 'Com atraso',               list: ts._latePost,  color: 'var(--orange)' },
+    notPosted: { label: 'NÃ£o postadas',             list: ts._notPosted, color: 'var(--red)' },
+  };
+  const { label, list, color } = map[statKey] || map.total;
+
+  document.querySelectorAll('.stat-modal-overlay').forEach(e => e.remove());
+
+  const rows = list.map(t => {
+    const sts = { 'Publicado':'âœ… Publicado', 'Em execuÃ§Ã£o':'ðŸŸ¡ Em execuÃ§Ã£o', 'Em anÃ¡lise':'ðŸ”µ Em anÃ¡lise', 'Em correÃ§Ã£o':'ðŸŸ  Em correÃ§Ã£o', 'Suspenso':'ðŸ”´ Suspenso', 'NÃ£o iniciado':'â¬œ NÃ£o iniciado' };
+    const statusLabel = sts[t.sheetStatus] || t.sheetStatus || 'â¬œ NÃ£o iniciado';
+    const pubStr = t.pubDate ? fmtDate(t.pubDate) : 'â€”';
+    const pCol = { P3:'var(--red)', P2:'var(--orange)', P1:'var(--yellow)', P0:'var(--muted)' }[t.priority] || 'var(--muted)';
+    return `<div class="stat-task-row">
+      <div class="str-title">${esc(t.content) || '(sem tÃ­tulo)'}</div>
+      <div class="str-meta">
+        <span class="str-badge" style="color:${pCol}">${t.priority||'â€”'}</span>
+        <span class="str-badge">${pubStr}</span>
+        <span style="font-size:.75rem;color:var(--muted)">${statusLabel}</span>
+      </div>
+    </div>`;
+  }).join('') || '<div style="text-align:center;color:var(--muted);padding:24px;font-size:.85rem">Nenhuma tarefa nesta categoria.</div>';
+
+  const overlay = document.createElement('div');
+  overlay.className = 'stat-modal-overlay';
+  overlay.innerHTML = `<div class="stat-modal">
+    <div class="stat-modal-hdr">
+      <h3><span style="color:${color}">${list.length}</span> Â· Jornalismo ${teamName} â€” ${label}</h3>
+      <button class="btn btn-ghost" style="padding:4px 10px;font-size:.8rem" onclick="this.closest('.stat-modal-overlay').remove()">âœ•</button>
+    </div>
+    <div class="stat-modal-body">${rows}</div>
+  </div>`;
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
+// EstatÃ­sticas da EQUIPE (por tarefa, agrupadas pela equipe responsÃ¡vel)
+function getTeamStats(teamName) {
+  const today      = todayStr();
+  const isLateDone = t => t.pubDate2 && t.pubDate && t.pubDate2 > t.pubDate;       // concluÃ­da apÃ³s o previsto
+  const latePub    = t => t.pubDate && t.pubDate < today;                          // jÃ¡ passou da data de postagem
+  const teamTasks  = tasks.filter(t => getTeam(t.responsible) === teamName);
+  const published  = teamTasks.filter(t => taskStatus(t) === 'done');
+  const inProgress = teamTasks.filter(t => taskStatus(t) === 'progress');
+  const onTime     = inProgress.filter(t => !latePub(t));                          // No prazo: em andamento, dentro do prazo
+  const latePost   = [...inProgress.filter(latePub), ...published.filter(isLateDone)]; // Com atraso: em andamento atrasada + publicada atrasada
+  const notPosted  = teamTasks.filter(t => taskStatus(t) !== 'done' && isArchived(t)); // perdida
+  const active     = teamTasks.filter(t => taskStatus(t) !== 'done' && !isArchived(t)); // em andamento
+  return {
+    total: teamTasks.length, score: getTeamScore(teamName),
+    published: published.length, notPosted: notPosted.length,
+    active: active.length, onTime: onTime.length, latePost: latePost.length,
+    _all: teamTasks, _published: published, _notPosted: notPosted,
+    _active: active, _onTime: onTime, _latePost: latePost,
+  };
+}
+
+// EstatÃ­sticas do MEMBRO â€” apenas as tarefas em que ele estÃ¡ escalado.
+function getMemberStats(memberName) {
+  const isLate    = t => t.pubDate2 && t.pubDate && t.pubDate2 > t.pubDate;
+  const mine      = tasks.filter(t => isAssignedTo(t, memberName));
+  const published = mine.filter(t => taskStatus(t) === 'done');
+  const lateDone  = published.filter(t => isLate(t));
+  const notPosted = mine.filter(t => taskStatus(t) !== 'done' && isArchived(t));
+  const active    = mine.filter(t => taskStatus(t) !== 'done' && !isArchived(t));
+  return {
+    published: published.length, notPosted: notPosted.length,
+    lateDone: lateDone.length, active: active.length,
+    score: getPersonScore(memberName), activeTasks: active.slice(0,4),
+  };
+}
+
+function renderEquipe() {
+  const container = document.getElementById('equipe-content');
+  if (!container) return;
+
+  const urgCol = { overdue:'var(--red)',critical:'var(--red)',high:'var(--orange)',medium:'var(--yellow)',low:'var(--muted)',done:'var(--green)' };
+
+  let html = '';
+  Object.entries(TEAMS).forEach(([teamName, teamData]) => {
+    const ts     = getTeamStats(teamName);
+    const color  = teamData.color;
+    const scoreColor = ts.score === null ? 'var(--muted)' : ts.score >= 80 ? 'var(--green)' : ts.score >= 50 ? 'var(--yellow)' : 'var(--red)';
+
+    // Team header + stats
+    html += `<div class="team-perf-block">
+      <div class="team-perf-hdr" style="background:${color}0d;border-color:${color}40">
+        <span style="font-size:1.6rem">${teamData.icon}</span>
+        <div style="flex:1">
+          <h3 style="color:${color}">Jornalismo ${teamName}</h3>
+          <span style="font-size:.73rem;color:var(--muted)">${teamData.people.length} membro(s)</span>
+        </div>
+        ${ts.score !== null ? `<div style="text-align:right">
+          <div style="font-size:1.4rem;font-weight:800;color:${scoreColor}">${ts.score}%</div>
+          <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Desempenho</div>
+        </div>` : ''}
+      </div>
+
+      <div class="team-stats-row">
+        <div class="ts-cell" onclick="showTeamStat('${teamName}','total')"    title="Ver todas"><div class="ts-num">${ts.total}</div><div class="ts-lbl">Total</div></div>
+        <div class="ts-cell" onclick="showTeamStat('${teamName}','active')"   title="Ver em andamento"><div class="ts-num" style="color:var(--accent2)">${ts.active}</div><div class="ts-lbl">Em andamento</div></div>
+        <div class="ts-cell" onclick="showTeamStat('${teamName}','published')" title="Ver publicadas"><div class="ts-num" style="color:var(--green)">${ts.published}</div><div class="ts-lbl">Publicadas</div></div>
+        <div class="ts-cell" onclick="showTeamStat('${teamName}','onTime')"   title="Ver no prazo"><div class="ts-num" style="color:var(--yellow)">${ts.onTime}</div><div class="ts-lbl">No prazo</div></div>
+        <div class="ts-cell" onclick="showTeamStat('${teamName}','latePost')" title="Ver com atraso"><div class="ts-num" style="color:var(--orange)">${ts.latePost}</div><div class="ts-lbl">Com atraso</div></div>
+        <div class="ts-cell" onclick="showTeamStat('${teamName}','notPosted')" title="Ver nÃ£o postadas"><div class="ts-num" style="color:var(--red)">${ts.notPosted}</div><div class="ts-lbl">NÃ£o postadas</div></div>
+      </div>
+
+      <div class="member-grid">
+        ${teamData.people.map(person => {
+          const ms       = getMemberStats(person);
+          const initials = person.slice(0,2).toUpperCase();
+          const barColor = ms.score >= 80 ? 'var(--green)' : ms.score >= 50 ? 'var(--yellow)' : ms.score >= 30 ? 'var(--orange)' : 'var(--red)';
+          const activeMiniHtml = ms.activeTasks.length
+            ? ms.activeTasks.map(t => {
+                const u = urgency(t);
+                const pCol = {P3:'var(--red)',P2:'var(--orange)',P1:'var(--yellow)',P0:'var(--muted)'}[t.priority]||'var(--muted)';
+                return `<div class="mtm-row">
+                  <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${esc(t.content)||'?'}</span>
+                  <span style="color:${pCol};flex-shrink:0;font-size:.68rem;font-weight:700">${t.priority}</span>
+                </div>`;
+              }).join('')
+            : '<div style="font-size:.75rem;color:var(--muted);text-align:center;padding:4px 0">Sem tarefas ativas</div>';
+
+          return `<div class="member-card">
+            <div class="member-top">
+              <div class="member-av" style="background:linear-gradient(135deg,${color},${color}99)">${initials}</div>
+              <div>
+                <div class="member-name">${person}</div>
+                <div class="member-role">${teamData.icon} ${teamName}</div>
+              </div>
+            </div>
+            <div class="member-score-wrap">
+              <div class="member-score-bar">
+                <div class="member-score-fill" style="width:${ms.score}%;background:${barColor}"></div>
+              </div>
+              <div class="member-score-pct" style="color:${barColor}">${ms.score}%</div>
+            </div>
+            <div class="member-stats">
+              <div class="ms-item"><div class="ms-n" style="color:var(--green)">${ms.published}</div><div class="ms-l">Publicadas</div></div>
+              <div class="ms-item"><div class="ms-n" style="color:var(--accent2)">${ms.active}</div><div class="ms-l">Em aberto</div></div>
+              <div class="ms-item"><div class="ms-n" style="color:var(--red)">${ms.notPosted}</div><div class="ms-l">NÃ£o postadas</div></div>
+              <div class="ms-item"><div class="ms-n" style="color:var(--orange)">${ms.lateDone}</div><div class="ms-l">ConcluÃ­das atrasadas</div></div>
+            </div>
+            <div>
+              <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Tarefas ativas</div>
+              <div class="member-tasks-mini">${activeMiniHtml}</div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html || '<div class="empty"><div class="ei">ðŸ‘¥</div><h3>Nenhuma equipe configurada</h3></div>';
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  NAVEGAÃ‡ÃƒO
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let _logFilter = '';
+function filterLogs(type) {
+  _logFilter = type;
+  // destaca botÃ£o ativo
+  document.querySelectorAll('#log-filters .btn').forEach(b => b.classList.remove('active'));
+  const id = type ? 'lf-' + type : 'lf-all';
+  const btn = document.getElementById(id);
+  if (btn) btn.classList.add('active');
+  renderLogs();
+}
+
+function showPage(page, el) {
+  prioFilter = null; teamFilt = null; progressFilt = null;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  if (el) el.classList.add('active');
+  if (page==='dashboard')   renderDashboard();
+  if (page==='calendario')  renderCalendar();
+  if (page==='equipe')      renderEquipe();
+  if (page==='arquivados')  renderArquivados();
+  if (page==='logs')        { _logFilter = ''; filterLogs(''); }
+}
+
+function applyFilter(type, value) {
+  prioFilter = null; teamFilt = null; progressFilt = null;
+  if (type === 'prio')     prioFilter   = value;
+  if (type === 'team')     teamFilt     = value;
+  if (type === 'progress') progressFilt = value;
+
+  // Garante que o painel principal estÃ¡ visÃ­vel
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-dashboard').classList.add('active');
+
+  // Destaca item ativo na sidebar
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const idMap = { prio:'fi-'+value.toLowerCase(), progress:'fi-prog-'+value };
+  const activeEl = document.getElementById(idMap[type]);
+  if (activeEl) activeEl.classList.add('active');
+
+  renderTarefas();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MODAL EQUIPE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let _teamModalName = null;
+
+function openTeamModal(teamName) {
+  _teamModalName = teamName || Object.keys(TEAMS)[0];
+  renderTeamTabs();
+  document.getElementById('team-new-name').value  = '';
+  document.getElementById('team-new-email').value = '';
+  document.getElementById('team-modal-msg').textContent = '';
+  renderTeamMemberList();
+  document.getElementById('modal-team').classList.add('open');
+}
+
+function renderTeamTabs() {
+  const tabs = document.getElementById('team-tabs');
+  tabs.innerHTML = Object.entries(TEAMS).map(([name, data]) => {
+    const active = name === _teamModalName;
+    return `<button onclick="switchTeamTab('${name}')" style="
+      flex:1;padding:8px 12px;border-radius:8px;border:2px solid ${active ? data.color : 'var(--border)'};
+      background:${active ? data.color+'22' : 'transparent'};color:${active ? data.color : 'var(--muted)'};
+      font-weight:${active ? '600' : '400'};cursor:pointer;font-size:.9rem;transition:all .15s">
+      ${data.icon} Jornalismo ${name}
+    </button>`;
+  }).join('');
+  document.getElementById('team-modal-title').textContent =
+    `${TEAMS[_teamModalName]?.icon||'ðŸ‘¥'} Jornalismo ${_teamModalName}`;
+}
+
+function switchTeamTab(teamName) {
+  _teamModalName = teamName;
+  document.getElementById('team-new-name').value  = '';
+  document.getElementById('team-new-email').value = '';
+  document.getElementById('team-modal-msg').textContent = '';
+  renderTeamTabs();
+  renderTeamMemberList();
+}
+
+function closeTeamModal(e) {
+  if (e && e.target !== document.getElementById('modal-team')) return;
+  document.getElementById('modal-team').classList.remove('open');
+  _teamModalName = null;
+}
+
+function renderTeamMemberList() {
+  const team = TEAMS[_teamModalName];
+  if (!team) return;
+  const list = document.getElementById('team-member-list');
+  if (!team.people.length) {
+    list.innerHTML = '<p style="color:var(--muted);font-size:.85rem;text-align:center;padding:8px 0">Nenhum membro. Adicione abaixo.</p>';
+    return;
+  }
+  list.innerHTML = team.people.map((name, i) => {
+    const email = (team.emails && team.emails[name]) || '';
+    return `<div class="team-member-row">
+      <input class="tm-input" value="${esc(name)}"  placeholder="Nome"    onchange="updateMemberName(${i},this.value)"  title="Nome">
+      <input class="tm-input" type="email" value="${esc(email)}" placeholder="email@â€¦" onchange="updateMemberEmail('${esc(name).replace(/'/g,"\\'")}',this.value)" title="E-mail">
+      <button class="tm-del" onclick="removeTeamMember(${i})" title="Remover">ðŸ—‘</button>
+    </div>`;
+  }).join('');
+}
+
+function updateMemberName(idx, newName) {
+  newName = newName.trim();
+  if (!newName) return;
+  const team    = TEAMS[_teamModalName];
+  const oldName = team.people[idx];
+  const email   = (team.emails && team.emails[oldName]) || '';
+  team.people[idx] = newName;
+  if (!team.emails) team.emails = {};
+  delete team.emails[oldName];
+  team.emails[newName] = email;
+  saveTeamsToStorage();
+}
+
+function updateMemberEmail(memberName, email) {
+  const team = TEAMS[_teamModalName];
+  if (!team.emails) team.emails = {};
+  team.emails[memberName] = email.trim();
+  saveTeamsToStorage();
+}
+
+function addTeamMember() {
+  const nameInput  = document.getElementById('team-new-name');
+  const emailInput = document.getElementById('team-new-email');
+  const msg        = document.getElementById('team-modal-msg');
+  const name       = nameInput.value.trim();
+  const email      = emailInput.value.trim();
+  msg.textContent  = '';
+
+  if (!name) { msg.textContent = 'Digite pelo menos o nome.'; return; }
+
+  const team = TEAMS[_teamModalName];
+  if (team.people.map(p=>p.toLowerCase()).includes(name.toLowerCase())) {
+    msg.textContent = 'Esse membro jÃ¡ existe na equipe.'; return;
+  }
+
+  // Remove from other team if already there
+  for (const [tName, tData] of Object.entries(TEAMS)) {
+    if (tName !== _teamModalName) {
+      const idx = tData.people.findIndex(p => p.toLowerCase() === name.toLowerCase());
+      if (idx !== -1) { if (tData.emails) delete tData.emails[tData.people[idx]]; tData.people.splice(idx,1); }
+    }
+  }
+
+  team.people.push(name);
+  if (!team.emails) team.emails = {};
+  team.emails[name] = email;
+  saveTeamsToStorage();
+  nameInput.value = ''; emailInput.value = '';
+  renderTeamMemberList();
+  toast(`${name} adicionado(a) Ã  equipe ${_teamModalName}!`, 'ok');
+  updateSidebar();
+}
+
+function removeTeamMember(idx) {
+  const team = TEAMS[_teamModalName];
+  const name = team.people[idx];
+  team.people.splice(idx, 1);
+  if (team.emails) delete team.emails[name];
+  saveTeamsToStorage();
+  renderTeamMemberList();
+  toast(`${name} removido(a) da equipe.`, 'info');
+  updateSidebar();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  E-MAIL
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// E-mails apenas dos membros escalados na tarefa (nÃ£o a equipe inteira).
+function responsibleEmails(task) {
+  const names = (task.responsible || '').split(',').map(s => s.trim()).filter(Boolean);
+  const out = [];
+  for (const tData of Object.values(TEAMS)) {
+    (tData.people || []).forEach(p => {
+      const isOn = names.some(n =>
+        stripAccents(n.toLowerCase()) === stripAccents(p.toLowerCase()) ||
+        stripAccents(canonicalName(n).toLowerCase()) === stripAccents(p.toLowerCase()));
+      const em = tData.emails?.[p];
+      if (isOn && em) out.push(em);
+    });
+  }
+  return [...new Set(out)];
+}
+
+async function sendTaskEmail(task, recipients, isTest = false) {
+  if (!SCRIPT_URL || !recipients.length) return;
+  const team = getTeam(task.responsible) || task.responsible || 'â€”';
+  return sheetCall({
+    action: 'notify', test: isTest ? 'true' : 'false',
+    to: recipients.join(','),
+    content: task.content, type: task.type, team,
+    priority: task.priority, pubDate: task.pubDate,
+    reviewDate: task.reviewDate, description: task.description || '',
+  });
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  MODAL TAREFA
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function openTaskModal(row) {
+  editRow = row ?? null;
+  document.getElementById('modal-task-title').textContent = row ? 'Editar Tarefa' : 'Nova Tarefa';
+
+  if (row) {
+    const t = tasks.find(x => x.row === row);
+    if (!t) return;
+    const teamName = getTeam(t.responsible) || 'ManhÃ£';
+    const preSelected = t.responsible ? t.responsible.split(',').map(s => s.trim()).filter(Boolean) : null;
+    document.getElementById('m-content').value = t.content || '';
+    document.getElementById('m-type').value    = t.type    || 'Stories';
+    document.getElementById('m-team').value    = teamName;
+    document.getElementById('m-pubdate').value = t.pubDate || '';
+    document.getElementById('m-desc').value    = t.description || '';
+    document.getElementById('m-status').value  = t.sheetStatus || 'NÃ£o iniciado';
+    renderMemberSelector(teamName, preSelected);
+  } else {
+    document.getElementById('m-content').value = '';
+    document.getElementById('m-type').value    = 'Feed Estatico';
+    document.getElementById('m-team').value    = 'ManhÃ£';
+    document.getElementById('m-pubdate').value = '';
+    document.getElementById('m-desc').value    = '';
+    document.getElementById('m-status').value  = 'NÃ£o iniciado';
+    renderMemberSelector('ManhÃ£');
+  }
+  onPubDateChange();
+  document.getElementById('modal-task').classList.add('open');
+}
+function closeTaskModal(e) {
+  if (e && e.target !== document.getElementById('modal-task')) return;
+  document.getElementById('modal-task').classList.remove('open');
+  editRow = null;
+}
+
+function renderMemberSelector(teamName, preSelected) {
+  const panel = document.getElementById('m-members-panel');
+  const grid  = document.getElementById('m-members-grid');
+  const teamData = TEAMS[teamName];
+  if (!teamData || !teamData.people || !teamData.people.length) {
+    panel.style.display = 'none'; return;
+  }
+  const selected = new Set(preSelected || teamData.people);
+  const colors   = ['#A30909','#b45309','#7f1d1d','#1d4ed8','#065f46','#6b21a8','#9d174d','#0369a1'];
+
+  grid.innerHTML = teamData.people.map((name, i) => {
+    const initials = name.trim().split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    const color    = colors[i % colors.length];
+    const isOn     = selected.has(name);
+    return `<div class="member-chip${isOn?' selected':''}" onclick="toggleMemberChip(this,'${name.replace(/'/g,"\\'")}')">
+      <div class="mc-avatar" style="background:${color}">${initials}</div>
+      <span>${esc(name)}</span>
+      <span class="mc-check">âœ“</span>
+    </div>`;
+  }).join('');
+
+  panel.style.display = '';
+}
+
+function toggleMemberChip(el, name) {
+  el.classList.toggle('selected');
+}
+
+function getSelectedMembers() {
+  return Array.from(document.querySelectorAll('#m-members-grid .member-chip.selected'))
+    .map(el => el.querySelector('span:not(.mc-check)').textContent.trim())
+    .filter(Boolean);
+}
+
+function onPubDateChange() {
+  const pub  = document.getElementById('m-pubdate').value;
+  const prev = document.getElementById('review-preview');
+  if (pub) {
+    const reviewDate  = calcReview(pub);
+    const sheetStatus = document.getElementById('m-status').value;
+    document.getElementById('review-date-txt').textContent = fmtDate(reviewDate);
+    document.getElementById('prio-txt').textContent        = PRIO_LABEL[calcPriority({ reviewDate, sheetStatus })];
+    prev.style.display = 'flex';
+  } else {
+    prev.style.display = 'none';
+  }
+}
+
+async function saveTask() {
+  const content = document.getElementById('m-content').value.trim();
+  const team    = document.getElementById('m-team').value;
+  const pubDate = document.getElementById('m-pubdate').value;
+
+  if (!content || !team || !pubDate) {
+    toast('Preencha: ConteÃºdo, Equipe e Data de Postagem.', 'err'); return;
+  }
+
+  const selectedMembers = getSelectedMembers();
+  const responsible  = selectedMembers.length ? selectedMembers.join(', ') : teamToNames(team);
+  const reviewDate   = calcReview(pubDate);
+  const type         = document.getElementById('m-type').value;
+  const description  = document.getElementById('m-desc').value.trim();
+  const sheetStatus  = document.getElementById('m-status').value;
+  const priority     = calcPriority({ reviewDate, sheetStatus });
+
+  if (editRow) {
+    const idx = tasks.findIndex(t => t.row === editRow);
+    if (idx < 0) return;
+    const pubDate2 = (sheetStatus === 'Publicado' && !tasks[idx].pubDate2) ? todayStr() : (tasks[idx].pubDate2 || '');
+    tasks[idx] = { ...tasks[idx], content, type, responsible, pubDate, reviewDate, priority, description, sheetStatus, pubDate2 };
+    persist();
+    document.getElementById('modal-task').classList.remove('open');
+    renderAll();
+    toast('Tarefa atualizada!', 'ok');
+    await syncUpdate(tasks[idx]);
+  } else {
+    let task = { row: null, content, type, responsible, pubDate, reviewDate, priority, description, sheetStatus };
+    task = await syncAdd(task);
+    tasks.push(task);
+    // Marca a prioridade atual como jÃ¡ "notificada" para nÃ£o disparar um
+    // lembrete de escalonamento logo na criaÃ§Ã£o.
+    if (task.row && priority !== 'P0') { notified[task.row] = priority; persistNotified(); }
+    persist();
+    document.getElementById('modal-task').classList.remove('open');
+    renderAll();
+    toast('Tarefa criada e salva na planilha! ðŸŽ‰', 'ok');
+
+    // E-mail de nova tarefa: sÃ³ para os responsÃ¡veis escalados + admins
+    const memberEmails = responsibleEmails(task);
+    const adminEmails  = ADMINS.map(a => a.email).filter(Boolean);
+    const recipients   = [...new Set([...memberEmails, ...adminEmails])];
+    if (recipients.length) {
+      sendTaskEmail(task, recipients, false).then(res => {
+        if (res?.success) {
+          toast(`ðŸ“§ E-mail enviado para ${recipients.length} pessoa(s)!`, 'ok');
+          addLog('email', 'ðŸ“§', `Email de nova tarefa â€” ${task.content}`, `Para: ${recipients.join(', ')}`);
+        } else {
+          addLog('error', 'âŒ', `Falha ao enviar email de nova tarefa â€” ${task.content}`, `Tentativa: ${recipients.join(', ')}`);
+        }
+      });
+    }
+  }
+}
+
+function quickStatusEdit(row, btn) {
+  document.querySelectorAll('.status-pop').forEach(el => el.remove());
+  const task = tasks.find(t => t.row === row);
+  if (!task) return;
+
+  const opts  = ['NÃ£o iniciado','Em execuÃ§Ã£o','Em anÃ¡lise','Em correÃ§Ã£o','Suspenso','Publicado'];
+  const icons = {'NÃ£o iniciado':'â¬œ','Em execuÃ§Ã£o':'ðŸŸ¡','Em anÃ¡lise':'ðŸ”µ','Em correÃ§Ã£o':'ðŸŸ ','Suspenso':'ðŸ”´','Publicado':'âœ…'};
+
+  const pop = document.createElement('div');
+  pop.className = 'status-pop';
+
+  opts.forEach(opt => {
+    const b = document.createElement('button');
+    b.textContent = (icons[opt] || '') + ' ' + opt;
+    if (opt === task.sheetStatus) b.classList.add('active');
+    b.onclick = e => { e.stopPropagation(); pop.remove(); quickStatusChange(row, opt); };
+    pop.appendChild(b);
+  });
+
+  const rect = btn.getBoundingClientRect();
+  pop.style.top  = (rect.bottom + 4) + 'px';
+  pop.style.left = Math.min(rect.left, window.innerWidth - 185) + 'px';
+  document.body.appendChild(pop);
+
+  const close = e => { if (!pop.contains(e.target)) { pop.remove(); document.removeEventListener('click', close); } };
+  setTimeout(() => document.addEventListener('click', close), 0);
+}
+
+async function quickStatusChange(row, newStatus) {
+  const idx = tasks.findIndex(t => t.row === row);
+  if (idx < 0) return;
+  tasks[idx].sheetStatus = newStatus;
+  if (newStatus === 'Publicado' && !tasks[idx].pubDate2) tasks[idx].pubDate2 = todayStr();
+  tasks[idx].priority = calcPriority(tasks[idx]); // Publicado â†’ P0; demais recalculados
+  persist();
+  renderAll();
+  toast(`Status: ${newStatus}`, 'ok');
+  addLog('info', 'âœŽ', `Status alterado â€” ${tasks[idx].content}`, `Novo status: ${newStatus}`);
+  await syncUpdate(tasks[idx]);
+}
+
+async function markNotDone(row) {
+  if (!confirm('Marcar esta tarefa como "NÃ£o Feita"? Ela serÃ¡ arquivada com status Suspenso.')) return;
+  const idx = tasks.findIndex(t => t.row === row);
+  if (idx < 0) return;
+  tasks[idx].sheetStatus = 'Suspenso';
+  tasks[idx].priority    = 'P0';
+  delete notified[row]; persistNotified();
+  persist();
+  renderAll();
+  toast(`Tarefa marcada como NÃ£o Feita e arquivada.`, 'info');
+  addLog('warning', 'âœ—', `NÃ£o Feito â€” ${tasks[idx].content}`, 'Status definido como Suspenso');
+  await syncUpdate(tasks[idx]);
+}
+
+async function deleteTask(row) {
+  if (!confirm('Excluir esta tarefa da planilha tambÃ©m?')) return;
+  tasks = tasks.filter(t => t.row !== row);
+  // Ao excluir uma linha da planilha, as linhas abaixo sobem 1 posiÃ§Ã£o.
+  // Sem esse ajuste, os 'row' locais ficam defasados e o prÃ³ximo update
+  // escreveria por cima da tarefa errada (atÃ© o prÃ³ximo sync completo).
+  tasks.forEach(t => { if (t.row && t.row > row) t.row--; });
+  const shifted = {};
+  Object.entries(notified).forEach(([r, v]) => {
+    const n = Number(r);
+    if (n === row) return;
+    shifted[n > row ? n - 1 : n] = v;
+  });
+  notified = shifted; persistNotified();
+  persist();
+  renderAll();
+  toast('Tarefa excluÃ­da.', 'err');
+  await syncDelete(row);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CONFIG
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function openConfig() {
+  document.getElementById('cfg-url').value = SCRIPT_URL;
+  document.getElementById('modal-config').classList.add('open');
+}
+function closeConfig(e) {
+  if (e && e.target !== document.getElementById('modal-config')) return;
+  document.getElementById('modal-config').classList.remove('open');
+}
+async function saveConfig() {
+  const url = document.getElementById('cfg-url').value.trim();
+  SCRIPT_URL = url;
+  localStorage.setItem('cj_script_url', url);
+  document.getElementById('modal-config').classList.remove('open');
+  if (url) {
+    toast('URL salva! Buscando dados da planilhaâ€¦', 'info');
+    await refreshSheet();
+  } else {
+    setSyncState('', 'Offline');
+    toast('Desconectado da planilha.', 'info');
+  }
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  TOAST
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function toast(msg, type='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = `toast ${type} show`;
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  RENDERIZAR TUDO
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderAll() {
+  const active = document.querySelector('.page.active');
+  if (!active) return;
+  const page = active.id.replace('page-','');
+  if (page==='dashboard')   renderDashboard();
+  if (page==='calendario')  renderCalendar();
+  if (page==='equipe')      renderEquipe();
+  if (page==='arquivados')  renderArquivados();
+  if (page==='logs')        renderLogs();
+  updateSidebar();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  INIT
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function showLoader(msg='Carregando dados do Sheetsâ€¦') {
+  const el = document.getElementById('loader');
+  const tx = document.getElementById('loaderTxt');
+  if (tx) tx.textContent = msg;
+  if (el) el.classList.add('on');
+}
+function hideLoader() {
+  const el = document.getElementById('loader');
+  if (el) el.classList.remove('on');
+}
+
+renderDashboard();
+updateSidebar();
+
+// Inicializa badge de logs com contagem salva
+(function() {
+  const badge = document.getElementById('log-badge');
+  if (badge && logs.length) badge.textContent = logs.length;
+})();
+
+if (SCRIPT_URL) {
+  showLoader('Carregando dados do Sheetsâ€¦');
+  setSyncState('syncing', 'Conectandoâ€¦');
+  refreshSheet();
+} else {
+  setSyncState('', 'Offline â€” configure em âš™');
+}
+
+// Auto-refresh: a cada minuto recalcula prioridades (com base na data de
+// revisÃ£o), dispara lembretes de escalonamento e atualiza os labels de
+// urgÃªncia sem precisar recarregar a pÃ¡gina.
+setInterval(() => { autoMaintain({ push: true, silent: true }); renderAll(); }, 60 * 1000);
+</script>
+
+</body>
+</html>
+
