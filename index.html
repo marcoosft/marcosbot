@@ -86,10 +86,13 @@ footer{text-align:center;padding:1.25rem;font-size:.68rem;font-weight:500;color:
 .lock-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--a3),var(--a2));border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 0 32px rgba(59,130,246,.35)}
 .lock-title{font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
 .lock-sub{font-size:.8rem;color:var(--mu);font-weight:500;margin-top:-.9rem}
-.lock-form{display:flex;gap:.5rem;width:100%;max-width:320px}
-#lockPass{flex:1;background:var(--s1);border:1px solid var(--bd2);color:var(--tx);padding:12px 18px;border-radius:var(--r-pill);font-size:16px;outline:none;font-family:inherit;text-align:center;letter-spacing:.3em;transition:.15s}
-#lockPass:focus{border-color:var(--a3);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
-#lockPass.err{border-color:#ef4444;animation:shake .3s}
+.lock-form{display:flex;flex-direction:column;gap:.6rem;width:100%;max-width:320px}
+.lock-form input[type=text],.lock-form input[type=password]{width:100%;background:var(--s1);border:1px solid var(--bd2);color:var(--tx);padding:12px 18px;border-radius:var(--r-pill);font-size:16px;outline:none;font-family:inherit;text-align:center;transition:.15s}
+#lockPass{letter-spacing:.3em}
+.lock-form input:focus{border-color:var(--a3);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+.lock-form input.err{border-color:#ef4444;animation:shake .3s}
+.lock-remember{display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.78rem;color:var(--mu);font-weight:500;cursor:pointer;user-select:none;margin-top:.2rem}
+.lock-remember input{width:16px;height:16px;accent-color:var(--a2);cursor:pointer}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .lock-btn{background:var(--a2);border:none;color:#fff;padding:12px 22px;border-radius:var(--r-pill);cursor:pointer;font-size:.85rem;font-weight:700;font-family:inherit;transition:.15s}
 .lock-btn:hover{background:var(--a3)}
@@ -170,31 +173,38 @@ footer{text-align:center;padding:1.25rem;font-size:.68rem;font-weight:500;color:
 <div id="lock">
   <div class="lock-icon">🔒</div>
   <div class="lock-title">Marcos Bot</div>
-  <p class="lock-sub">Digite a senha para entrar</p>
+  <p class="lock-sub">Faça login para entrar</p>
   <form class="lock-form" onsubmit="return unlock(event)">
-    <input type="password" id="lockPass" inputmode="numeric" autocomplete="off" placeholder="••••••">
+    <input type="text" id="lockUser" autocomplete="username" placeholder="Usuário">
+    <input type="password" id="lockPass" inputmode="numeric" autocomplete="current-password" placeholder="Senha">
+    <label class="lock-remember"><input type="checkbox" id="lockRemember" checked> Lembrar login</label>
     <button type="submit" class="lock-btn">Entrar</button>
   </form>
   <div class="lock-msg" id="lockMsg"></div>
 </div>
 
 <script>
-const AUTH_KEY = 'mb_auth', AUTH_VAL = 'ok903092';
-if (localStorage.getItem(AUTH_KEY) === AUTH_VAL) {
+const AUTH_KEY = 'mb_auth', AUTH_VAL = 'ok903082';
+if (localStorage.getItem(AUTH_KEY) === AUTH_VAL || sessionStorage.getItem(AUTH_KEY) === AUTH_VAL) {
   document.getElementById('lock').classList.add('off');
 } else {
-  setTimeout(() => document.getElementById('lockPass').focus(), 100);
+  setTimeout(() => document.getElementById('lockUser').focus(), 100);
 }
 function unlock(e) {
   e.preventDefault();
-  const inp = document.getElementById('lockPass');
-  if (inp.value === '903092') {
-    localStorage.setItem(AUTH_KEY, AUTH_VAL);
+  const user = document.getElementById('lockUser');
+  const pass = document.getElementById('lockPass');
+  const remember = document.getElementById('lockRemember').checked;
+  const userOk = user.value.trim().toLowerCase() === 'marcoosft';
+  const passOk = pass.value === '903082';
+  if (userOk && passOk) {
+    (remember ? localStorage : sessionStorage).setItem(AUTH_KEY, AUTH_VAL);
     document.getElementById('lock').classList.add('off');
   } else {
-    inp.classList.remove('err'); void inp.offsetWidth; inp.classList.add('err');
-    inp.value = '';
-    document.getElementById('lockMsg').textContent = 'Senha incorreta';
+    const bad = userOk ? pass : user;
+    bad.classList.remove('err'); void bad.offsetWidth; bad.classList.add('err');
+    if (!passOk) pass.value = '';
+    document.getElementById('lockMsg').textContent = userOk ? 'Senha incorreta' : 'Usuário ou senha incorretos';
   }
   return false;
 }

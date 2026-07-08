@@ -1,17 +1,15 @@
 #!/bin/bash
 # Sincroniza os painéis do repo claudio-paineis para este site (marcosbot).
+# As URLs dos Apps Script ficam no .env (FP_URL, TS_URL, CJ_URL).
 # Uso: bash sync.sh            -> só copia e transforma
 #      bash sync.sh --push     -> copia, commita e publica
 set -e
 cd "$(dirname "$0")"
 SRC="../claudio-paineis"
 
-# URLs dos Apps Script chumbadas no site (deixe vazio para exigir config manual)
-FP_URL="https://script.google.com/macros/s/AKfycbwkzfA3igBdcnIfQBAKD_dr6BAS5bqd-f9-LeeEuTE8E-06RrBtZvcSxwpeSH6byir2/exec"
-TS_URL=""
-CJ_URL=""
+[ -f .env ] && . ./.env
 
-GUARD="<script>if(localStorage.getItem('mb_auth')!=='ok903092')location.replace('../');</script>"
+GUARD="<script>if(localStorage.getItem('mb_auth')!=='ok903082'&&sessionStorage.getItem('mb_auth')!=='ok903082')location.replace('../');</script>"
 
 copia() { # copia <origem> <destino> <chave-localStorage> <url-default>
   cp "$SRC/$1" "$2"
