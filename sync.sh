@@ -20,9 +20,18 @@ copia() { # copia <origem> <destino> <chave-localStorage> <url-default>
   fi
 }
 
+copia_dir() { # copia_dir <pasta-origem> <pasta-destino> — copia um painel de múltiplos arquivos (ex. PWA)
+  rm -rf "$2"
+  cp -r "$SRC/$1" "$2"
+  rm -rf "$2/scripts" "$2/.gitignore" "$2/README.md"
+  sed -i "s#\.\./painel-central/painel-central\.html#../#g" "$2/index.html"
+  sed -i "s#</head>#$GUARD</head>#" "$2/index.html"
+}
+
 copia "financas-pessoais/financas-pessoais.html" "financas/index.html"   "fp_url" "$FP_URL"
 copia "tesourinha/tesourinha.html"               "tesourinha/index.html" "ts_url" "$TS_URL"
 copia "painel-jornalismo/painel-jornalismo.html" "editorial/index.html"  "cj_script_url" "$CJ_URL"
+copia_dir "pokemon-go-assistant" "pokemon"
 
 echo "Painéis sincronizados."
 
